@@ -128,12 +128,16 @@ export const InteractiveGrid: React.FC = () => {
           p.x = centerX + (p.targetX - centerX) * ease;
           p.y = centerY + (p.targetY - centerY) * ease;
         } else {
-          // Normal Phase: Drift
+          // Normal Phase: Digital Drift
+          // Add subtle wave motion
           p.x += p.vx;
-          p.y += p.vy;
+          p.y += p.vy + Math.sin((p.x + now) * 0.002) * 0.2; // Wave effect
 
-          if (p.x < 0 || p.x > width) p.vx *= -1;
-          if (p.y < 0 || p.y > height) p.vy *= -1;
+          // Wrap around screen for continuous flow
+          if (p.x < 0) p.x = width;
+          if (p.x > width) p.x = 0;
+          if (p.y < 0) p.y = height;
+          if (p.y > height) p.y = 0;
         }
 
         // Draw Particle Dot with assigned color
@@ -142,9 +146,9 @@ export const InteractiveGrid: React.FC = () => {
         ctx.fillStyle = COLORS[p.colorIndex];
         ctx.fill();
 
-        // Only draw connections if intro is mostly done to avoid clutter at center
+        // Only draw connections if intro is mostly done
         if (progress > 0.5) {
-          // --- Interaction: Connect to Mouse ---
+          // --- Interaction: Connect to Mouse (Visual Only - No Pull) ---
           const dxMouse = mouse.x - p.x;
           const dyMouse = mouse.y - p.y;
           const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
@@ -158,10 +162,11 @@ export const InteractiveGrid: React.FC = () => {
             ctx.lineTo(mouse.x, mouse.y);
             ctx.stroke();
 
-            // "Magnetic" effect
-            if (distMouse > 50) {
-              p.x += dxMouse * 0.02;
-              p.y += dyMouse * 0.02;
+            // Gentle Repulsion (Optional: keeps area clear instead of clumping)
+            if (distMouse < 100) {
+              const force = (100 - distMouse) / 100;
+              p.x -= dxMouse * force * 0.05;
+              p.y -= dyMouse * force * 0.05;
             }
           }
 

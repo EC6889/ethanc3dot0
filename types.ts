@@ -15,6 +15,7 @@ export interface ExperienceItem {
   id: string;
   company: string;
   logo: string; // Added logo property
+  localLogo?: string;
   location: string;
   logoInitials: string;
   techStack?: string[];

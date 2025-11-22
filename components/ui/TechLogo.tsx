@@ -19,6 +19,8 @@ export const TechLogo: React.FC<TechLogoProps> = ({ name, logo, localLogo, class
     }
   };
 
+  if (!imgSrc) return null;
+
   return (
     <img
       src={imgSrc}

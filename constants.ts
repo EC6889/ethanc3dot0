@@ -80,6 +80,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     id: 'ninja-van',
     company: 'Ninja Van',
     logo: 'https://logo.clearbit.com/ninjavan.co',
+    localLogo: '/assets/photos/ninjavan.png',
     location: 'Kuala Lumpur, Malaysia',
     logoInitials: 'NV',
     techStack: ['Salesforce', 'Google Workspace', 'Google Looker'],
@@ -117,6 +118,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     id: 'klook',
     company: 'Klook Travel',
     logo: 'https://logo.clearbit.com/klook.com',
+    localLogo: '/assets/photos/klook.png',
     location: 'Kuala Lumpur, Malaysia',
     logoInitials: 'KT',
     techStack: ['Zendesk', 'Genesys', 'Lark', 'Zapier'],
@@ -160,6 +162,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     id: 'melco',
     company: 'Melco Crown Entertainment',
     logo: 'https://logo.clearbit.com/melco-resorts.com',
+    localLogo: '/assets/photos/melco.png',
     location: 'Macau / KL',
     logoInitials: 'MC',
     techStack: ['SiteMinder', 'Cisco UCCX', 'Opera PMS'],
@@ -322,74 +325,74 @@ export const SKILLS_METRICS: SkillMetric[] = [
 ];
 
 export const TECH_STACK = [
-  { 
-    name: 'Zendesk', 
+  {
+    name: 'Zendesk',
     logo: 'https://cdn.simpleicons.org/zendesk/03363D',
-    localLogo: '/assets/photos/logo/zendesk.svg'
+    localLogo: '/assets/photos/zendesk.png'
   },
-  { 
-    name: 'Genesys', 
+  {
+    name: 'Genesys',
     logo: 'https://cdn.simpleicons.org/genesys/FF4F1F',
-    localLogo: '/assets/photos/logo/genesys.svg'
+    localLogo: '/assets/photos/genesyscloud.png'
   },
-  { 
-    name: 'Salesforce', 
+  {
+    name: 'Salesforce',
     logo: 'https://cdn.simpleicons.org/salesforce/00A1E0',
-    localLogo: '/assets/photos/logo/salesforce.svg'
+    localLogo: '/assets/photos/salesforce.png'
   },
-  { 
-    name: 'Cisco UCCX', 
+  {
+    name: 'Cisco UCCX',
     logo: 'https://cdn.simpleicons.org/cisco/1BA0D7',
-    localLogo: '/assets/photos/logo/cisco.svg'
+    localLogo: '/assets/photos/placeholder.png'
   },
-  { 
-    name: 'Google Workspace', 
+  {
+    name: 'Google Workspace',
     logo: 'https://www.gstatic.com/images/branding/product/1x/google_workspace_512dp.png',
-    localLogo: '/assets/photos/logo/google-workspace.png'
+    localLogo: '/assets/photos/googleworkspace.png'
   },
-  { 
-    name: 'Google Apps Script', 
+  {
+    name: 'Google Apps Script',
     logo: 'https://cdn.simpleicons.org/googleappsscript/4285F4',
-    localLogo: '/assets/photos/logo/google-apps-script.svg'
+    localLogo: '/assets/photos/googleappsscript.png'
   },
-  { 
-    name: 'Google Looker', 
+  {
+    name: 'Google Looker',
     logo: 'https://cdn.simpleicons.org/looker/4285F4',
-    localLogo: '/assets/photos/logo/looker.svg'
+    localLogo: '/assets/photos/googlelookerstudio.png'
   },
-  { 
-    name: 'Lark', 
+  {
+    name: 'Lark',
     logo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/09/78/45/09784570-a67c-9f1e-1066-84c79d1cb815/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
-    localLogo: '/assets/photos/logo/lark.png'
+    localLogo: '/assets/photos/lark.png'
   },
-  { 
-    name: 'Slack', 
+  {
+    name: 'Slack',
     logo: 'https://cdn.simpleicons.org/slack/4A154B',
-    localLogo: '/assets/photos/logo/slack.svg'
+    localLogo: '/assets/photos/placeholder.png'
   },
-  { 
-    name: 'SiteMinder', 
+  {
+    name: 'SiteMinder',
     logo: 'https://cdn.worldvectorlogo.com/logos/siteminder.svg',
-    localLogo: '/assets/photos/logo/siteminder.svg'
+    localLogo: '/assets/photos/siteminder.png'
   },
-  { 
-    name: 'Zapier', 
+  {
+    name: 'Zapier',
     logo: 'https://cdn.simpleicons.org/zapier/FF4F00',
-    localLogo: '/assets/photos/logo/zapier.svg'
+    localLogo: '/assets/photos/zapier.png'
   },
-  { 
-    name: 'Webhook', 
+  {
+    name: 'Webhook',
     logo: 'https://cdn.worldvectorlogo.com/logos/webhooks.svg',
-    localLogo: '/assets/photos/logo/webhook.svg'
+    localLogo: '/assets/photos/placeholder.png'
   },
-  { 
-    name: 'REST API', 
-    logo: 'https://cdn.simpleicons.org/openapi/6BA539',
-    localLogo: '/assets/photos/logo/rest-api.svg'
+  {
+    name: 'REST API',
+    logo: '',
+    localLogo: ''
   },
-  { 
-    name: 'SISTIC', 
+  {
+    name: 'SISTIC',
     logo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/92/17/26/92172669-025e-2264-809d-58992842637f/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg',
-    localLogo: '/assets/photos/logo/sistic.png'
+    localLogo: '/assets/photos/sistic.png'
   },
 ];

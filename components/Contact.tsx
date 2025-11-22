@@ -11,21 +11,27 @@ const Contact: React.FC = () => {
    const [isSubmitting, setIsSubmitting] = useState(false);
    const [isSubmitted, setIsSubmitted] = useState(false);
 
-   const handleSubmit = (e: React.FormEvent) => {
+   const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       if (!formState.name || !formState.email || !formState.message) return;
 
       setIsSubmitting(true);
-
-      // Simulate network request
-      setTimeout(() => {
-         setIsSubmitting(false);
+      try {
+         const res = await fetch('/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formState),
+         });
+         if (!res.ok) throw new Error('Failed to send message');
          setIsSubmitted(true);
          setFormState({ name: '', email: '', message: '' });
-
-         // Reset success message after 3 seconds
          setTimeout(() => setIsSubmitted(false), 3000);
-      }, 1500);
+      } catch (err) {
+         console.error(err);
+         // You could add UI feedback here
+      } finally {
+         setIsSubmitting(false);
+      }
    };
 
    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

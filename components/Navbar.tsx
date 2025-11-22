@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
 import { Menu, X, Hexagon, FileText } from 'lucide-react';
@@ -16,14 +15,14 @@ const Navbar: React.FC = () => {
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = NAV_LINKS.map(link => link.href.substring(1));
+      const sections = NAV_LINKS.map((link) => link.href.substring(1));
 
       // Special check for top of page
       if (window.scrollY < 100) {
@@ -60,25 +59,24 @@ const Navbar: React.FC = () => {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: 'smooth',
       });
 
       setMobileMenuOpen(false);
     }
   };
 
-
-
   return (
     <>
       <Motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: "circOut" }}
+        transition={{ duration: 0.5, ease: 'circOut' }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b
-          ${isScrolled
-            ? 'h-[70px] bg-slate-950/90 backdrop-blur-md border-brand-cyan-deep/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
-            : 'h-[90px] bg-transparent border-transparent'
+          ${
+            isScrolled
+              ? 'h-[70px] bg-slate-950/90 backdrop-blur-md border-brand-cyan-deep/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
+              : 'h-[90px] bg-transparent border-transparent'
           }
         `}
       >
@@ -89,12 +87,11 @@ const Navbar: React.FC = () => {
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-slate-800/50">
           <Motion.div
             className="h-full bg-brand-cyan shadow-[0_0_10px_cyan]"
-            style={{ scaleX, transformOrigin: "0%" }}
+            style={{ scaleX, transformOrigin: '0%' }}
           />
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 md:px-8 flex items-center justify-between w-full h-full relative">
-
           {/* Logo Section */}
           <a
             href="#home"
@@ -103,14 +100,17 @@ const Navbar: React.FC = () => {
           >
             <div className="relative w-10 h-10 flex items-center justify-center bg-slate-900/50 border border-slate-700 group-hover:border-brand-cyan-deep/50 transition-colors rounded-sm overflow-hidden">
               <div className="absolute inset-0 bg-brand-cyan-deep/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-              <Hexagon className="w-5 h-5 text-brand-cyan relative z-10 group-hover:rotate-90 transition-transform duration-500" strokeWidth={1.5} />
+              <Hexagon
+                className="w-5 h-5 text-brand-cyan relative z-10 group-hover:rotate-90 transition-transform duration-500"
+                strokeWidth={1.5}
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-base font-display font-bold text-white tracking-tight leading-none group-hover:text-brand-cyan transition-colors">
                 ETHAN C.
               </span>
               <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-brand-cyan/70 transition-colors mt-1">
-                 // Ops_Architect
+                // Ops_Architect
               </span>
             </div>
           </a>
@@ -133,9 +133,17 @@ const Navbar: React.FC = () => {
                 >
                   {/* Active Indicator: Brackets */}
                   <span className="relative z-10 flex items-center gap-1">
-                    <span className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-brand-cyan' : 'opacity-0'}`}>[</span>
+                    <span
+                      className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-brand-cyan' : 'opacity-0'}`}
+                    >
+                      [
+                    </span>
                     {link.label}
-                    <span className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-brand-cyan' : 'opacity-0'}`}>]</span>
+                    <span
+                      className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-brand-cyan' : 'opacity-0'}`}
+                    >
+                      ]
+                    </span>
                   </span>
 
                   {/* Background Glow for Active */}
@@ -143,7 +151,7 @@ const Navbar: React.FC = () => {
                     <Motion.div
                       layoutId="activeTab"
                       className="absolute inset-0 bg-brand-cyan/5 border-b border-brand-cyan/50"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
                   )}
                 </a>
@@ -183,20 +191,28 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             className="fixed inset-0 z-40 bg-slate-950 md:hidden flex flex-col"
           >
             {/* Mobile Menu Header */}
             <div className="h-[70px] border-b border-slate-800 flex items-center justify-between px-6">
               <span className="text-xs font-mono text-brand-cyan">// NAVIGATION_PROTOCOL</span>
-              <button onClick={() => setMobileMenuOpen(false)} className="text-slate-400 hover:text-white">
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-slate-400 hover:text-white"
+              >
                 <X size={24} />
               </button>
             </div>
 
             {/* Background Grid */}
-            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none"
-              style={{ backgroundImage: 'linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+            <div
+              className="absolute inset-0 z-0 opacity-10 pointer-events-none"
+              style={{
+                backgroundImage:
+                  'linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px)',
+                backgroundSize: '40px 40px',
+              }}
             />
 
             <div className="flex flex-col items-start justify-center flex-1 px-8 gap-6 relative z-10">
@@ -204,13 +220,17 @@ const Navbar: React.FC = () => {
                 <Motion.a
                   key={link.label}
                   href={link.href}
-                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => scrollToSection(e, link.href)}
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
+                    scrollToSection(e, link.href)
+                  }
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + i * 0.1 }}
                   className={`text-3xl font-display font-bold tracking-tight flex items-center gap-4 group ${activeSection === link.href.substring(1) ? 'text-brand-cyan' : 'text-slate-500'}`}
                 >
-                  <span className="text-sm font-mono text-slate-700 group-hover:text-brand-cyan/50 transition-colors">0{i + 1}</span>
+                  <span className="text-sm font-mono text-slate-700 group-hover:text-brand-cyan/50 transition-colors">
+                    0{i + 1}
+                  </span>
                   {link.label}
                 </Motion.a>
               ))}
@@ -235,4 +255,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

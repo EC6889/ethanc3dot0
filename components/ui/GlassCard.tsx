@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface GlassCardProps {
@@ -8,7 +7,12 @@ interface GlassCardProps {
   onClick?: () => void;
 }
 
-export const GlassCard: React.FC<GlassCardProps> = ({ children, className = '', hoverEffect = false, onClick }) => {
+export const GlassCard: React.FC<GlassCardProps> = ({
+  children,
+  className = '',
+  hoverEffect = false,
+  onClick,
+}) => {
   return (
     <div
       onClick={onClick}
@@ -22,11 +26,9 @@ export const GlassCard: React.FC<GlassCardProps> = ({ children, className = '', 
     >
       {/* Subtle top highlight for 3D effect */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent opacity-50" />
-      
+
       {/* Content */}
-      <div className="relative z-10 h-full w-full">
-        {children}
-      </div>
+      <div className="relative z-10 h-full w-full">{children}</div>
     </div>
   );
 };

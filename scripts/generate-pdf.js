@@ -9,17 +9,17 @@ const __dirname = path.dirname(__filename);
   console.log('Starting PDF generation...');
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   const page = await browser.newPage();
-  
+
   // Path to the HTML file
   const htmlPath = path.join(__dirname, '../public/resume_template.html');
   const fileUrl = `file://${htmlPath}`;
-  
+
   console.log(`Loading HTML from: ${fileUrl}`);
   await page.goto(fileUrl, { waitUntil: 'networkidle0' });
-  
+
   // Generate PDF
   const pdfPath = path.join(__dirname, '../public/Ethan_C_Resume.pdf');
   await page.pdf({
@@ -30,8 +30,8 @@ const __dirname = path.dirname(__filename);
       top: '0mm',
       right: '0mm',
       bottom: '0mm',
-      left: '0mm'
-    }
+      left: '0mm',
+    },
   });
 
   await browser.close();

@@ -1,17 +1,17 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React from 'react';
+import { motion } from 'framer-motion';
 
 export const BoxesContainer = () => {
   const rows = new Array(150).fill(1);
   const cols = new Array(100).fill(1);
-  
+
   // Operational Architect Brand Palette
   const colors = [
-    "#22d3ee", // Cyan-400 (Active / Primary)
-    "#3b82f6", // Blue-500 (Link / Secondary)
-    "#a855f7", // Purple-500 (Depth)
-    "#0f172a", // Slate-900 (Void)
-    "#1e293b", // Slate-800 (Structure)
+    '#22d3ee', // Cyan-400 (Active / Primary)
+    '#3b82f6', // Blue-500 (Link / Secondary)
+    '#a855f7', // Purple-500 (Depth)
+    '#0f172a', // Slate-900 (Void)
+    '#1e293b', // Slate-800 (Structure)
   ];
 
   const getRandomColor = () => {
@@ -26,10 +26,7 @@ export const BoxesContainer = () => {
       className="absolute left-1/4 p-4 -top-1/4 flex -translate-x-1/2 -translate-y-1/2 w-full h-full z-0"
     >
       {rows.map((_, i) => (
-        <motion.div
-          key={`row` + i}
-          className="w-16 h-8 border-l border-slate-900/60 relative"
-        >
+        <motion.div key={`row` + i} className="w-16 h-8 border-l border-slate-900/60 relative">
           {cols.map((_, j) => (
             <motion.div
               whileHover={{
@@ -51,11 +48,7 @@ export const BoxesContainer = () => {
                   stroke="currentColor"
                   className="absolute h-6 w-10 -top-[14px] -left-[22px] text-slate-800/30 stroke-[1px] pointer-events-none"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 6v12m6-6H6"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
                 </svg>
               ) : null}
             </motion.div>

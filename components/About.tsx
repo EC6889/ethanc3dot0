@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import { GlassCard } from './ui/GlassCard';
 import { PerspectiveGrid } from './ui/PerspectiveGrid';
@@ -9,7 +8,7 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 const Motion = motion as any;
 
 // Sub-component for individual Module Cards to handle independent hover states and connections
-const ModuleCard = ({ card, index }: { card: any, index: number }) => {
+const ModuleCard = ({ card, index }: { card: any; index: number }) => {
   const [isLit, setIsLit] = useState(false);
   const isEven = index % 2 === 0; // Left column on desktop
 
@@ -17,25 +16,40 @@ const ModuleCard = ({ card, index }: { card: any, index: number }) => {
   const rowDelay = Math.floor(index / 2) * 0.5;
 
   // Dynamic color classes based on props
-  const borderColor = card.color === 'cyan' ? 'group-hover:border-brand-cyan/50' :
-    card.color === 'blue' ? 'group-hover:border-brand-blue/50' :
-      'group-hover:border-brand-purple/50';
-  const textColor = card.color === 'cyan' ? 'group-hover:text-brand-cyan' :
-    card.color === 'blue' ? 'group-hover:text-brand-blue' :
-      'group-hover:text-brand-purple';
-  const busColor = card.color === 'cyan' ? 'bg-brand-cyan' :
-    card.color === 'blue' ? 'bg-brand-blue' :
-      'bg-brand-purple';
+  const borderColor =
+    card.color === 'cyan'
+      ? 'group-hover:border-brand-cyan/50'
+      : card.color === 'blue'
+        ? 'group-hover:border-brand-blue/50'
+        : 'group-hover:border-brand-purple/50';
+  const textColor =
+    card.color === 'cyan'
+      ? 'group-hover:text-brand-cyan'
+      : card.color === 'blue'
+        ? 'group-hover:text-brand-blue'
+        : 'group-hover:text-brand-purple';
+  const busColor =
+    card.color === 'cyan'
+      ? 'bg-brand-cyan'
+      : card.color === 'blue'
+        ? 'bg-brand-blue'
+        : 'bg-brand-purple';
 
   // Base Icon Style
-  let iconStyle = card.color === 'cyan' ? 'bg-brand-cyan/10 text-brand-cyan border-brand-cyan/20' :
-    card.color === 'blue' ? 'bg-brand-blue/10 text-brand-blue border-brand-blue/20' :
-      'bg-brand-purple/10 text-brand-purple border-brand-purple/20';
+  let iconStyle =
+    card.color === 'cyan'
+      ? 'bg-brand-cyan/10 text-brand-cyan border-brand-cyan/20'
+      : card.color === 'blue'
+        ? 'bg-brand-blue/10 text-brand-blue border-brand-blue/20'
+        : 'bg-brand-purple/10 text-brand-purple border-brand-purple/20';
 
   if (isLit) {
-    iconStyle = card.color === 'cyan' ? 'bg-brand-cyan text-slate-950 border-brand-cyan shadow-[0_0_20px_rgba(34,211,238,0.6)] scale-110' :
-      card.color === 'blue' ? 'bg-brand-blue text-white border-brand-blue shadow-[0_0_20px_rgba(59,130,246,0.6)] scale-110' :
-        'bg-brand-purple text-white border-brand-purple shadow-[0_0_20px_rgba(168,85,247,0.6)] scale-110';
+    iconStyle =
+      card.color === 'cyan'
+        ? 'bg-brand-cyan text-slate-950 border-brand-cyan shadow-[0_0_20px_rgba(34,211,238,0.6)] scale-110'
+        : card.color === 'blue'
+          ? 'bg-brand-blue text-white border-brand-blue shadow-[0_0_20px_rgba(59,130,246,0.6)] scale-110'
+          : 'bg-brand-purple text-white border-brand-purple shadow-[0_0_20px_rgba(168,85,247,0.6)] scale-110';
   }
 
   return (
@@ -43,12 +57,12 @@ const ModuleCard = ({ card, index }: { card: any, index: number }) => {
       initial={{ opacity: 0, x: isEven ? -30 : 30, rotateY: isEven ? 10 : -10 }}
       whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
       transition={{
-        type: "spring",
+        type: 'spring',
         stiffness: 60,
         damping: 15,
-        delay: index * 0.1
+        delay: index * 0.1,
       }}
-      viewport={{ once: false, margin: "-50px" }}
+      viewport={{ once: false, margin: '-50px' }}
       onMouseEnter={() => setIsLit(true)}
       onMouseLeave={() => setIsLit(false)}
       className="cursor-default relative"
@@ -70,9 +84,9 @@ const ModuleCard = ({ card, index }: { card: any, index: number }) => {
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: 'easeInOut',
               delay: rowDelay, // Sync with vertical flow
-              repeatDelay: 1
+              repeatDelay: 1,
             }}
           />
         </div>
@@ -108,21 +122,25 @@ const ModuleCard = ({ card, index }: { card: any, index: number }) => {
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: 'easeInOut',
               delay: index * 0.5,
-              repeatDelay: 1
+              repeatDelay: 1,
             }}
           />
         </div>
         {/* Card Input Node. Center 38px. h-1.5 (6px). Top 35px */}
-        <div className={`absolute left-[-3px] top-[35px] w-1.5 h-1.5 rounded-full ${busColor} ${isLit ? 'scale-150 shadow-lg' : 'opacity-50'} transition-all`}></div>
+        <div
+          className={`absolute left-[-3px] top-[35px] w-1.5 h-1.5 rounded-full ${busColor} ${isLit ? 'scale-150 shadow-lg' : 'opacity-50'} transition-all`}
+        ></div>
         {/* Spine Junction Node. Center 38px. h-1.5 (6px). Top 35px */}
         <div className="absolute left-[-27px] top-[35px] w-1.5 h-1.5 rounded-full bg-slate-950 border border-slate-700"></div>
       </div>
 
       <div className="relative group h-full">
         {/* Glow Effect behind card */}
-        <div className={`absolute inset-0 bg-${card.color}-500/${isLit ? '30' : '10'} blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none`}></div>
+        <div
+          className={`absolute inset-0 bg-${card.color}-500/${isLit ? '30' : '10'} blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none`}
+        ></div>
 
         <GlassCard
           className={`h-full p-5 flex flex-col bg-[#0f172a] border-slate-800 ${borderColor} transition-all duration-300 hover:shadow-lg ${isLit ? 'border-' + card.color + '-500/50 translate-y-[-2px]' : ''}`}
@@ -130,28 +148,38 @@ const ModuleCard = ({ card, index }: { card: any, index: number }) => {
         >
           <div className="flex justify-between items-start mb-5 border-b border-slate-800/50 pb-4">
             {/* Icon Box - 18px icon + p-2 (8px*2) = 34px content + borders ~ 36px. Center approx 38px from card top */}
-            <div className={`p-2 rounded-sm border transition-all duration-300 ease-out ${iconStyle}`}>
+            <div
+              className={`p-2 rounded-sm border transition-all duration-300 ease-out ${iconStyle}`}
+            >
               <card.icon size={18} />
             </div>
             <div className="text-right">
-              <div className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">SYS_ID</div>
-              <div className={`text-xs font-bold font-display text-${card.color}-500`}>MOD_0{index + 1}</div>
+              <div className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">
+                SYS_ID
+              </div>
+              <div className={`text-xs font-bold font-display text-${card.color}-500`}>
+                MOD_0{index + 1}
+              </div>
             </div>
           </div>
 
           <div className="flex-grow">
-            <h3 className={`text-sm font-bold text-white font-display uppercase tracking-wider mb-3 ${textColor} transition-colors`}>
+            <h3
+              className={`text-sm font-bold text-white font-display uppercase tracking-wider mb-3 ${textColor} transition-colors`}
+            >
               {card.title}
             </h3>
-            <div className={`pl-3 border-l-2 border-slate-800 ${borderColor.replace('border', 'border-l')} transition-colors`}>
-              <p className="text-[11px] font-mono text-slate-400 leading-relaxed">
-                {card.desc}
-              </p>
+            <div
+              className={`pl-3 border-l-2 border-slate-800 ${borderColor.replace('border', 'border-l')} transition-colors`}
+            >
+              <p className="text-[11px] font-mono text-slate-400 leading-relaxed">{card.desc}</p>
             </div>
           </div>
 
           <div className="mt-5 pt-3 border-t border-slate-800/50 flex items-center justify-between">
-            <span className={`text-[8px] font-mono text-slate-600 ${textColor.replace('text', 'text-opacity-70')} transition-colors`}>
+            <span
+              className={`text-[8px] font-mono text-slate-600 ${textColor.replace('text', 'text-opacity-70')} transition-colors`}
+            >
               STATUS: {isLit ? 'EXECUTING...' : 'ACTIVE'}
             </span>
             <div className="flex gap-0.5">
@@ -174,7 +202,7 @@ const About: React.FC = () => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   });
 
   const scale = useTransform(scrollYProgress, [0, 0.2, 1], [0.95, 1, 1]);
@@ -183,7 +211,7 @@ const About: React.FC = () => {
   const smoothScale = useSpring(scale, { stiffness: 50, damping: 20 });
 
   // Scanner Beam Effect
-  const scanLineY = useTransform(scrollYProgress, [0.1, 0.5], ["0%", "100%"]);
+  const scanLineY = useTransform(scrollYProgress, [0.1, 0.5], ['0%', '100%']);
   const scanOpacity = useTransform(scrollYProgress, [0.1, 0.4, 0.5], [0, 1, 0]);
 
   const languages = [
@@ -195,10 +223,30 @@ const About: React.FC = () => {
   ];
 
   const modules = [
-    { icon: Users, title: "Team Leadership", desc: "Managing multi-tier teams & driving stakeholder alignment.", color: "blue" },
-    { icon: Cpu, title: "System Config", desc: "Setup & maintenance of Zendesk, Genesys & AI tools.", color: "cyan" },
-    { icon: TrendingUp, title: "Process Opt.", desc: "Removing friction to improve SLA performance.", color: "purple" },
-    { icon: Globe, title: "Omnichannel", desc: "Unified strategy across Voice, Chat, Email & Social.", color: "blue" }
+    {
+      icon: Users,
+      title: 'Team Leadership',
+      desc: 'Managing multi-tier teams & driving stakeholder alignment.',
+      color: 'blue',
+    },
+    {
+      icon: Cpu,
+      title: 'System Config',
+      desc: 'Setup & maintenance of Zendesk, Genesys & AI tools.',
+      color: 'cyan',
+    },
+    {
+      icon: TrendingUp,
+      title: 'Process Opt.',
+      desc: 'Removing friction to improve SLA performance.',
+      color: 'purple',
+    },
+    {
+      icon: Globe,
+      title: 'Omnichannel',
+      desc: 'Unified strategy across Voice, Chat, Email & Social.',
+      color: 'blue',
+    },
   ];
 
   return (
@@ -223,7 +271,6 @@ const About: React.FC = () => {
       </Motion.div>
 
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-20 w-full">
-
         <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -233,37 +280,54 @@ const About: React.FC = () => {
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-8 bg-cyan-500/50"></div>
-            <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase">02. PROFILE_DATA</h2>
+            <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase">
+              02. PROFILE_DATA
+            </h2>
           </div>
           <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
-            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">Profile</span>
+            Professional{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">
+              Profile
+            </span>
           </h3>
         </Motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
-
           {/* Left Column: Text Content & Languages */}
           <div className="flex flex-col gap-12">
             <Motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              viewport={{ once: false, margin: "-100px" }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              viewport={{ once: false, margin: '-100px' }}
               className="relative"
             >
               <div className="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-cyan-500/50 via-transparent to-transparent"></div>
               <div className="pl-6">
                 <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-6 leading-[1.4]">
-                  Bridging <span className="text-cyan-400 border-b border-cyan-500/30 pb-1">Operations</span> <br />
-                  with <span className="text-blue-500 border-b border-blue-500/30 pb-1">Technical Strategy</span>.
+                  Bridging{' '}
+                  <span className="text-cyan-400 border-b border-cyan-500/30 pb-1">Operations</span>{' '}
+                  <br />
+                  with{' '}
+                  <span className="text-blue-500 border-b border-blue-500/30 pb-1">
+                    Technical Strategy
+                  </span>
+                  .
                 </h2>
 
                 <div className="space-y-6 text-sm md:text-base text-slate-400 leading-loose max-w-lg font-light">
                   <p>
-                    I am a <strong className="text-white font-medium">CX Operations Manager with 15+ years of experience</strong> running contact centers in the Hospitality and Logistics sectors. My operational philosophy is simple: Identify the bottleneck, then engineer the solution.
+                    I am a{' '}
+                    <strong className="text-white font-medium">
+                      CX Operations Manager with 15+ years of experience
+                    </strong>{' '}
+                    running contact centers in the Hospitality and Logistics sectors. My operational
+                    philosophy is simple: Identify the bottleneck, then engineer the solution.
                   </p>
                   <p>
-                    Acting as the translator between support agents and technical teams, I specialize in configuring enterprise ecosystems (Zendesk, Salesforce, Genesys) to ensure tools serve the people, not the other way around.
+                    Acting as the translator between support agents and technical teams, I
+                    specialize in configuring enterprise ecosystems (Zendesk, Salesforce, Genesys)
+                    to ensure tools serve the people, not the other way around.
                   </p>
                 </div>
               </div>
@@ -284,35 +348,49 @@ const About: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {languages.map((lang, index) => {
-                  const isActiveColor = lang.color === 'cyan' ? 'bg-cyan-400 shadow-[0_0_8px_cyan]' :
-                    lang.color === 'blue' ? 'bg-blue-500 shadow-[0_0_8px_blue]' :
-                      lang.color === 'purple' ? 'bg-purple-500 shadow-[0_0_8px_purple]' :
-                        'bg-slate-500';
+                  const isActiveColor =
+                    lang.color === 'cyan'
+                      ? 'bg-cyan-400 shadow-[0_0_8px_cyan]'
+                      : lang.color === 'blue'
+                        ? 'bg-blue-500 shadow-[0_0_8px_blue]'
+                        : lang.color === 'purple'
+                          ? 'bg-purple-500 shadow-[0_0_8px_purple]'
+                          : 'bg-slate-500';
 
-                  const textColor = lang.color === 'cyan' ? 'text-cyan-400' :
-                    lang.color === 'blue' ? 'text-blue-400' :
-                      lang.color === 'purple' ? 'text-purple-400' :
-                        'text-slate-400';
+                  const textColor =
+                    lang.color === 'cyan'
+                      ? 'text-cyan-400'
+                      : lang.color === 'blue'
+                        ? 'text-blue-400'
+                        : lang.color === 'purple'
+                          ? 'text-purple-400'
+                          : 'text-slate-400';
 
                   return (
                     <Motion.div
                       key={lang.name}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + (index * 0.1), duration: 0.4 }}
-                      viewport={{ once: false, margin: "-50px" }}
+                      transition={{ delay: 0.1 + index * 0.1, duration: 0.4 }}
+                      viewport={{ once: false, margin: '-50px' }}
                       className="group relative flex items-center justify-between p-3 bg-[#0f172a]/60 border border-slate-800/50 hover:border-cyan-500/30 transition-all overflow-hidden rounded-sm"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none"></div>
                       <div className="flex items-center gap-4 relative z-10">
                         <span className="font-mono text-[9px] text-slate-600">0{index + 1}</span>
                         <div className="flex flex-col">
-                          <span className="font-display font-bold text-slate-200 text-sm group-hover:text-white transition-colors">{lang.name}</span>
-                          <span className="font-mono text-[8px] text-slate-600 tracking-wider uppercase">[{lang.code}]</span>
+                          <span className="font-display font-bold text-slate-200 text-sm group-hover:text-white transition-colors">
+                            {lang.name}
+                          </span>
+                          <span className="font-mono text-[8px] text-slate-600 tracking-wider uppercase">
+                            [{lang.code}]
+                          </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 relative z-10">
-                        <span className={`font-mono text-[9px] uppercase tracking-wider ${textColor} hidden sm:block`}>
+                        <span
+                          className={`font-mono text-[9px] uppercase tracking-wider ${textColor} hidden sm:block`}
+                        >
                           {lang.level}
                         </span>
                         <div className="flex gap-1">
@@ -346,7 +424,6 @@ const About: React.FC = () => {
               ))}
             </div>
           </div>
-
         </div>
       </div>
     </Motion.section>

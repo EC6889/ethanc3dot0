@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @layer base {
   body {
@@ -21,7 +21,7 @@
   --color-brand-purple: #a855f7;
   --color-brand-purple-dim: #9333ea;
   --color-brand-purple-deep: #581c87;
-  
+
   /* Slate Palette Extension */
   --color-slate-850: #151f32;
   --color-slate-950: #020617;

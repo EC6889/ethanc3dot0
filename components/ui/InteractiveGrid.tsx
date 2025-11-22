@@ -154,7 +154,7 @@ export const InteractiveGrid: React.FC = () => {
           const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
 
           if (distMouse < MOUSE_DISTANCE) {
-            const opacity = 1 - (distMouse / MOUSE_DISTANCE);
+            const opacity = 1 - distMouse / MOUSE_DISTANCE;
             ctx.beginPath();
             ctx.strokeStyle = `rgba(${LINE_COLORS[p.colorIndex]}, ${opacity})`;
             ctx.lineWidth = 1;
@@ -178,7 +178,7 @@ export const InteractiveGrid: React.FC = () => {
             const dist = Math.sqrt(dx * dx + dy * dy);
 
             if (dist < CONNECT_DISTANCE) {
-              const opacity = 1 - (dist / CONNECT_DISTANCE);
+              const opacity = 1 - dist / CONNECT_DISTANCE;
               ctx.beginPath();
               ctx.strokeStyle = `rgba(${LINE_COLORS[p.colorIndex]}, ${opacity * 0.3})`;
               ctx.lineWidth = 0.5;

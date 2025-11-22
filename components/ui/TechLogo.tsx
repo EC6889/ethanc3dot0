@@ -21,12 +21,5 @@ export const TechLogo: React.FC<TechLogoProps> = ({ name, logo, localLogo, class
 
   if (!imgSrc) return null;
 
-  return (
-    <img
-      src={imgSrc}
-      alt={name}
-      className={className}
-      onError={handleError}
-    />
-  );
+  return <img src={imgSrc} alt={name} className={className} onError={handleError} />;
 };

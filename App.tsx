@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -106,7 +105,7 @@ function App() {
           className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)',
-            backgroundSize: '40px 40px'
+            backgroundSize: '40px 40px',
           }}
         ></div>
 

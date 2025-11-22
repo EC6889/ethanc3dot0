@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -11,7 +10,6 @@ export const DataPipeline: React.FC<DataPipelineProps> = ({ className = '' }) =>
     <div className={`flex flex-col items-center pointer-events-none z-0 ${className}`}>
       {/* Main Bus Line */}
       <div className="w-full h-full bg-slate-800/40 relative overflow-hidden rounded-full">
-
         {/* Top Gradient Mask (Fade In Effect - Adjusted to allow line to extend visually higher) */}
         <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-slate-950 to-transparent z-10"></div>
 
@@ -23,7 +21,7 @@ export const DataPipeline: React.FC<DataPipelineProps> = ({ className = '' }) =>
           transition={{
             duration: 3,
             repeat: Infinity,
-            ease: "linear"
+            ease: 'linear',
           }}
           style={{ opacity: 0.8 }}
         />
@@ -36,8 +34,8 @@ export const DataPipeline: React.FC<DataPipelineProps> = ({ className = '' }) =>
           transition={{
             duration: 4,
             repeat: Infinity,
-            ease: "linear",
-            delay: 1.5
+            ease: 'linear',
+            delay: 1.5,
           }}
           style={{ opacity: 0.5 }}
         />

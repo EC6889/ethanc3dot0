@@ -1,5 +1,3 @@
-
-
 import { ExperienceItem, ProjectItem, SkillMetric } from './types';
 
 export const NAV_LINKS = [
@@ -94,25 +92,25 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
             bullets: [
               'Managed daily support operations across chat, email, and voice. Kept response times stable during busy periods by actively adjusting staffing.',
               'Introduced daily team huddles and weekly reviews to keep everyone on the same page and fix performance issues quickly.',
-              'Worked with Ops, Product, and Finance to build better escalation paths for solving high-value shipper issues.'
-            ]
+              'Worked with Ops, Product, and Finance to build better escalation paths for solving high-value shipper issues.',
+            ],
           },
           {
             category: 'Process Improvement',
             bullets: [
               'Updated SOPs to remove bottlenecks and tightened up QA checks to ensure agents were giving consistent answers.',
-              'Tweaked the IVR and routing logic so VIP shippers could get to an agent faster.'
-            ]
+              'Tweaked the IVR and routing logic so VIP shippers could get to an agent faster.',
+            ],
           },
           {
             category: 'Data & Tools',
             bullets: [
-              'Set up real-time dashboards in Looker to replace manual reporting, helping us make faster decisions on backlog and staffing.'
-            ]
-          }
-        ]
-      }
-    ]
+              'Set up real-time dashboards in Looker to replace manual reporting, helping us make faster decisions on backlog and staffing.',
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'klook',
@@ -131,17 +129,17 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
             category: 'System & Routing',
             bullets: [
               'Designed routing flows to ensure tickets reached the right agents based on language and skill, rather than just sitting in a general queue.',
-              'Cleaned up workflows and knowledge base tags to stop tickets from bouncing between teams unnecessarily.'
-            ]
+              'Cleaned up workflows and knowledge base tags to stop tickets from bouncing between teams unnecessarily.',
+            ],
           },
           {
             category: 'Vendor & Stability',
             bullets: [
               'Oversaw vendor relationships for phone and support systems; tracked license usage to keep costs within budget.',
-              'Set up monitoring alerts and backup plans to keep support running smoothly during technical outages.'
-            ]
-          }
-        ]
+              'Set up monitoring alerts and backup plans to keep support running smoothly during technical outages.',
+            ],
+          },
+        ],
       },
       {
         title: 'CEG Operations Manager',
@@ -151,12 +149,12 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
             category: 'Performance Management',
             bullets: [
               'Defined service targets and used data from weekly reviews to guide hiring decisions, coaching focus, and system adjustments.',
-              'Managed response protocols during peak travel seasons to keep response times stable.'
-            ]
-          }
-        ]
-      }
-    ]
+              'Managed response protocols during peak travel seasons to keep response times stable.',
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'melco',
@@ -174,11 +172,11 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             category: 'Quality Assurance',
             bullets: [
-              'Led the Service Quality team, building a QA framework that matched the hotel\'s luxury brand standards.',
-              'Organized regular coaching and calibration sessions to improve agent consistency and compliance scores.'
-            ]
-          }
-        ]
+              "Led the Service Quality team, building a QA framework that matched the hotel's luxury brand standards.",
+              'Organized regular coaching and calibration sessions to improve agent consistency and compliance scores.',
+            ],
+          },
+        ],
       },
       {
         title: 'Contact Centre Asst Manager',
@@ -188,12 +186,12 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
             category: 'Operations',
             bullets: [
               'Managed the Reservations and Ticketing teams, adjusting staff schedules to ensure calls were answered promptly.',
-              'Collaborated with Revenue Management to standardize up-selling scripts for agents.'
-            ]
-          }
-        ]
-      }
-    ]
+              'Collaborated with Revenue Management to standardize up-selling scripts for agents.',
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'earlier-days',
@@ -211,10 +209,10 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             bullets: [
               'Handled 24/7 workforce scheduling and ensured the team followed safety (HSSE) protocols.',
-              'Mentored new schedulers and ensured the team had the supplies they needed.'
-            ]
-          }
-        ]
+              'Mentored new schedulers and ensured the team had the supplies they needed.',
+            ],
+          },
+        ],
       },
       {
         title: 'Support Executive',
@@ -224,10 +222,10 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             bullets: [
               'Provided technical troubleshooting and conducted product demos for potential investors.',
-              'Helped build internal knowledge bases for the team.'
-            ]
-          }
-        ]
+              'Helped build internal knowledge bases for the team.',
+            ],
+          },
+        ],
       },
       {
         title: 'Team Leader',
@@ -237,13 +235,13 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             bullets: [
               'Supervised daily call center shifts and managed workforce allocation.',
-              'Conducted weekly call monitoring and coached agents to improve quality.'
-            ]
-          }
-        ]
-      }
-    ]
-  }
+              'Conducted weekly call monitoring and coached agents to improve quality.',
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export const PROJECTS_DATA: ProjectItem[] = [
@@ -254,9 +252,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     period: '2024 – 2025',
     location: 'Kuala Lumpur',
     category: 'Automation',
-    description: 'Built a custom Google Sheets + Apps Script solution with API integration for address and phone validation, reducing manual processing load by 90%.',
+    description:
+      'Built a custom Google Sheets + Apps Script solution with API integration for address and phone validation, reducing manual processing load by 90%.',
     metrics: ['90% Manual Work Reduced', 'Auto-Validation'],
-    tech: ['Google Workspace', 'Google Apps Script', 'REST API']
+    tech: ['Google Workspace', 'Google Apps Script', 'REST API'],
   },
   {
     id: 'p2',
@@ -265,9 +264,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     period: '2018 – 2022',
     location: 'Kuala Lumpur',
     category: 'Infrastructure',
-    description: 'Led a US$1.18M platform migration, delivering full configuration and global go-live within a condensed 3-month timeline.',
+    description:
+      'Led a US$1.18M platform migration, delivering full configuration and global go-live within a condensed 3-month timeline.',
     metrics: ['US$1.18M Project', '3 Months Turnaround'],
-    tech: ['Zendesk', 'System Architecture', 'Migration']
+    tech: ['Zendesk', 'System Architecture', 'Migration'],
   },
   {
     id: 'p3',
@@ -276,9 +276,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     period: '2018 – 2022',
     location: 'Kuala Lumpur',
     category: 'Finance Ops',
-    description: 'Audited and restructured telephony and license usage; instituted monthly forecasting models to tighten budget control.',
+    description:
+      'Audited and restructured telephony and license usage; instituted monthly forecasting models to tighten budget control.',
     metrics: ['OpEx Reduction', 'Budget Control'],
-    tech: ['Data Analysis', 'Forecasting']
+    tech: ['Data Analysis', 'Forecasting'],
   },
   {
     id: 'p4',
@@ -287,9 +288,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     period: '2018 – 2022',
     location: 'Kuala Lumpur',
     category: 'Workflow',
-    description: 'Managed the migration of communication platforms for the CX unit. Developed automated webhook triggers to streamline workflows.',
+    description:
+      'Managed the migration of communication platforms for the CX unit. Developed automated webhook triggers to streamline workflows.',
     metrics: ['Company-wide Adoption', 'Automated Webhooks'],
-    tech: ['Lark', 'Slack', 'Webhook']
+    tech: ['Lark', 'Slack', 'Webhook'],
   },
   {
     id: 'p5',
@@ -298,9 +300,10 @@ export const PROJECTS_DATA: ProjectItem[] = [
     period: '2009 – 2017',
     location: 'Macau / KL',
     category: 'Ops Strategy',
-    description: 'Consolidated operations for sister properties, standardizing SOPs to achieve economy of scale and cost stabilization.',
+    description:
+      'Consolidated operations for sister properties, standardizing SOPs to achieve economy of scale and cost stabilization.',
     metrics: ['Standardized SOPs', 'Cost Stabilization'],
-    tech: ['Workforce Mgmt']
+    tech: ['Workforce Mgmt'],
   },
   {
     id: 'p6',
@@ -309,10 +312,11 @@ export const PROJECTS_DATA: ProjectItem[] = [
     period: '2009 – 2017',
     location: 'Macau / KL',
     category: 'Training',
-    description: 'Built the centralized knowledge base and delivered comprehensive product and policy training for new property launches.',
+    description:
+      'Built the centralized knowledge base and delivered comprehensive product and policy training for new property launches.',
     metrics: ['Knowledge Base', 'Cross-property Training'],
-    tech: ['Knowledge Mgmt', 'Training']
-  }
+    tech: ['Knowledge Mgmt', 'Training'],
+  },
 ];
 
 export const SKILLS_METRICS: SkillMetric[] = [
@@ -328,71 +332,71 @@ export const TECH_STACK = [
   {
     name: 'Zendesk',
     logo: 'https://cdn.simpleicons.org/zendesk/03363D',
-    localLogo: '/assets/photos/zendesk.png'
+    localLogo: '/assets/photos/zendesk.png',
   },
   {
     name: 'Genesys',
     logo: 'https://cdn.simpleicons.org/genesys/FF4F1F',
-    localLogo: '/assets/photos/genesyscloud.png'
+    localLogo: '/assets/photos/genesyscloud.png',
   },
   {
     name: 'Salesforce',
     logo: 'https://cdn.simpleicons.org/salesforce/00A1E0',
-    localLogo: '/assets/photos/salesforce.png'
+    localLogo: '/assets/photos/salesforce.png',
   },
   {
     name: 'Cisco UCCX',
     logo: 'https://cdn.simpleicons.org/cisco/1BA0D7',
-    localLogo: '/assets/photos/placeholder.png'
+    localLogo: '/assets/photos/placeholder.png',
   },
   {
     name: 'Google Workspace',
     logo: 'https://www.gstatic.com/images/branding/product/1x/google_workspace_512dp.png',
-    localLogo: '/assets/photos/googleworkspace.png'
+    localLogo: '/assets/photos/googleworkspace.png',
   },
   {
     name: 'Google Apps Script',
     logo: 'https://cdn.simpleicons.org/googleappsscript/4285F4',
-    localLogo: '/assets/photos/googleappsscript.png'
+    localLogo: '/assets/photos/googleappsscript.png',
   },
   {
     name: 'Google Looker',
     logo: 'https://cdn.simpleicons.org/looker/4285F4',
-    localLogo: '/assets/photos/googlelookerstudio.png'
+    localLogo: '/assets/photos/googlelookerstudio.png',
   },
   {
     name: 'Lark',
     logo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/09/78/45/09784570-a67c-9f1e-1066-84c79d1cb815/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg',
-    localLogo: '/assets/photos/lark.png'
+    localLogo: '/assets/photos/lark.png',
   },
   {
     name: 'Slack',
     logo: 'https://cdn.simpleicons.org/slack/4A154B',
-    localLogo: '/assets/photos/placeholder.png'
+    localLogo: '/assets/photos/placeholder.png',
   },
   {
     name: 'SiteMinder',
     logo: 'https://cdn.worldvectorlogo.com/logos/siteminder.svg',
-    localLogo: '/assets/photos/siteminder.png'
+    localLogo: '/assets/photos/siteminder.png',
   },
   {
     name: 'Zapier',
     logo: 'https://cdn.simpleicons.org/zapier/FF4F00',
-    localLogo: '/assets/photos/zapier.png'
+    localLogo: '/assets/photos/zapier.png',
   },
   {
     name: 'Webhook',
     logo: 'https://cdn.worldvectorlogo.com/logos/webhooks.svg',
-    localLogo: '/assets/photos/placeholder.png'
+    localLogo: '/assets/photos/placeholder.png',
   },
   {
     name: 'REST API',
     logo: '',
-    localLogo: ''
+    localLogo: '',
   },
   {
     name: 'SISTIC',
     logo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/92/17/26/92172669-025e-2264-809d-58992842637f/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg',
-    localLogo: '/assets/photos/sistic.png'
+    localLogo: '/assets/photos/sistic.png',
   },
 ];

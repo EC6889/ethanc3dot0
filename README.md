@@ -19,6 +19,75 @@ A high-end, tech-forward portfolio designed for a CX Strategist & Operational Ar
 - **Icons:** Lucide React
 - **Utilities:** jsPDF (Resume generation)
 
+## 🚀 Getting Started
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
+
+```bash
+npm run dev
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## 🔍 Code Quality
+
+### Linting
+
+```bash
+npm run lint          # Check for code issues
+npm run lint:fix      # Auto-fix issues where possible
+```
+
+### Formatting
+
+```bash
+npm run format        # Format all code with Prettier
+```
+
+### Configuration
+
+- **ESLint**: Configured with ESLint v9 flat config (`eslint.config.js`)
+  - TypeScript + React plugins enabled
+  - Lenient rules for portfolio content (allows quotes in JSX, console.log)
+  - Auto-ignores build files and scripts
+- **Prettier**: Consistent code formatting (`.prettierrc.json`)
+- **EditorConfig**: Cross-editor consistency (`.editorconfig`)
+
+## 📦 Deployment
+
+Deploy to Cloudflare Pages:
+
+```bash
+npm run build
+npx wrangler pages deploy dist
+```
+
+## 🛡️ Error Handling
+
+The app includes an Error Boundary component that catches and displays errors gracefully with a cyberpunk-themed error screen.
+
+## ⚡ Performance
+
+- React.memo applied to pure components (Footer, Navbar, legal pages)
+- Optimized bundle size (~450KB gzipped)
+- Lazy loading can be added for routes if needed
+
 ## 📂 Structure
 
 - `components/` - UI building blocks (Hero, About, Experience, etc.)
@@ -29,6 +98,7 @@ A high-end, tech-forward portfolio designed for a CX Strategist & Operational Ar
 ## 🎨 Design System
 
 The design follows the "Operational Architect" persona:
+
 - **Font Family:** Space Grotesk (Display), Inter (Body), JetBrains Mono (Data).
 - **Colors:** Slate (Void), Cyan (Strategy), Blue (Tech), Purple (Ops).
 

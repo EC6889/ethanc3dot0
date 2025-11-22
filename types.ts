@@ -1,4 +1,3 @@
-
 export interface ExperienceContent {
   category?: string; // e.g. "LEADERSHIP & OPERATIONS"
   bullets: string[];

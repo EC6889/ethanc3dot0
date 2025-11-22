@@ -1,14 +1,13 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { InteractiveGrid } from './ui/InteractiveGrid';
 
 const ROLES = [
-  "CX_OPERATIONS_MANAGER",
-  "TECH_IMPLEMENTATION_LEAD",
-  "WORKFLOW_ARCHITECT",
-  "SYSTEM_ADMINISTRATOR"
+  'CX_OPERATIONS_MANAGER',
+  'TECH_IMPLEMENTATION_LEAD',
+  'WORKFLOW_ARCHITECT',
+  'SYSTEM_ADMINISTRATOR',
 ];
 
 const Hero: React.FC = () => {
@@ -30,9 +29,8 @@ const Hero: React.FC = () => {
       const i = loopNum % ROLES.length;
       const fullText = ROLES[i];
 
-      setText(isDeleting
-        ? fullText.substring(0, text.length - 1)
-        : fullText.substring(0, text.length + 1)
+      setText(
+        isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1)
       );
 
       setTypingSpeed(isDeleting ? 30 : 80);
@@ -50,27 +48,43 @@ const Hero: React.FC = () => {
   }, [text, isDeleting, loopNum, typingSpeed]);
 
   return (
-    <section id="home" className="relative w-full h-screen bg-slate-950 overflow-hidden flex flex-col font-mono">
-
+    <section
+      id="home"
+      className="relative w-full h-screen bg-slate-950 overflow-hidden flex flex-col font-mono"
+    >
       {/* === BACKGROUND LAYERS === */}
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
         <InteractiveGrid />
       </motion.div>
 
-      <motion.div style={{ opacity: fadeOut }} className="absolute inset-0 z-10 pointer-events-none">
+      <motion.div
+        style={{ opacity: fadeOut }}
+        className="absolute inset-0 z-10 pointer-events-none"
+      >
         <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_4px,6px_100%] opacity-60"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/80 z-10"></div>
       </motion.div>
 
-      <motion.div style={{ opacity: fadeOut, y: fgY }} className="absolute inset-0 z-10 pointer-events-none">
+      <motion.div
+        style={{ opacity: fadeOut, y: fgY }}
+        className="absolute inset-0 z-10 pointer-events-none"
+      >
         {/* HUD Elements (Scales, Anchors, Radar) */}
         <div className="absolute left-6 top-1/4 bottom-1/4 w-px bg-slate-800/50 hidden md:flex flex-col justify-between items-center">
-          {[...Array(10)].map((_, i) => (<div key={i} className="w-3 h-px bg-slate-700/50" />))}
-          <div className="absolute top-0 -left-1 text-[8px] text-slate-600 -rotate-90 origin-center">ELEV_01</div>
+          {[...Array(10)].map((_, i) => (
+            <div key={i} className="w-3 h-px bg-slate-700/50" />
+          ))}
+          <div className="absolute top-0 -left-1 text-[8px] text-slate-600 -rotate-90 origin-center">
+            ELEV_01
+          </div>
         </div>
         <div className="absolute right-6 top-1/4 bottom-1/4 w-px bg-slate-800/50 hidden md:flex flex-col justify-between items-center">
-          {[...Array(10)].map((_, i) => (<div key={i} className="w-3 h-px bg-slate-700/50" />))}
-          <div className="absolute bottom-0 -right-1 text-[8px] text-slate-600 -rotate-90 origin-center">AZIM_02</div>
+          {[...Array(10)].map((_, i) => (
+            <div key={i} className="w-3 h-px bg-slate-700/50" />
+          ))}
+          <div className="absolute bottom-0 -right-1 text-[8px] text-slate-600 -rotate-90 origin-center">
+            AZIM_02
+          </div>
         </div>
         <div className="absolute top-24 left-6 md:left-12 w-16 h-16 border-t border-l border-brand-cyan-deep/30 rounded-tl-xl opacity-50 animate-pulse"></div>
         <div className="absolute top-24 right-6 md:right-12 w-16 h-16 border-t border-r border-brand-cyan-deep/30 rounded-tr-xl opacity-50 animate-pulse"></div>
@@ -90,16 +104,14 @@ const Hero: React.FC = () => {
 
         {/* --- CENTER COMMAND STAGE --- */}
         <div className="flex-1 flex flex-col justify-center items-center text-center relative">
-
           {/* Sidebars Removed per user request */}
 
           {/* Main Content Block - Full Width Left Aligned */}
           <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-start justify-center h-full pb-20">
-
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ type: "spring", stiffness: 60, damping: 20, delay: 0.2 }}
+              transition={{ type: 'spring', stiffness: 60, damping: 20, delay: 0.2 }}
               className="flex flex-col items-start text-left"
             >
               <div className="flex items-center gap-4 mb-8 opacity-80">
@@ -128,7 +140,10 @@ const Hero: React.FC = () => {
               {/* Subtitle - Bio */}
               <div className="mb-8 pl-2 border-l-2 border-brand-cyan/50 max-w-2xl">
                 <p className="text-xs md:text-sm text-slate-400 font-mono tracking-wide leading-relaxed">
-                  Building scalable, data-driven customer experience operations. I combine <span className="text-brand-cyan font-bold">operational management</span> with <span className="text-brand-blue font-bold">technical solutions</span> to reduce friction and architect efficiency.
+                  Building scalable, data-driven customer experience operations. I combine{' '}
+                  <span className="text-brand-cyan font-bold">operational management</span> with{' '}
+                  <span className="text-brand-blue font-bold">technical solutions</span> to reduce
+                  friction and architect efficiency.
                 </p>
               </div>
 
@@ -158,7 +173,11 @@ const Hero: React.FC = () => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-cyan/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
                   <span className="relative flex items-center gap-3">
-                    Initialize_Protocol <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    Initialize_Protocol{' '}
+                    <ChevronRight
+                      size={14}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
                   </span>
                   <div className="absolute top-0 left-0 w-1 h-1 bg-brand-cyan transition-all duration-300 group-hover:w-full"></div>
                   <div className="absolute bottom-0 right-0 w-1 h-1 bg-brand-cyan transition-all duration-300 group-hover:w-full"></div>
@@ -176,8 +195,6 @@ const Hero: React.FC = () => {
         </div>
 
         {/* --- FOOTER DASHBOARD WIDGETS REMOVED --- */}
-
-
       </motion.div>
 
       {/* Gradient Fade for Section Transition */}

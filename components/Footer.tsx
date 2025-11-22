@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Hexagon, Linkedin, Mail, ArrowUp, Cpu } from 'lucide-react';
 
@@ -29,27 +28,38 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
-
           {/* Brand Column */}
           <div className="md:col-span-2 space-y-6">
-            <div className="flex items-center gap-3 group cursor-pointer w-fit" onClick={scrollToTop}>
+            <div
+              className="flex items-center gap-3 group cursor-pointer w-fit"
+              onClick={scrollToTop}
+            >
               <div className="relative w-10 h-10 flex items-center justify-center bg-slate-900 border border-slate-800 rounded-sm group-hover:border-brand-cyan-deep/50 transition-colors">
-                <Hexagon className="w-5 h-5 text-brand-cyan relative z-10 group-hover:rotate-90 transition-transform duration-500" strokeWidth={1.5} />
+                <Hexagon
+                  className="w-5 h-5 text-brand-cyan relative z-10 group-hover:rotate-90 transition-transform duration-500"
+                  strokeWidth={1.5}
+                />
               </div>
               <div>
-                <h3 className="text-lg font-display font-bold text-white tracking-tight leading-none group-hover:text-brand-cyan transition-colors">ETHAN C.</h3>
-                <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mt-1">// Operational_Architect</p>
+                <h3 className="text-lg font-display font-bold text-white tracking-tight leading-none group-hover:text-brand-cyan transition-colors">
+                  ETHAN C.
+                </h3>
+                <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mt-1">
+                  // Operational_Architect
+                </p>
               </div>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm font-light">
-              Bridging the gap between complex strategy and daily execution.
-              Building scalable systems for high-performance teams.
+              Bridging the gap between complex strategy and daily execution. Building scalable
+              systems for high-performance teams.
             </p>
 
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/20">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span className="text-[10px] font-mono font-bold text-emerald-500 uppercase tracking-wider">System Online</span>
+                <span className="text-[10px] font-mono font-bold text-emerald-500 uppercase tracking-wider">
+                  System Online
+                </span>
               </div>
               <span className="text-[10px] font-mono text-slate-600">V.3.0.1 // STABLE</span>
             </div>
@@ -61,19 +71,54 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </div>
               <div className="flex items-center gap-5 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
                 <a href="https://react.dev" target="_blank" rel="noreferrer" title="React">
-                  <img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" className="h-5 w-auto" />
+                  <img
+                    src="https://cdn.simpleicons.org/react/61DAFB"
+                    alt="React"
+                    className="h-5 w-auto"
+                  />
                 </a>
-                <a href="https://www.typescriptlang.org" target="_blank" rel="noreferrer" title="TypeScript">
-                  <img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript" className="h-5 w-auto" />
+                <a
+                  href="https://www.typescriptlang.org"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="TypeScript"
+                >
+                  <img
+                    src="https://cdn.simpleicons.org/typescript/3178C6"
+                    alt="TypeScript"
+                    className="h-5 w-auto"
+                  />
                 </a>
-                <a href="https://tailwindcss.com" target="_blank" rel="noreferrer" title="Tailwind CSS">
-                  <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="Tailwind CSS" className="h-5 w-auto" />
+                <a
+                  href="https://tailwindcss.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Tailwind CSS"
+                >
+                  <img
+                    src="https://cdn.simpleicons.org/tailwindcss/06B6D4"
+                    alt="Tailwind CSS"
+                    className="h-5 w-auto"
+                  />
                 </a>
-                <a href="https://www.framer.com/motion/" target="_blank" rel="noreferrer" title="Framer Motion">
-                  <img src="https://cdn.simpleicons.org/framer/0055FF" alt="Framer Motion" className="h-5 w-auto" />
+                <a
+                  href="https://www.framer.com/motion/"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Framer Motion"
+                >
+                  <img
+                    src="https://cdn.simpleicons.org/framer/0055FF"
+                    alt="Framer Motion"
+                    className="h-5 w-auto"
+                  />
                 </a>
                 <a href="https://lucide.dev" target="_blank" rel="noreferrer" title="Lucide Icons">
-                  <img src="https://cdn.simpleicons.org/lucide/F7F7F7" alt="Lucide" className="h-5 w-auto" />
+                  <img
+                    src="https://cdn.simpleicons.org/lucide/F7F7F7"
+                    alt="Lucide"
+                    className="h-5 w-auto"
+                  />
                 </a>
               </div>
             </div>
@@ -107,7 +152,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h4>
             <ul className="space-y-4">
               <li>
-                <a href="mailto:gmeal6889@gmail.com" className="group flex items-center gap-3 text-slate-400 hover:text-white transition-colors">
+                <a
+                  href="mailto:gmeal6889@gmail.com"
+                  className="group flex items-center gap-3 text-slate-400 hover:text-white transition-colors"
+                >
                   <div className="w-8 h-8 rounded bg-slate-900 border border-slate-800 flex items-center justify-center group-hover:border-brand-blue/50 transition-colors">
                     <Mail size={14} />
                   </div>
@@ -115,7 +163,12 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </a>
               </li>
               <li>
-                <a href="https://linkedin.com/in/echia6889" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-slate-400 hover:text-white transition-colors">
+                <a
+                  href="https://linkedin.com/in/echia6889"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center gap-3 text-slate-400 hover:text-white transition-colors"
+                >
                   <div className="w-8 h-8 rounded bg-slate-900 border border-slate-800 flex items-center justify-center group-hover:border-brand-blue/50 transition-colors">
                     <Linkedin size={14} />
                   </div>
@@ -128,19 +181,24 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div className="mt-8 pt-6 border-t border-slate-800/50">
               <ul className="space-y-2">
                 <li>
-                  <button onClick={() => onNavigate('terms')} className="text-xs text-slate-600 hover:text-brand-cyan transition-colors font-mono">
+                  <button
+                    onClick={() => onNavigate('terms')}
+                    className="text-xs text-slate-600 hover:text-brand-cyan transition-colors font-mono"
+                  >
                     Terms & Conditions
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => onNavigate('privacy')} className="text-xs text-slate-600 hover:text-brand-cyan transition-colors font-mono">
+                  <button
+                    onClick={() => onNavigate('privacy')}
+                    className="text-xs text-slate-600 hover:text-brand-cyan transition-colors font-mono"
+                  >
                     Privacy Policy
                   </button>
                 </li>
               </ul>
             </div>
           </div>
-
         </div>
 
         {/* Bottom Bar */}
@@ -154,7 +212,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             onClick={scrollToTop}
             className="text-[10px] font-mono text-slate-500 hover:text-brand-cyan flex items-center gap-2 transition-colors uppercase tracking-wider group"
           >
-            Return_To_Top <ArrowUp size={12} className="group-hover:-translate-y-1 transition-transform" />
+            Return_To_Top{' '}
+            <ArrowUp size={12} className="group-hover:-translate-y-1 transition-transform" />
           </button>
         </div>
       </div>
@@ -162,4 +221,4 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

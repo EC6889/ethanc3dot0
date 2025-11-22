@@ -217,129 +217,88 @@ const Hero: React.FC = () => {
         {/* --- CENTER COMMAND STAGE --- */}
         <div className="flex-1 flex flex-col justify-center items-center text-center relative">
 
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-4 w-48 text-left">
-            <div className="border-l-2 border-cyan-900/30 pl-4 py-2">
-              <h4 className="text-[9px] text-cyan-500 uppercase tracking-widest mb-2 flex items-center gap-2">
-                <Activity size={10} className="animate-pulse" /> Sys_Log
-              </h4>
-              <div className="space-y-1.5">
-                {SYSTEM_LOGS.map((log, i) => (
-                  <div key={i} className="text-[8px] text-slate-500 font-mono truncate flex items-center gap-2">
-                    <span className="w-1 h-1 bg-slate-800 rounded-full"></span>
-                    {log}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          {/* Sidebars Removed per user request */}
 
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-4 w-48 text-right items-end">
-            <div className="border-r-2 border-cyan-900/30 pr-4 py-2 w-full">
-              <h4 className="text-[9px] text-blue-500 uppercase tracking-widest mb-2 flex items-center justify-end gap-2">
-                Modules <Cpu size={10} className="animate-spin-slow" />
-              </h4>
-              <div className="space-y-1.5 flex flex-col items-end">
-                {['ZENDESK', 'SALESFORCE', 'GENESYS', 'LOOKER'].map((mod) => (
-                  <div key={mod} className="flex items-center gap-2 text-[8px] text-slate-500 uppercase">
-                    {mod} <div className="w-1 h-1 bg-emerald-900/50 border border-emerald-500/50 rounded-full animate-pulse"></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Main Content Block */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 100 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 60, damping: 20, delay: 0.2 }}
-            className="relative z-10 max-w-5xl w-full flex flex-col items-center"
-          >
-            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-64 h-64 border border-dashed border-slate-800/50 rounded-full animate-spin-slow opacity-30 -z-10"></div>
-
-            <div className="flex items-center justify-center gap-4 mb-8 opacity-80">
-              <div className="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-cyan-500/50"></div>
-              <span className="text-[10px] md:text-[11px] text-cyan-400/90 tracking-[0.3em] uppercase font-bold font-mono px-2 border border-cyan-500/20 rounded bg-cyan-950/30 backdrop-blur-sm py-1">
-                Operational_Architect
-              </span>
-              <div className="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-cyan-500/50"></div>
-            </div>
-
-            {/* Redesigned Title */}
-            <div className="relative mb-6 group">
-              {/* Ambient Glow */}
-              <div className="absolute inset-0 bg-cyan-500/10 blur-[60px] rounded-full scale-75 opacity-50 pointer-events-none"></div>
-
-              {/* Main Gradient Title */}
-              <h1 className="text-7xl md:text-9xl lg:text-[10rem] font-display font-bold tracking-tighter leading-[0.85] select-none relative z-20">
-                <span className="text-transparent bg-clip-text bg-gradient-to-b from-slate-100 via-cyan-100 to-cyan-500 filter drop-shadow-[0_0_20px_rgba(34,211,238,0.4)]">
-                  ETHAN C.
-                </span>
-              </h1>
-
-              {/* Reflection / Depth Layer */}
-              <h1 className="absolute inset-0 text-7xl md:text-9xl lg:text-[10rem] font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-500 opacity-10 tracking-tighter leading-[0.85] select-none z-30 mix-blend-overlay">
-                ETHAN C.
-              </h1>
-
-              {/* Glitch/Ghost Layer (Cyan) */}
-              <h1 className="absolute inset-0 text-7xl md:text-9xl lg:text-[10rem] font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-transparent to-cyan-600 opacity-30 tracking-tighter leading-[0.85] select-none z-10 blur-[2px] translate-y-1 scale-[1.01] origin-bottom">
-                ETHAN C.
-              </h1>
-
-              {/* Glitch/Ghost Layer (Blue) */}
-              <h1 className="absolute inset-0 text-7xl md:text-9xl lg:text-[10rem] font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-transparent to-blue-600 opacity-20 tracking-tighter leading-[0.85] select-none z-0 blur-[4px] -translate-y-1 scale-[1.02] origin-top">
-                ETHAN C.
-              </h1>
-
-              {/* Tech Accents */}
-              <div className="absolute -right-6 top-2 text-[9px] font-mono text-cyan-500/70 font-bold tracking-widest rotate-90 origin-top-left flex items-center gap-2">
-                <span>V3.0</span> <span className="w-1 h-1 bg-cyan-500 rounded-full animate-pulse"></span>
-              </div>
-            </div>
-
-            {/* Stable Typewriter Container */}
-            <div className="h-10 flex items-center justify-center relative w-full max-w-2xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-transparent to-slate-950 z-10 pointer-events-none"></div>
-
-              {/* Flex container with fixed width to ensure left alignment stability */}
-              <div className="flex items-center gap-4 w-full md:w-auto md:min-w-[550px] px-4 justify-start border-l-2 border-cyan-500/30 bg-slate-900/20 py-2 rounded-r">
-                <span className="text-cyan-500 text-[10px] md:text-xs font-bold font-mono tracking-widest whitespace-nowrap shrink-0">
-                  ID: USER_ADMIN //
-                </span>
-                <span className="text-sm md:text-lg text-slate-300 tracking-widest font-mono uppercase flex items-center whitespace-nowrap overflow-hidden">
-                  {text}
-                  <span className="w-2 h-4 md:w-2.5 md:h-5 bg-cyan-400 animate-pulse ml-1 shadow-[0_0_10px_cyan]"></span>
-                </span>
-              </div>
-            </div>
+          {/* Main Content Block - Full Width Left Aligned */}
+          <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-start justify-center h-full pb-20">
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="mt-16 flex flex-col md:flex-row items-center justify-center gap-5"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", stiffness: 60, damping: 20, delay: 0.2 }}
+              className="flex flex-col items-start text-left"
             >
-              <a
-                href="#experience"
-                className="group relative px-8 py-4 bg-cyan-950/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-[0.2em] overflow-hidden hover:bg-cyan-500/10 transition-all duration-300 hover:border-cyan-400"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
-                <span className="relative flex items-center gap-3">
-                  Initialize_Protocol <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              <div className="flex items-center gap-4 mb-8 opacity-80">
+                <div className="h-px w-12 bg-gradient-to-r from-cyan-500/50 to-transparent"></div>
+                <span className="text-[10px] md:text-[11px] text-cyan-400/90 tracking-[0.3em] uppercase font-bold font-mono px-2 border border-cyan-500/20 rounded bg-cyan-950/30 backdrop-blur-sm py-1">
+                  Operational_Architect
                 </span>
-                <div className="absolute top-0 left-0 w-1 h-1 bg-cyan-400 transition-all duration-300 group-hover:w-full"></div>
-                <div className="absolute bottom-0 right-0 w-1 h-1 bg-cyan-400 transition-all duration-300 group-hover:w-full"></div>
-              </a>
-              <a
-                href="#contact"
-                className="px-8 py-4 border border-slate-800 text-slate-500 text-xs font-bold uppercase tracking-[0.2em] hover:text-white hover:border-slate-600 transition-all duration-300 hover:bg-slate-900/50 flex items-center gap-2"
+              </div>
+
+              {/* Redesigned Title - Solid & Clear - Single Line */}
+              <div className="relative mb-6 group">
+                {/* Ambient Glow */}
+                <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-cyan-500/20 blur-[100px] w-96 h-96 rounded-full opacity-40 pointer-events-none"></div>
+
+                {/* Main Title */}
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-black tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
+                  ETHAN <span className="text-cyan-400">C.</span>
+                </h1>
+
+                {/* Depth Layer */}
+                <h1 className="absolute inset-0 text-5xl md:text-7xl lg:text-8xl font-sans font-black text-cyan-950 opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
+                  ETHAN C.
+                </h1>
+              </div>
+
+              {/* Subtitle - Bio */}
+              <div className="mb-8 pl-2 border-l-2 border-cyan-500/50 max-w-2xl">
+                <p className="text-xs md:text-sm text-slate-400 font-mono tracking-wide leading-relaxed">
+                  Building scalable, data-driven customer experience operations. I combine <span className="text-cyan-400 font-bold">operational management</span> with <span className="text-blue-400 font-bold">technical solutions</span> to reduce friction and architect efficiency.
+                </p>
+              </div>
+
+              {/* Stable Typewriter Container - Left Aligned */}
+              <div className="h-10 flex items-center justify-start relative w-full max-w-xl mb-10">
+                <div className="flex items-center gap-4 w-full px-4 justify-start border-l-2 border-cyan-500/30 bg-slate-900/20 py-2 rounded-r">
+                  <span className="text-cyan-500 text-[10px] md:text-xs font-bold font-mono tracking-widest whitespace-nowrap shrink-0">
+                    ID: USER_ADMIN //
+                  </span>
+                  <span className="text-sm md:text-lg text-slate-300 tracking-widest font-mono uppercase flex items-center whitespace-nowrap overflow-hidden">
+                    {text}
+                    <span className="w-2 h-4 md:w-2.5 md:h-5 bg-cyan-400 animate-pulse ml-1 shadow-[0_0_10px_cyan]"></span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Action Buttons - Left Aligned */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="flex flex-col sm:flex-row items-start gap-5"
               >
-                Establish_Comms
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-green-500 transition-colors"></span>
-              </a>
+                <a
+                  href="#experience"
+                  className="group relative px-8 py-4 bg-cyan-950/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-[0.2em] overflow-hidden hover:bg-cyan-500/10 transition-all duration-300 hover:border-cyan-400"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
+                  <span className="relative flex items-center gap-3">
+                    Initialize_Protocol <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="absolute top-0 left-0 w-1 h-1 bg-cyan-400 transition-all duration-300 group-hover:w-full"></div>
+                  <div className="absolute bottom-0 right-0 w-1 h-1 bg-cyan-400 transition-all duration-300 group-hover:w-full"></div>
+                </a>
+                <a
+                  href="#contact"
+                  className="px-8 py-4 border border-slate-800 text-slate-500 text-xs font-bold uppercase tracking-[0.2em] hover:text-white hover:border-slate-600 transition-all duration-300 hover:bg-slate-900/50 flex items-center gap-2"
+                >
+                  Establish_Comms
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-green-500 transition-colors"></span>
+                </a>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
 
         {/* --- FOOTER DASHBOARD WIDGETS --- */}

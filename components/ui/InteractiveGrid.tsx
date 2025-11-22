@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 
 export const InteractiveGrid: React.FC = () => {
@@ -15,146 +14,199 @@ export const InteractiveGrid: React.FC = () => {
 
     let width = container.clientWidth;
     let height = container.clientHeight;
+    let animationFrameId: number;
+    let startTime = Date.now();
+
+    // Mouse state
+    const mouse = { x: -1000, y: -1000 };
 
     // Configuration
-    const STAR_COUNT = 800; // Dense field
-    const SPEED = 0.3; // Very slow Z-axis movement
-    const DEPTH = 1000; // How deep the field goes
+    // Brand Spectrum Colors
+    const COLORS = [
+      'rgba(34, 211, 238, 0.5)', // Cyan-400
+      'rgba(59, 130, 246, 0.5)', // Blue-500
+      'rgba(168, 85, 247, 0.5)', // Purple-500
+    ];
+    // RGB values for lines (matching the above)
+    const LINE_COLORS = [
+      '34, 211, 238', // Cyan
+      '59, 130, 246', // Blue
+      '168, 85, 247', // Purple
+    ];
 
-    interface Star {
+    const PARTICLE_DENSITY = 4000; // Increased density (was 8000)
+    const CONNECT_DISTANCE = 150;
+    const MOUSE_DISTANCE = 200;
+    const INTRO_DURATION = 1500; // ms
+
+    interface Particle {
       x: number;
       y: number;
-      z: number;
-      color: string;
+      targetX: number;
+      targetY: number;
+      vx: number;
+      vy: number;
+      size: number;
+      colorIndex: number;
     }
 
-    let stars: Star[] = [];
-    let mouseX = 0;
-    let mouseY = 0;
-    
-    // Smooth mouse tracking
-    let targetX = 0;
-    let targetY = 0;
+    let particles: Particle[] = [];
 
-    // Brand Colors for some stars
-    const STAR_COLORS = ['#ffffff', '#ffffff', '#ffffff', '#22d3ee', '#a855f7', '#94a3b8'];
+    const initParticles = () => {
+      particles = [];
+      const area = width * height;
+      const particleCount = Math.min(Math.floor(area / PARTICLE_DENSITY), 400); // Cap increased to 400
 
-    const init = () => {
-      width = container.clientWidth;
-      height = container.clientHeight;
-      canvas.width = width;
-      canvas.height = height;
-      stars = [];
-
-      for (let i = 0; i < STAR_COUNT; i++) {
-        stars.push({
-          x: (Math.random() - 0.5) * width * 2, // Spread wide
-          y: (Math.random() - 0.5) * height * 2,
-          z: Math.random() * DEPTH,
-          color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)]
-        });
-      }
-    };
-
-    const update = () => {
-      ctx.clearRect(0, 0, width, height);
-      
       const centerX = width / 2;
       const centerY = height / 2;
 
-      // Smooth parallax
-      targetX += (mouseX - targetX) * 0.05;
-      targetY += (mouseY - targetY) * 0.05;
-
-      // Sort stars by depth so distant ones draw first
-      stars.sort((a, b) => b.z - a.z);
-
-      for (const star of stars) {
-        // Move star towards viewer
-        star.z -= SPEED;
-
-        // Reset if it passes viewer
-        if (star.z <= 0) {
-          star.z = DEPTH;
-          star.x = (Math.random() - 0.5) * width * 2;
-          star.y = (Math.random() - 0.5) * height * 2;
-        }
-
-        // Project 3D to 2D
-        // Simple perspective projection
-        const k = 128.0 / star.z; // Field of view factor
-        const px = (star.x - targetX * 2) * k + centerX;
-        const py = (star.y - targetY * 2) * k + centerY;
-
-        // Draw only if within bounds (with some margin)
-        if (px >= 0 && px <= width && py >= 0 && py <= height) {
-          const size = (1 - star.z / DEPTH) * 2.5; // Closer = Bigger
-          const opacity = (1 - star.z / DEPTH); // Closer = Brighter
-          
-          ctx.beginPath();
-          ctx.fillStyle = star.color;
-          ctx.globalAlpha = opacity;
-          ctx.arc(px, py, Math.max(0, size), 0, Math.PI * 2);
-          ctx.fill();
-
-          // Add a subtle glow to very close stars
-          if (size > 2) {
-             ctx.shadowBlur = 8;
-             ctx.shadowColor = star.color;
-             ctx.fill();
-             ctx.shadowBlur = 0;
-          }
-        }
+      for (let i = 0; i < particleCount; i++) {
+        const targetX = Math.random() * width;
+        const targetY = Math.random() * height;
+        particles.push({
+          x: centerX, // Start at center
+          y: centerY,
+          targetX: targetX,
+          targetY: targetY,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1,
+          colorIndex: Math.floor(Math.random() * COLORS.length),
+        });
       }
-      
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(update);
+      startTime = Date.now(); // Reset start time on resize/init
+    };
+
+    const resize = () => {
+      if (!container || !canvas || !ctx) return;
+      width = container.clientWidth;
+      height = container.clientHeight;
+
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
+
+      initParticles();
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      // Normalize mouse from center (-0.5 to 0.5)
-      const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left);
-      const y = (e.clientY - rect.top);
-      
-      // Store raw offset from center
-      mouseX = (x - width / 2) * 0.5; // Scale factor for sensitivity
-      mouseY = (y - height / 2) * 0.5;
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
     };
 
-    const handleResize = () => {
-      init();
+    const handleMouseLeave = () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
     };
 
-    init();
-    const animationFrame = requestAnimationFrame(update);
+    // Easing function for smooth intro (EaseOutExpo)
+    const easeOutExpo = (x: number): number => {
+      return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+    };
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', resize);
+    container.addEventListener('mouseleave', handleMouseLeave);
+
+    const animate = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      const now = Date.now();
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / INTRO_DURATION, 1);
+      const ease = easeOutExpo(progress);
+
+      particles.forEach((p, i) => {
+        if (progress < 1) {
+          // Intro Phase: Move from center to target
+          const centerX = width / 2;
+          const centerY = height / 2;
+
+          // Interpolate current position
+          p.x = centerX + (p.targetX - centerX) * ease;
+          p.y = centerY + (p.targetY - centerY) * ease;
+        } else {
+          // Normal Phase: Drift
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+        }
+
+        // Draw Particle Dot with assigned color
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = COLORS[p.colorIndex];
+        ctx.fill();
+
+        // Only draw connections if intro is mostly done to avoid clutter at center
+        if (progress > 0.5) {
+          // --- Interaction: Connect to Mouse ---
+          const dxMouse = mouse.x - p.x;
+          const dyMouse = mouse.y - p.y;
+          const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+          if (distMouse < MOUSE_DISTANCE) {
+            const opacity = 1 - (distMouse / MOUSE_DISTANCE);
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(${LINE_COLORS[p.colorIndex]}, ${opacity})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+
+            // "Magnetic" effect
+            if (distMouse > 50) {
+              p.x += dxMouse * 0.02;
+              p.y += dyMouse * 0.02;
+            }
+          }
+
+          // --- Interaction: Connect to Neighbors ---
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx = p.x - p2.x;
+            const dy = p.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < CONNECT_DISTANCE) {
+              const opacity = 1 - (dist / CONNECT_DISTANCE);
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(${LINE_COLORS[p.colorIndex]}, ${opacity * 0.3})`;
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+        }
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    resize();
+    animate();
 
     return () => {
-      cancelAnimationFrame(animationFrame);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', resize);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-slate-950">
-      <canvas ref={canvasRef} className="block w-full h-full" />
-      
-      {/* Atmospheric Layers */}
-      {/* 1. Deep Space Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#020617_100%)] pointer-events-none opacity-80" />
-      
-      {/* 2. Subtle Nebula Clouds (Static but adds depth) */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-tr from-purple-900/20 via-transparent to-cyan-900/10 mix-blend-screen pointer-events-none opacity-60"
+    <div ref={containerRef} className="absolute inset-0 z-0 bg-[#020617] overflow-hidden">
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full block"
+        style={{ width: '100%', height: '100%' }}
       />
-      
-      {/* 3. Horizon Glow */}
-      <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-cyan-900/10 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#020617_100%)] pointer-events-none opacity-60" />
     </div>
   );
 };
-    

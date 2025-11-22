@@ -1,0 +1,62 @@
+ETHAN C. | CX OPERATIONS MANAGER & STRATEGIST
+Location: Kuala Lumpur, Malaysia
+Email: gmeal6889@gmail.com
+LinkedIn: linkedin.com/in/echia6889
+
+PROFESSIONAL PROFILE
+Results-oriented CX Leader with 15+ years of experience managing contact center operations in Hospitality and Logistics. Proven track record of bridging the gap between operational needs and technical solutions. Expert in leading high-performance teams, implementing enterprise software (Zendesk/Salesforce), and driving efficiency through process automation and data analytics.
+
+CORE COMPETENCIES
+- CX Operations Management
+- Digital Transformation & Strategy
+- System Implementation (SaaS/CRM)
+- Process Improvement & Automation
+- Crisis Management & BCP
+- Vendor Management & Cost Control
+- Data Analytics & Reporting
+- Cross-Functional Leadership
+
+TECHNICAL PROFICIENCY
+- Core Platforms: Zendesk, Genesys Cloud, Salesforce, Cisco UCCX
+- Productivity: Google Workspace, Apps Script, Looker Studio
+- Collaboration: Lark, Slack, Microsoft Teams
+- Integration: Zapier, Webhooks, REST API, Postman
+- Hospitality: SiteMinder, Opera PMS, SISTIC
+
+PROFESSIONAL EXPERIENCE
+
+Ninja Van (2024 – Mar 2025) | Shipper Support Manager
+- Managed daily omnichannel operations (Voice, Chat, Email) for high-volume logistics support, maintaining SLAs during peak seasons through effective resource planning.
+- Established a data-driven performance culture (Daily Huddles, Weekly Business Reviews), leading to faster issue resolution and improved accountability.
+- Led cross-functional escalation processes with Operations, Product, and Finance, reducing resolution time for key enterprise shippers.
+- Improved SOPs to reduce friction between departments and strengthened Quality Assurance (QA) governance to ensure compliance.
+- Optimized IVR flows and routing logic to prioritize high-value contacts, improving access for VIP segments.
+- Deployed real-time operational dashboards using Google Looker, replacing manual reporting and enabling faster decision-making.
+
+Klook Travel (2018 – 2022) | CEG System Manager / Operations Manager
+- Designed global routing strategies across all channels to align agent skills with customer tiers, improving resolution efficiency.
+- Reduced misrouted tickets and transfers by refining workflow logic and standardizing the knowledge base structure.
+- Established a governance framework using WBR/MBR insights to drive staffing decisions, coaching, and system improvements.
+- Managed vendor relationships for Telco and CX platforms; optimized licensing and usage to control operational costs.
+- Developed business continuity plans and monitoring systems to ensure minimal disruption during system outages.
+
+Melco Crown Entertainment (2009 – 2017) | Service Quality Manager / Assistant Manager
+- Developed and executed a Quality Assurance framework, ensuring alignment with luxury brand standards and regulatory requirements.
+- Implemented structured coaching cycles that led to measurable improvements in compliance and customer satisfaction (CSAT).
+- Managed Reservations and Ticketing operations, optimizing workforce scheduling to consistently meet service level targets.
+
+EARLY CAREER FOUNDATION
+- Shell Malaysia (2007 – 2009): Support Schedule Lead – Managed 24/7 workforce planning and HSSE compliance.
+- Fifth Media (2005 – 2007): Support Executive – Technical troubleshooting and client demonstrations.
+- Genting Group (2003 – 2005): Team Leader – Supervised call center operations and performance coaching.
+
+KEY PROJECTS & ACHIEVEMENTS
+- Ninja Van Order Automation: Built a Google Sheets + Apps Script solution to automate address and phone validation via API, reducing manual processing by 90%.
+- Klook Zendesk Migration: Led a US$1.18M platform migration, delivering full configuration and global launch within 3 months.
+- Klook Cost Optimization: Audited telephony and license usage, implementing forecasting models that improved budget control.
+- Klook Slack-to-Lark Migration: Managed the communication platform migration for the CX unit, including automated workflows.
+- Melco Center Centralization: Consolidated operations for multiple properties, standardizing SOPs to achieve cost efficiency.
+- Melco Multi-Hotel Pre-Opening: Built the centralized knowledge base and delivered comprehensive product and policy training for new property launches.
+
+LANGUAGES
+English (Native), Cantonese (Native), Mandarin (Intermediate), Bahasa (Intermediate), French (Beginner)

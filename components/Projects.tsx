@@ -1,282 +1,395 @@
 
-import React, { useState, useRef } from 'react';
-import { PROJECTS_DATA } from '../constants';
+import React, { useState, useRef, useMemo } from 'react';
+import { PROJECTS_DATA, TECH_STACK } from '../constants';
 import { GlassCard } from './ui/GlassCard';
-import { Zap, MapPin, Calendar, FolderOpen, FileCode, Layers, ChevronRight, MousePointerClick } from 'lucide-react';
+import { TechLogo } from './ui/TechLogo';
+import { 
+  Folder, 
+  FolderOpen, 
+  FileText, 
+  Terminal, 
+  ChevronRight, 
+  ChevronDown, 
+  Cpu, 
+  Activity, 
+  CheckCircle2,
+  Database,
+  Server
+} from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 
 const Motion = motion as any;
 
+// --- Helper Components ---
+
+const FileTreeItem = ({ 
+  label, 
+  isOpen, 
+  isSelected, 
+  onClick, 
+  type = 'folder',
+  depth = 0
+}: { 
+  label: string, 
+  isOpen?: boolean, 
+  isSelected?: boolean, 
+  onClick: () => void, 
+  type?: 'folder' | 'file',
+  depth?: number
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        w-full flex items-center gap-2 py-2 px-3 rounded-sm transition-all duration-200 group relative
+        ${isSelected 
+          ? 'bg-cyan-500/10 text-cyan-400' 
+          : 'text-slate-500 hover:text-slate-300 hover:bg-slate-900/30'}
+      `}
+      style={{ paddingLeft: `${depth * 16 + 12}px` }}
+    >
+      {/* Tree Line Guide */}
+      {depth > 0 && (
+        <div className="absolute left-[18px] top-0 bottom-0 w-px bg-slate-800/50" />
+      )}
+      
+      {/* Icon */}
+      <div className={`shrink-0 relative z-10 ${isSelected ? 'text-cyan-400' : 'text-slate-600 group-hover:text-slate-400'}`}>
+        {type === 'folder' ? (
+          isOpen ? <FolderOpen size={14} /> : <Folder size={14} />
+        ) : (
+          <FileText size={14} />
+        )}
+      </div>
+
+      {/* Label */}
+      <span className={`text-xs font-mono truncate relative z-10 ${isSelected ? 'font-bold' : ''}`}>
+        {label}
+      </span>
+
+      {/* Active Indicator */}
+      {isSelected && (
+        <Motion.div 
+          layoutId="activeFile"
+          className="absolute left-0 w-[2px] top-0 bottom-0 bg-cyan-500 shadow-[0_0_8px_cyan]" 
+        />
+      )}
+    </button>
+  );
+};
+
 const Projects: React.FC = () => {
-  const companies = Array.from(new Set(PROJECTS_DATA.map(p => p.company)));
-  
-  const [selectedCompany, setSelectedCompany] = useState<string>(companies[0]);
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [openCompanies, setOpenCompanies] = useState<Record<string, boolean>>({});
+  const [selectedProjectId, setSelectedProjectId] = useState<string>(PROJECTS_DATA[0].id);
 
-  // Derived state
-  const companyProjects = PROJECTS_DATA.filter(p => p.company === selectedCompany);
-  const activeProject = selectedProjectId 
-    ? companyProjects.find(p => p.id === selectedProjectId) || companyProjects[0]
-    : companyProjects[0];
+  // Group projects by company
+  const projectTree = useMemo(() => {
+    const tree: Record<string, typeof PROJECTS_DATA> = {};
+    PROJECTS_DATA.forEach(p => {
+      if (!tree[p.company]) tree[p.company] = [];
+      tree[p.company].push(p);
+    });
+    // Initialize all folders as open
+    const initialOpen: Record<string, boolean> = {};
+    Object.keys(tree).forEach(c => initialOpen[c] = true);
+    if (Object.keys(openCompanies).length === 0) setOpenCompanies(initialOpen);
+    
+    return tree;
+  }, []);
 
-  // Dynamic Color Selection based on Project Index for variety
-  // Maps index 0->Cyan, 1->Blue, 2->Purple loop
-  const getProjectColor = (id: string) => {
-      const index = PROJECTS_DATA.findIndex(p => p.id === id);
-      const colors = ['cyan', 'blue', 'purple'];
-      return colors[index % colors.length] || 'cyan';
+  const activeProject = PROJECTS_DATA.find(p => p.id === selectedProjectId) || PROJECTS_DATA[0];
+
+  const toggleCompany = (company: string) => {
+    setOpenCompanies(prev => ({ ...prev, [company]: !prev[company] }));
   };
 
-  const activeColor = getProjectColor(activeProject.id);
-
-  const handleCompanyChange = (company: string) => {
-    setSelectedCompany(company);
-    setSelectedProjectId(null); // Reset to first project of new company
-  };
+  // Find Tech Stack Logos for active project
+  const activeTechStack = useMemo(() => {
+    return activeProject.tech.map(techName => {
+      // Fuzzy match or direct match with TECH_STACK constants
+      const found = TECH_STACK.find(t => 
+        t.name.toLowerCase() === techName.toLowerCase() || 
+        t.name.toLowerCase().includes(techName.toLowerCase())
+      );
+      return { name: techName, logo: found?.logo, localLogo: found?.localLogo };
+    });
+  }, [activeProject]);
 
   const containerRef = useRef<HTMLElement>(null);
-
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  const KEYPOINTS = [0, 0.3, 0.8, 1];
-  const opacity = useTransform(scrollYProgress, KEYPOINTS, [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, KEYPOINTS, [0.9, 1, 1, 0.95]);
-  const leftColX = useTransform(scrollYProgress, KEYPOINTS, [-150, 0, 0, -150]);
-  const rightColX = useTransform(scrollYProgress, KEYPOINTS, [150, 0, 0, 150]);
-  const blurEffect = useTransform(scrollYProgress, KEYPOINTS, ["10px", "0px", "0px", "10px"]);
-
-  const springConfig = { stiffness: 40, damping: 15, mass: 1.2 };
-  const smoothOpacity = useSpring(opacity, springConfig);
-  const smoothScale = useSpring(scale, springConfig);
-  const smoothLeft = useSpring(leftColX, springConfig);
-  const smoothRight = useSpring(rightColX, springConfig);
-  const smoothBlur = useSpring(blurEffect, springConfig);
+  const smoothOpacity = useSpring(useTransform(scrollYProgress, [0, 0.2], [0, 1]), { stiffness: 50, damping: 20 });
+  const smoothY = useSpring(useTransform(scrollYProgress, [0, 0.2], [50, 0]), { stiffness: 50, damping: 20 });
 
   return (
     <Motion.section 
       id="projects" 
       ref={containerRef}
-      style={{ opacity: smoothOpacity, scale: smoothScale }}
-      className="bg-slate-950 relative border-t border-slate-900 overflow-hidden min-h-screen py-48 md:py-96"
+      style={{ opacity: smoothOpacity, y: smoothY }}
+      className="bg-[#030712] relative border-t border-slate-900 overflow-hidden min-h-screen py-32 md:py-48"
     >
-       <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
+       {/* === BACKGROUND: Blueprint Grid === */}
+       <div className="absolute inset-0 pointer-events-none z-0">
+          <div 
+             className="absolute inset-0 opacity-[0.08]"
+             style={{
+                backgroundImage: `linear-gradient(#334155 1px, transparent 1px), linear-gradient(90deg, #334155 1px, transparent 1px)`,
+                backgroundSize: '40px 40px'
+             }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#030712] via-transparent to-[#030712]" />
+       </div>
+
+       <div className="max-w-[1300px] mx-auto px-6 md:px-12 relative z-10">
         
-        {/* Section Header */}
-        <Motion.div 
-           style={{ y: useTransform(scrollYProgress, [0, 0.3], [50, 0]) }}
-           className="mb-14 md:mb-20"
-        >
-           <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase mb-4">05. CASE_STUDIES</h2>
-           <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">Key Projects</h3>
-        </Motion.div>
+        {/* Header */}
+        <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+             <div className="flex items-center gap-3 mb-4">
+                 <div className="h-px w-8 bg-cyan-500/50"></div>
+                 <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase">05. ARCHIVE</h2>
+             </div>
+             <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+               Operational <span className="text-slate-500">Case Studies</span>
+             </h3>
+          </div>
+          <div className="hidden md:block text-right">
+             <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">System Status</div>
+             <div className="flex items-center justify-end gap-2 text-emerald-400 text-xs font-mono font-bold">
+               <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                ALL_SYSTEMS_OPTIMAL
+             </div>
+          </div>
+        </div>
 
-        {/* Intro Description */}
-        <Motion.div 
-           style={{ opacity: smoothOpacity }}
-           className="mb-12 max-w-3xl"
-        >
-           <p className="text-slate-400 text-sm md:text-base leading-loose">
-              Solving specific operational problems with better processes and automation. Below is a selection of key initiatives where I leveraged <span className="text-white font-bold">technology and process re-engineering</span> to deliver measurable improvements.
-           </p>
-        </Motion.div>
-
-        <div className="grid md:grid-cols-12 gap-8 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch min-h-[600px]">
            
-           {/* LEFT COLUMN: Directory */}
-           <Motion.div 
-              style={{ x: smoothLeft, filter: smoothBlur }}
-              className="md:col-span-4 lg:col-span-3 relative"
-           >
-              {/* Sticky wrapper */}
-              <div className="sticky top-32">
-                 <h4 className="text-[10px] font-mono text-cyan-500 uppercase tracking-widest mb-4 flex items-center gap-2 pl-1">
-                    <FolderOpen size={12} /> Project List
-                 </h4>
+           {/* LEFT COLUMN: File Directory */}
+           <div className="lg:col-span-3 flex flex-col">
+              <div className="bg-slate-950/50 border border-slate-800 rounded-lg overflow-hidden flex flex-col h-full backdrop-blur-sm">
+                 {/* Terminal Header */}
+                 <div className="h-9 bg-slate-900 border-b border-slate-800 flex items-center px-3 gap-2">
+                    <div className="flex gap-1.5">
+                       <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
+                       <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
+                    </div>
+                    <span className="text-[10px] font-mono text-slate-500 ml-2 flex items-center gap-1">
+                       <Terminal size={10} /> root/projects
+                    </span>
+                 </div>
                  
-                 <div className="space-y-2">
-                   {companies.map((company, index) => {
-                     const companyInfo = PROJECTS_DATA.find(p => p.company === company);
-                     const isSelected = selectedCompany === company;
-                     return (
-                       <button
-                         key={company}
-                         onClick={() => handleCompanyChange(company)}
-                         className={`
-                           w-full text-left p-4 rounded border transition-all duration-300 group relative overflow-hidden
-                           ${isSelected 
-                             ? 'bg-slate-900/80 border-cyan-500/50 text-white shadow-[0_0_15px_rgba(34,211,238,0.1)]' 
-                             : 'bg-slate-900/20 border-slate-800/50 text-slate-400 hover:border-slate-700'}
-                         `}
-                       >
-                         {/* Bottom Line Animation - Consistent with Resume CTA */}
-                         {!isSelected && (
-                            <>
-                               <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-cyan-500 to-blue-500 w-0 group-hover:w-full transition-all duration-500 ease-out"></div>
-                               <div className="absolute inset-0 bg-slate-800/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            </>
-                         )}
+                 {/* File Tree */}
+                 <div className="p-2 overflow-y-auto flex-1 custom-scrollbar">
+                    <div className="text-[10px] font-mono text-slate-600 mb-2 px-2 uppercase tracking-wider">Directory Listing</div>
+                    
+                    {/* Root Folder */}
+                    <div className="pb-2">
+                       {Object.entries(projectTree).map(([company, projects]) => (
+                          <div key={company} className="mb-1">
+                             <FileTreeItem 
+                                label={company.toUpperCase().replace(/\s/g, '_')}
+                                type="folder"
+                                isOpen={openCompanies[company]}
+                                onClick={() => toggleCompany(company)}
+                                isSelected={false}
+                                depth={0}
+                             />
+                             
+                             <AnimatePresence>
+                               {openCompanies[company] && (
+                                  <Motion.div
+                                     initial={{ height: 0, opacity: 0 }}
+                                     animate={{ height: 'auto', opacity: 1 }}
+                                     exit={{ height: 0, opacity: 0 }}
+                                     className="overflow-hidden"
+                                  >
+                                     <div className="flex flex-col border-l border-slate-800/50 ml-[19px]">
+                                       {projects.map(project => (
+                                          <FileTreeItem 
+                                             key={project.id}
+                                             label={`${project.title.replace(/\s/g, '_')}.log`}
+                                             type="file"
+                                             isSelected={selectedProjectId === project.id}
+                                             onClick={() => setSelectedProjectId(project.id)}
+                                             depth={1}
+                                          />
+                                       ))}
+                                     </div>
+                                  </Motion.div>
+                               )}
+                             </AnimatePresence>
+                          </div>
+                       ))}
+                    </div>
+                 </div>
 
-                         {isSelected && (
-                            <Motion.div 
-                              layoutId="activeIndicator"
-                              className="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500 shadow-[0_0_10px_cyan] z-20"
-                            />
-                         )}
-
-                         <div className="relative z-10 pl-3">
-                           <span className={`font-display font-bold text-xs uppercase tracking-wider block mb-2 ${isSelected ? 'text-cyan-100' : 'group-hover:text-slate-200'}`}>
-                              {company}
-                           </span>
-                           
-                           <div className="flex flex-col gap-1.5">
-                              <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 group-hover:text-slate-400 transition-colors">
-                                 <MapPin size={10} className={isSelected ? 'text-cyan-500' : ''} />
-                                 {companyInfo?.location}
-                              </div>
-                              <div className="flex items-center gap-2 text-[10px] font-mono text-slate-500 group-hover:text-slate-400 transition-colors">
-                                 <Calendar size={10} className={isSelected ? 'text-cyan-500' : ''} />
-                                 {companyInfo?.period}
-                              </div>
-                           </div>
-                         </div>
-                       </button>
-                     );
-                   })}
+                 {/* Footer Info */}
+                 <div className="p-3 border-t border-slate-800 bg-slate-900/30 text-[9px] font-mono text-slate-500">
+                    {Object.values(projectTree).flat().length} FILES FOUND <br/>
+                    LAST_INDEX: {new Date().toLocaleDateString()}
                  </div>
               </div>
-           </Motion.div>
+           </div>
 
-           {/* RIGHT COLUMN: Viewer */}
-           <Motion.div 
-              style={{ x: smoothRight, filter: smoothBlur }}
-              className="md:col-span-8 lg:col-span-9 flex flex-col"
-           >
-              
-              {/* Project Tabs */}
-              <div className="mb-8">
-                  <div className="flex items-center gap-2 mb-3 pl-1">
-                      <MousePointerClick size={12} className={`text-${activeColor}-500 animate-bounce`} />
-                      <h4 className={`text-[10px] font-mono text-${activeColor}-500 uppercase tracking-widest`}>Select Project:</h4>
-                  </div>
+           {/* RIGHT COLUMN: Mission Log Display */}
+           <div className="lg:col-span-9">
+              <AnimatePresence mode='wait'>
+                 <Motion.div
+                    key={activeProject.id}
+                    initial={{ opacity: 0, scale: 0.98, filter: "blur(4px)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, scale: 0.98, filter: "blur(4px)" }}
+                    transition={{ duration: 0.4, ease: "circOut" }}
+                    className="h-full"
+                 >
+                    <GlassCard className="h-full p-0 border-slate-800 bg-[#0f172a]/80 relative overflow-hidden flex flex-col group">
+                       
+                       {/* Decorative HUD Corners */}
+                       <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-cyan-500/30 rounded-tl-lg z-20 pointer-events-none"></div>
+                       <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-cyan-500/30 rounded-tr-lg z-20 pointer-events-none"></div>
+                       <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-cyan-500/30 rounded-bl-lg z-20 pointer-events-none"></div>
+                       <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-cyan-500/30 rounded-br-lg z-20 pointer-events-none"></div>
 
-                  <div className="flex flex-wrap gap-3">
-                      {companyProjects.map((project, index) => {
-                          const isActive = activeProject.id === project.id;
-                          const pColor = getProjectColor(project.id);
-                          return (
-                              <Motion.button
-                                  key={project.id}
-                                  initial={{ opacity: 0, y: 10 }}
-                                  whileInView={{ opacity: 1, y: 0 }}
-                                  viewport={{ once: true }}
-                                  transition={{ delay: 0.1 + (index * 0.05) }}
-                                  onClick={() => setSelectedProjectId(project.id)}
-                                  className={`
-                                      flex items-center gap-4 px-5 py-4 rounded border transition-all duration-300 group relative overflow-hidden flex-1 md:flex-none min-w-[160px]
-                                      ${isActive 
-                                          ? `bg-${pColor}-500/10 border-${pColor}-500 text-white shadow-[0_0_20px_rgba(0,0,0,0.3)]` 
-                                          : 'bg-slate-900 border-slate-800 text-slate-500 hover:border-slate-600 hover:text-slate-300'}
-                                  `}
-                              >
-                                  {/* Bottom Line Animation */}
-                                  {!isActive && (
-                                     <>
-                                        <div className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-${pColor}-500 to-white w-0 group-hover:w-full transition-all duration-500 ease-out`}></div>
-                                        <div className={`absolute inset-0 bg-${pColor}-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                                     </>
-                                  )}
+                       {/* Header Bar */}
+                       <div className="px-6 md:px-10 py-6 border-b border-slate-800/50 bg-slate-950/30 flex flex-col md:flex-row justify-between gap-4 relative z-10">
+                          <div>
+                             <div className="flex items-center gap-3 mb-2">
+                                <span className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-mono font-bold uppercase tracking-wider">
+                                   {activeProject.category}
+                                </span>
+                                <span className="text-[10px] font-mono text-slate-500">
+                                   ID: {activeProject.id.toUpperCase()}
+                                </span>
+                             </div>
+                             <h2 className="text-2xl md:text-3xl font-display font-bold text-white">
+                                {activeProject.title}
+                             </h2>
+                          </div>
+                          <div className="flex items-center gap-4">
+                             <div className="text-right hidden md:block">
+                                <div className="text-sm font-bold text-slate-300">{activeProject.company}</div>
+                                <div className="text-[10px] font-mono text-slate-500">{activeProject.period}</div>
+                             </div>
+                             
+                             {/* Status Badge - Replaces Play Button */}
+                             <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-900/80 border border-slate-700/50 shadow-inner">
+                                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_5px_#10b981]"></div>
+                                 <span className="text-[10px] font-mono font-bold text-emerald-500/90 uppercase tracking-widest">Status: Deployed</span>
+                             </div>
+                          </div>
+                       </div>
 
-                                  {/* Active Indicator Dot */}
-                                  <div className={`w-2 h-2 rounded-full transition-colors shrink-0 relative z-10 ${isActive ? `bg-${pColor}-400 shadow-[0_0_5px_${pColor}] animate-pulse` : 'bg-slate-700 group-hover:bg-slate-600'}`}></div>
-                                  
-                                  <div className="flex flex-col items-start text-left relative z-10">
-                                      <span className={`text-[9px] font-mono uppercase tracking-widest mb-1 ${isActive ? `text-${pColor}-300` : 'opacity-60'}`}>
-                                        CASE_{String(index + 1).padStart(2, '0')}
-                                      </span>
-                                      <span className={`text-xs font-bold font-display tracking-wide ${isActive ? 'text-white' : ''}`}>
-                                        {project.title}
-                                      </span>
-                                  </div>
-                              </Motion.button>
-                          );
-                      })}
-                  </div>
-              </div>
-
-              {/* Active Project Card */}
-              <div className="relative">
-                 <AnimatePresence mode='wait'>
-                     <Motion.div
-                       key={activeProject.id}
-                       initial={{ opacity: 0, x: 50, filter: "blur(5px)" }}
-                       animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                       exit={{ opacity: 0, x: -50, filter: "blur(5px)" }}
-                       transition={{ duration: 0.3, ease: "easeOut" }}
-                     >
-                       <GlassCard className={`group p-0 overflow-hidden border-slate-800 bg-slate-900/40 flex flex-col shadow-2xl hover:border-${activeColor}-500/30 transition-colors duration-500`}>
+                       {/* Body Content */}
+                       <div className="p-6 md:p-10 grid md:grid-cols-3 gap-10 flex-grow relative z-10">
                           
-                          {/* Card Header */}
-                          <div className="px-6 py-5 border-b border-slate-800/50 bg-slate-950/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                             <div className="flex items-center gap-4">
-                                <div className={`p-2.5 rounded bg-${activeColor}-500/10 text-${activeColor}-400 border border-${activeColor}-500/20 shrink-0 shadow-[0_0_10px_rgba(0,0,0,0.15)]`}>
-                                   <FileCode size={20} />
+                          {/* Main Description & Stack */}
+                          <div className="md:col-span-2 flex flex-col gap-8">
+                             <div>
+                                <h4 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                   <Activity size={14} /> Mission Objective
+                                </h4>
+                                <p className="text-slate-300 text-sm leading-relaxed font-light border-l-2 border-slate-800 pl-4">
+                                   {activeProject.description}
+                                </p>
+                             </div>
+
+                             {/* Tech Stack Visualization */}
+                             <div>
+                                <h4 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                   <Cpu size={14} /> System Configuration
+                                </h4>
+                                <div className="flex flex-wrap gap-3">
+                                   {activeTechStack.map((tech, idx) => (
+                                      <Motion.div
+                                         key={idx}
+                                         initial={{ opacity: 0, scale: 0.8 }}
+                                         animate={{ opacity: 1, scale: 1 }}
+                                         transition={{ delay: 0.2 + idx * 0.1 }}
+                                         className="group/tech relative"
+                                      >
+                                         <div className="p-2 rounded bg-slate-900 border border-slate-800 flex items-center gap-2 hover:border-cyan-500/30 transition-colors">
+                                            <div className="w-4 h-4 relative">
+                                               {tech.logo || tech.localLogo ? (
+                                                  <TechLogo 
+                                                     name={tech.name}
+                                                     logo={tech.logo || ''}
+                                                     localLogo={tech.localLogo || ''}
+                                                     className="w-full h-full object-contain opacity-70 group-hover/tech:opacity-100 grayscale group-hover/tech:grayscale-0 transition-all"
+                                                  />
+                                               ) : (
+                                                  <Server size={14} className="text-slate-500" />
+                                               )}
+                                            </div>
+                                            <span className="text-[10px] font-mono text-slate-400 group-hover/tech:text-cyan-300 transition-colors">
+                                               {tech.name}
+                                            </span>
+                                         </div>
+                                      </Motion.div>
+                                   ))}
                                 </div>
-                                <div>
-                                   <h4 className="text-lg md:text-xl font-bold text-white font-display tracking-tight">
-                                     {activeProject.title}
-                                   </h4>
-                                   <div className="flex items-center gap-2 mt-1">
-                                      <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">
-                                        ID: {activeProject.id.toUpperCase()}
-                                      </span>
-                                      <span className="w-1 h-1 bg-slate-700 rounded-full"></span>
-                                      <span className={`text-[9px] font-mono text-${activeColor}-400 uppercase tracking-widest`}>
-                                        {activeProject.category}
-                                      </span>
+                             </div>
+                          </div>
+
+                          {/* Metrics Dashboard */}
+                          <div className="md:col-span-1 bg-slate-950/50 rounded border border-slate-800 p-5 flex flex-col gap-4 relative overflow-hidden">
+                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.05),transparent_50%)] pointer-events-none"></div>
+                             
+                             <h4 className="text-xs font-mono font-bold text-cyan-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                                <Database size={14} /> Impact Analysis
+                             </h4>
+                             
+                             <div className="space-y-4">
+                                {activeProject.metrics.map((metric, i) => (
+                                   <div key={`${activeProject.id}-metric-${i}`} className="relative">
+                                      <div className="text-[10px] font-mono text-slate-500 mb-1 uppercase tracking-wider">Metric 0{i+1}</div>
+                                      <Motion.div 
+                                         initial={{ opacity: 0, x: -20 }}
+                                         animate={{ opacity: 1, x: 0 }}
+                                         transition={{ delay: 0.4 + i * 0.2, type: "spring" }}
+                                         className="flex items-start gap-3"
+                                      >
+                                         <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                                         <span className="text-sm font-bold text-white leading-tight">
+                                            {metric}
+                                         </span>
+                                      </Motion.div>
+                                      {/* Animated Line */}
+                                      <Motion.div 
+                                         initial={{ width: 0 }}
+                                         animate={{ width: '100%' }}
+                                         transition={{ delay: 0.6 + i * 0.2, duration: 0.8 }}
+                                         className="h-px bg-gradient-to-r from-emerald-500/50 to-transparent mt-3"
+                                      />
                                    </div>
+                                ))}
+                             </div>
+
+                             <div className="mt-auto pt-4 border-t border-slate-800">
+                                <div className="flex justify-between items-center text-[9px] font-mono text-slate-600">
+                                   <span>VALIDATION:</span>
+                                   <span className="text-emerald-500">CONFIRMED</span>
                                 </div>
                              </div>
                           </div>
+                       </div>
 
-                          {/* Card Body */}
-                          <div className="p-6 md:p-8 flex flex-col gap-8">
-                             <div className="grid lg:grid-cols-3 gap-8">
-                                 {/* Operational Scope */}
-                                 <div className="lg:col-span-2 space-y-3">
-                                    <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                                      <Layers size={12} /> Scope of Work
-                                    </h5>
-                                    <p className="text-slate-300 text-sm leading-relaxed">
-                                      {activeProject.description}
-                                    </p>
-                                 </div>
-
-                                 {/* Performance Delta (Metrics) */}
-                                 <div className="lg:col-span-1">
-                                    <div className={`bg-slate-950/50 rounded border border-slate-800/50 p-5 h-full hover:border-${activeColor}-500/30 transition-colors`}>
-                                        <h5 className={`text-[10px] font-bold text-${activeColor}-500 uppercase tracking-widest mb-4 flex items-center gap-2`}>
-                                           <Zap size={12} /> Results
-                                        </h5>
-                                        <ul className="space-y-3">
-                                           {activeProject.metrics.map((metric, i) => (
-                                             <li key={i} className="text-xs text-slate-200 flex items-start gap-3 font-mono group/metric">
-                                                <ChevronRight size={12} className={`mt-0.5 text-${activeColor}-500/50 group-hover/metric:text-${activeColor}-400 transition-colors`} />
-                                                {metric}
-                                             </li>
-                                           ))}
-                                        </ul>
-                                    </div>
-                                 </div>
-                             </div>
-                          </div>
-                       </GlassCard>
-                     </Motion.div>
-                 </AnimatePresence>
-              </div>
-           </Motion.div>
+                       {/* Scanning Line Effect */}
+                       <Motion.div
+                          initial={{ top: 0, opacity: 0 }}
+                          animate={{ top: '100%', opacity: [0, 0.5, 0] }}
+                          transition={{ duration: 2, ease: "linear" }}
+                          className="absolute left-0 right-0 h-px bg-cyan-400 shadow-[0_0_10px_cyan] z-30 pointer-events-none"
+                       />
+                    </GlassCard>
+                 </Motion.div>
+              </AnimatePresence>
+           </div>
         </div>
        </div>
     </Motion.section>

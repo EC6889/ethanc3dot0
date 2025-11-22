@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS, RESUME_CONTENT } from '../constants';
-import { Menu, X, Hexagon, FileText, ChevronRight } from 'lucide-react';
+import { Menu, X, Hexagon, FileText } from 'lucide-react';
 import { jsPDF } from "jspdf";
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
@@ -93,40 +93,43 @@ const Navbar: React.FC = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "circOut" }}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b
           ${isScrolled 
-            ? 'h-[72px] bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 shadow-[0_4px_30px_rgba(0,0,0,0.5)]' 
-            : 'h-[96px] bg-transparent border-b border-transparent'
+            ? 'h-[70px] bg-slate-950/90 backdrop-blur-md border-cyan-900/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]' 
+            : 'h-[90px] bg-transparent border-transparent'
           }
         `}
       >
-        {/* Scroll Progress Line */}
-        <Motion.div 
-          className="absolute bottom-0 left-0 h-[1px] bg-cyan-500 origin-left shadow-[0_0_10px_cyan]"
-          style={{ scaleX }}
-        />
+        {/* Tech Decoration Lines */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-900/50 to-transparent opacity-50"></div>
+
+        {/* Scroll Progress Line - Styled as Data Stream */}
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-slate-800/50">
+             <Motion.div 
+              className="h-full bg-cyan-500 shadow-[0_0_10px_cyan]"
+              style={{ scaleX, transformOrigin: "0%" }}
+            />
+        </div>
 
         <div className="max-w-[1400px] mx-auto px-6 md:px-8 flex items-center justify-between w-full h-full relative">
           
-          {/* Logo Section - Dynamic Group */}
+          {/* Logo Section */}
           <a 
             href="#home" 
             onClick={(e) => scrollToSection(e, '#home')}
-            className="flex items-center gap-3 group relative py-2 pr-4 z-20"
+            className="flex items-center gap-3 group"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-cyan-500/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <Motion.div 
-                whileHover={{ rotate: 90 }}
-                transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                className="relative bg-slate-900 border border-slate-700 rounded-lg p-2 group-hover:border-cyan-500/50 transition-colors"
-              >
-                 <Hexagon className="w-6 h-6 text-cyan-500" />
-              </Motion.div>
+            <div className="relative w-10 h-10 flex items-center justify-center bg-slate-900/50 border border-slate-700 group-hover:border-cyan-500/50 transition-colors rounded-sm overflow-hidden">
+               <div className="absolute inset-0 bg-cyan-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+               <Hexagon className="w-5 h-5 text-cyan-500 relative z-10 group-hover:rotate-90 transition-transform duration-500" strokeWidth={1.5} />
             </div>
             <div className="flex flex-col">
-               <span className="text-lg font-display font-bold text-white tracking-tight group-hover:text-cyan-400 transition-colors">ETHAN C.</span>
-               <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-cyan-500/70 transition-colors">Ops Architect</span>
+               <span className="text-base font-display font-bold text-white tracking-tight leading-none group-hover:text-cyan-400 transition-colors">
+                 ETHAN C.
+               </span>
+               <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-cyan-500/70 transition-colors mt-1">
+                 // Ops_Architect
+               </span>
             </div>
           </a>
 
@@ -141,50 +144,56 @@ const Navbar: React.FC = () => {
                       onClick={(e) => scrollToSection(e, link.href)}
                       onMouseEnter={() => setHoveredTab(link.label)}
                       onMouseLeave={() => setHoveredTab(null)}
-                      className={`relative px-4 py-2 text-xs font-mono font-bold uppercase tracking-widest transition-colors duration-300 ${isActive ? 'text-white' : 'text-slate-400 hover:text-white'}`}
+                      className={`
+                        relative px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.15em] transition-colors duration-300
+                        ${isActive ? 'text-cyan-400' : 'text-slate-400 hover:text-slate-200'}
+                      `}
                    >
+                      {/* Active Indicator: Brackets */}
+                      <span className="relative z-10 flex items-center gap-1">
+                        <span className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-cyan-600' : 'opacity-0'}`}>[</span>
+                        {link.label}
+                        <span className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-cyan-600' : 'opacity-0'}`}>]</span>
+                      </span>
+
+                      {/* Background Glow for Active */}
                       {isActive && (
                          <Motion.div 
                             layoutId="activeTab"
-                            className="absolute inset-0 bg-slate-800/50 rounded border border-slate-700/50"
+                            className="absolute inset-0 bg-cyan-500/5 border-b border-cyan-500/50"
                             transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                          />
                       )}
-                      {hoveredTab === link.label && !isActive && (
-                          <Motion.div 
-                            layoutId="hoverTab"
-                            className="absolute inset-0 bg-slate-800/20 rounded"
-                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                         />
-                      )}
-                      <span className="relative z-10">{link.label}</span>
                    </a>
                 );
              })}
 
+             {/* Divider */}
+             <div className="h-6 w-px bg-slate-800 mx-4"></div>
+
              {/* Resume Button */}
              <button 
                onClick={handleResumeDownload}
-               className="ml-4 group relative px-5 py-2.5 bg-slate-900 text-white font-mono text-xs font-bold uppercase tracking-wider border border-slate-700 rounded overflow-hidden hover:border-cyan-500/50 transition-colors"
+               className="group relative px-5 py-2 bg-slate-900/50 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest border border-slate-700 hover:border-cyan-500/50 hover:text-cyan-400 transition-all overflow-hidden"
              >
-                <div className="absolute inset-0 w-full h-full bg-cyan-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-cyan-500/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
                 <span className="relative z-10 flex items-center gap-2">
-                   <FileText size={14} className="text-cyan-500" /> Resume
+                   <FileText size={12} /> RESUME_V3.0
                 </span>
              </button>
           </div>
 
           {/* Mobile Menu Toggle */}
           <button 
-            className="md:hidden relative z-50 p-2 text-slate-300 hover:text-white"
+            className="md:hidden group p-2 text-slate-400 hover:text-cyan-400 border border-transparent hover:border-slate-800 transition-all bg-slate-900/50"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </Motion.nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Sci-Fi Style */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <Motion.div
@@ -192,31 +201,47 @@ const Navbar: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed inset-0 z-40 bg-slate-950/95 backdrop-blur-xl md:hidden flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-slate-950 md:hidden flex flex-col"
           >
-             <div className="flex flex-col items-center gap-8">
+             {/* Mobile Menu Header */}
+             <div className="h-[70px] border-b border-slate-800 flex items-center justify-between px-6">
+                <span className="text-xs font-mono text-cyan-500">// NAVIGATION_PROTOCOL</span>
+                <button onClick={() => setMobileMenuOpen(false)} className="text-slate-400 hover:text-white">
+                   <X size={24} />
+                </button>
+             </div>
+
+             {/* Background Grid */}
+             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" 
+                  style={{ backgroundImage: 'linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+             />
+
+             <div className="flex flex-col items-start justify-center flex-1 px-8 gap-6 relative z-10">
                 {NAV_LINKS.map((link, i) => (
                    <Motion.a
                       key={link.label}
                       href={link.href}
                       onClick={(e: React.MouseEvent<HTMLAnchorElement>) => scrollToSection(e, link.href)}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + i * 0.1 }}
-                      className={`text-2xl font-display font-bold tracking-tight ${activeSection === link.href.substring(1) ? 'text-cyan-400' : 'text-white'}`}
+                      className={`text-3xl font-display font-bold tracking-tight flex items-center gap-4 group ${activeSection === link.href.substring(1) ? 'text-cyan-400' : 'text-slate-500'}`}
                    >
+                      <span className="text-sm font-mono text-slate-700 group-hover:text-cyan-500/50 transition-colors">0{i+1}</span>
                       {link.label}
                    </Motion.a>
                 ))}
+
+                <div className="w-full h-px bg-slate-800 my-4"></div>
 
                 <Motion.button 
                    initial={{ opacity: 0, y: 20 }}
                    animate={{ opacity: 1, y: 0 }}
                    transition={{ delay: 0.5 }}
                    onClick={handleResumeDownload}
-                   className="mt-8 flex items-center gap-2 px-8 py-3 bg-cyan-500 text-slate-950 font-bold font-mono uppercase tracking-widest rounded hover:bg-cyan-400"
+                   className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-cyan-900/20 border border-cyan-500/30 text-cyan-400 font-bold font-mono uppercase tracking-widest hover:bg-cyan-500/10 transition-colors"
                 >
-                   <FileText size={16} /> Download Resume
+                   <FileText size={16} /> ACCESS_RESUME_FILE
                 </Motion.button>
              </div>
           </Motion.div>

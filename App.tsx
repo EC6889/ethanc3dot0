@@ -23,15 +23,14 @@ function App() {
       </main>
       <Footer />
       
-      {/* Global Background: Clean, High-Contrast Tech Grid */}
-      {/* Replaces the muddy colored blobs with a crisp, monochromatic texture */}
+      {/* Global Background: Reduced opacity to allow section-specific backgrounds to be visible */}
       <div className="fixed inset-0 pointer-events-none z-0 bg-[#030712]">
-         {/* Subtle Dot Matrix Pattern */}
+         {/* Very subtle noise texture for coherence */}
          <div 
-            className="absolute inset-0 opacity-[0.15]"
+            className="absolute inset-0 opacity-[0.03]"
             style={{
-              backgroundImage: 'radial-gradient(#334155 1px, transparent 1px)',
-              backgroundSize: '32px 32px'
+              backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)',
+              backgroundSize: '40px 40px'
             }}
          ></div>
          

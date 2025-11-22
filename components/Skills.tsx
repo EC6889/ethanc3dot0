@@ -3,25 +3,60 @@ import React, { useEffect, useState, useRef } from 'react';
 import { TECH_STACK } from '../constants';
 import { GlassCard } from './ui/GlassCard';
 import { TechLogo } from './ui/TechLogo';
-import { Zap, Layers, Database, Cpu, Command, Workflow, ShieldCheck } from 'lucide-react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { Layers, Database, Cpu, Command, Workflow, ShieldCheck, Code } from 'lucide-react';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 
 const Motion = motion as any;
+
+// Define relationships between specific tools (Left) and skills (Right)
+const RELATIONSHIPS: Record<string, string[]> = {
+  // Tech Name (Must match TECH_STACK names exactly) : [Skill Keywords]
+  'Zendesk': ['Omnichannel Routing', 'SOP Development', 'Journey Mapping'],
+  'Salesforce': ['Journey Mapping', 'Real-time Dashboards', 'Access Governance'],
+  'Genesys': ['Omnichannel Routing', 'Capacity Planning', 'Voice of Customer (VoC)'],
+  'Cisco UCCX': ['Capacity Planning', 'Voice of Customer (VoC)'],
+  'Zapier': ['Workflow Automation', 'API Integration'],
+  'Webhook': ['API Integration', 'System Migration'],
+  'REST API': ['API Integration', 'System Migration', 'Schema Design'],
+  'Google Apps Script': ['Workflow Automation', 'SOP Development'],
+  'Google Looker': ['Real-time Dashboards', 'Forecasting'],
+  'Google Workspace': ['SOP Development', 'Access Governance'],
+  'Lark': ['Workflow Automation', 'Crisis Response'],
+  'Slack': ['Crisis Response', 'Business Continuity'],
+  'SiteMinder': ['Schema Design', 'API Integration'],
+  'SISTIC': ['Capacity Planning']
+};
 
 const Skills: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   
   const containerRef = useRef<HTMLElement>(null);
+  const techRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const moduleRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  // Section Lifecycle Animation:
-  // Controls the global Opacity/Scale of the entire section based on scroll position
+  const [activeHighlight, setActiveHighlight] = useState<{
+    type: 'tech' | 'module';
+    id: string; // Name of the tech or the module title
+    related: string[]; // List of related IDs (tech names or module titles)
+  } | null>(null);
+
+  const [lines, setLines] = useState<{
+    id: string; 
+    d: string; 
+    startColor: string; 
+    endColor: string;
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+  }[]>([]);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  // Map scroll range to opacity/scale
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.7, 0.9], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.7, 0.9], [0.95, 1, 1, 0.95]);
   const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [50, 0, 0, -50]);
@@ -30,7 +65,8 @@ const Skills: React.FC = () => {
   const smoothScale = useSpring(scale, { stiffness: 100, damping: 20 });
   const smoothY = useSpring(y, { stiffness: 100, damping: 20 });
 
-  // Categorize Tech Stack for "Infrastructure Layer"
+  // --- Data Definitions ---
+
   const techCategories = [
     {
       id: 'core',
@@ -59,14 +95,13 @@ const Skills: React.FC = () => {
     {
       id: 'collab',
       label: 'Ecosystem',
-      color: 'text-slate-400',
-      bg: 'bg-slate-800/50',
-      border: 'border-slate-700/50',
+      color: 'text-blue-400',
+      bg: 'bg-blue-500/10',
+      border: 'border-blue-500/20',
       items: ['Lark', 'Slack', 'SiteMinder', 'SISTIC']
     }
   ];
 
-  // Concrete Competencies for "Functional Layer"
   const competencyModules = [
     {
       title: 'Strategic Operations',
@@ -89,33 +124,245 @@ const Skills: React.FC = () => {
     {
       title: 'Resilience & Data',
       icon: <ShieldCheck size={18} />,
-      accent: 'emerald',
+      accent: 'purple',
       skills: ['Business Continuity', 'Crisis Response', 'Real-time Dashboards', 'Forecasting']
     }
   ];
+
+  // --- Color Mapping Logic ---
+  const BRAND_COLORS = {
+    cyan: '#22d3ee',
+    blue: '#3b82f6',
+    purple: '#a855f7',
+    default: '#94a3b8'
+  };
+
+  const getTechColor = (name: string): string => {
+    const cat = techCategories.find(c => c.items.includes(name));
+    if (cat?.id === 'core') return BRAND_COLORS.cyan;
+    if (cat?.id === 'auto') return BRAND_COLORS.blue;
+    if (cat?.id === 'data') return BRAND_COLORS.purple;
+    if (cat?.id === 'collab') return BRAND_COLORS.blue;
+    return BRAND_COLORS.default;
+  };
+
+  const getModuleColor = (title: string): string => {
+    const mod = competencyModules.find(m => m.title === title);
+    if (mod?.accent === 'cyan') return BRAND_COLORS.cyan;
+    if (mod?.accent === 'blue') return BRAND_COLORS.blue;
+    if (mod?.accent === 'purple') return BRAND_COLORS.purple;
+    return BRAND_COLORS.default;
+  };
+
+  // --- Interaction Logic ---
+
+  const getRelatedModules = (techName: string) => {
+    const relatedSkills = RELATIONSHIPS[techName] || [];
+    const modules = new Set<string>();
+    competencyModules.forEach(mod => {
+      // If any skill in this module is powered by the tech
+      if (mod.skills.some(skill => relatedSkills.includes(skill))) {
+        modules.add(mod.title);
+      }
+    });
+    return Array.from(modules);
+  };
+
+  const getRelatedTechs = (moduleTitle: string) => {
+    const module = competencyModules.find(m => m.title === moduleTitle);
+    if (!module) return [];
+    
+    return TECH_STACK.filter(tech => {
+      const techSkills = RELATIONSHIPS[tech.name] || [];
+      // If this tech powers any skill in the module
+      return techSkills.some(s => module.skills.includes(s));
+    }).map(t => t.name);
+  };
+
+  const handleTechHover = (techName: string) => {
+    const relatedModules = getRelatedModules(techName);
+    setActiveHighlight({
+      type: 'tech',
+      id: techName,
+      related: relatedModules
+    });
+    calculateLines(techName, relatedModules, 'tech');
+  };
+
+  const handleModuleHover = (moduleTitle: string) => {
+    const relatedTechs = getRelatedTechs(moduleTitle);
+    setActiveHighlight({
+      type: 'module',
+      id: moduleTitle,
+      related: relatedTechs
+    });
+    calculateLines(moduleTitle, relatedTechs, 'module');
+  };
+
+  const clearHighlight = () => {
+    setActiveHighlight(null);
+    setLines([]);
+  };
+
+  const calculateLines = (sourceId: string, targetIds: string[], type: 'tech' | 'module') => {
+    if (!containerRef.current) return;
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const newLines: typeof lines = [];
+
+    targetIds.forEach(targetId => {
+      // Determine Source and Target DOM elements
+      const sourceEl = type === 'tech' ? techRefs.current[sourceId] : moduleRefs.current[sourceId];
+      const targetEl = type === 'tech' ? moduleRefs.current[targetId] : techRefs.current[targetId];
+
+      if (sourceEl && targetEl) {
+        const srcRect = sourceEl.getBoundingClientRect();
+        const tgtRect = targetEl.getBoundingClientRect();
+
+        let startX, startY, endX, endY;
+
+        if (type === 'tech') {
+             // Tech (Left) -> Module (Right)
+             startX = (srcRect.right - containerRect.left);
+             startY = (srcRect.top + srcRect.height / 2) - containerRect.top;
+             
+             endX = (tgtRect.left - containerRect.left);
+             endY = (tgtRect.top + tgtRect.height / 2) - containerRect.top;
+        } else {
+             // Module (Right) -> Tech (Left)
+             startX = (srcRect.left - containerRect.left);
+             startY = (srcRect.top + srcRect.height / 2) - containerRect.top;
+             
+             endX = (tgtRect.right - containerRect.left);
+             endY = (tgtRect.top + tgtRect.height / 2) - containerRect.top;
+        }
+
+        // Bezier Control Points for smooth S-curve
+        const cp1X = startX + (endX - startX) * 0.5;
+        const cp1Y = startY;
+        const cp2X = endX - (endX - startX) * 0.5;
+        const cp2Y = endY;
+
+        const path = `M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`;
+        
+        // Color Gradient Logic
+        let startColor, endColor;
+        if (type === 'tech') {
+          startColor = getTechColor(sourceId);
+          endColor = getModuleColor(targetId);
+        } else {
+          startColor = getModuleColor(sourceId);
+          endColor = getTechColor(targetId);
+        }
+
+        newLines.push({ 
+          id: targetId, 
+          d: path, 
+          startColor, 
+          endColor,
+          x1: startX,
+          y1: startY,
+          x2: endX,
+          y2: endY
+        });
+      }
+    });
+    setLines(newLines);
+  };
 
   return (
     <Motion.section 
       id="skills" 
       ref={containerRef}
       style={{ opacity: smoothOpacity, scale: smoothScale, y: smoothY }}
-      className="relative overflow-hidden min-h-screen flex items-center py-48 md:py-96"
+      className="relative overflow-hidden min-h-screen flex items-center py-48 md:py-60"
     >
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10 w-full">
+      {/* === BACKGROUND: Simplified to prevent banding === */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+         <div 
+            className="absolute inset-0 opacity-[0.05]"
+            style={{
+               backgroundImage: 'radial-gradient(circle, #22d3ee 1px, transparent 1px)',
+               backgroundSize: '30px 30px'
+            }}
+         />
+      </div>
+
+      {/* === SVG OVERLAY FOR DATA LINKS (Desktop Only) === */}
+      <div className="hidden md:block absolute inset-0 pointer-events-none z-20">
+        <svg className="w-full h-full overflow-visible">
+            <defs>
+              <filter id="glow-line" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="2" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+              {lines.map((line, i) => (
+                 <linearGradient 
+                    key={i} 
+                    id={`gradient-${i}`} 
+                    gradientUnits="userSpaceOnUse"
+                    x1={line.x1} y1={line.y1}
+                    x2={line.x2} y2={line.y2}
+                 >
+                    <stop offset="0%" stopColor={line.startColor} />
+                    <stop offset="100%" stopColor={line.endColor} />
+                 </linearGradient>
+              ))}
+            </defs>
+            <AnimatePresence>
+              {lines.map((line, i) => (
+                <g key={line.id + line.d}>
+                  {/* Outer Glow Path */}
+                  <Motion.path
+                    d={line.d}
+                    fill="none"
+                    stroke={`url(#gradient-${i})`}
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.3 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    filter="url(#glow-line)"
+                  />
+                  {/* Inner Bright Path */}
+                  <Motion.path
+                    d={line.d}
+                    fill="none"
+                    stroke={`url(#gradient-${i})`}
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.9 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                  />
+                  {/* Moving Data Packet */}
+                  <Motion.circle r="3" fill="white">
+                    <animateMotion dur="1s" repeatCount="indefinite" path={line.d} keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                    </animateMotion>
+                  </Motion.circle>
+                </g>
+              ))}
+            </AnimatePresence>
+        </svg>
+      </div>
+
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 w-full">
         
-        {/* Section Header - Standardized */}
         <Motion.div 
-          initial={{ opacity: 0, y: -50, scale: 1.2 }}
+          initial={{ opacity: 0, y: -20, scale: 1.1 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} // Custom "Slam" curve
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} 
           viewport={{ once: false, amount: 0.8 }}
           className="mb-14 md:mb-20"
         >
-           <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase mb-4">04. TOOLKIT</h2>
+           <div className="flex items-center gap-3 mb-4">
+               <div className="h-px w-8 bg-cyan-500/50"></div>
+               <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase">04. TOOLKIT</h2>
+           </div>
            <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">Tools & Expertise</h3>
         </Motion.div>
         
-        {/* Section Narrative - Fade In */}
         <Motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -124,33 +371,41 @@ const Skills: React.FC = () => {
           className="mb-16 md:mb-20 max-w-3xl"
         >
             <div className="flex items-center gap-2 text-blue-400 mb-4">
-                <Zap size={16} />
-                <span className="text-[10px] font-mono uppercase tracking-widest">Practical Skills</span>
+                <Code size={16} />
+                <span className="text-[10px] font-mono uppercase tracking-widest">Operational Mapping</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white leading-tight mb-6">
-                From <span className="text-cyan-400">Team Management</span> to <br/>
-                <span className="text-blue-500">System Configuration</span>.
+                Connecting the <span className="text-cyan-400">Stack</span> to the <br/>
+                <span className="text-blue-500">Strategy</span>.
             </h2>
-            <p className="text-slate-400 text-sm md:text-base leading-loose">
-                I manage both the people and the platforms they use. My proficiency spans the entire CX stack, ensuring that the operational tools (Left) actually help the team deliver results (Right).
+            <p className="text-slate-400 text-sm md:text-base leading-loose mb-6">
+                I don't just manage teams; I engineer the digital ecosystems they operate in. By mastering the underlying technology, I bridge the gap between abstract strategy and ground-level execution—ensuring the tools serve the people, not the other way around.
+            </p>
+            <p className="text-[10px] md:text-xs font-mono text-slate-500 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
+                INTERACTION: Hover over nodes to visualize operational dependencies.
             </p>
         </Motion.div>
 
-        <div className="grid md:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="grid md:grid-cols-12 gap-8 lg:gap-0 items-stretch relative">
           
           {/* LEFT COLUMN: INFRASTRUCTURE LAYER (Tech Stack) */}
-          <div className="md:col-span-5 flex flex-col gap-8">
+          <div className="md:col-span-5 flex flex-col gap-8 relative z-10 pl-6 md:pl-0 pr-0 md:pr-12">
              <Motion.div 
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ once: false }}
-                className="flex items-center justify-between border-b border-slate-800 pb-2"
+                className="flex items-center justify-between border-b border-slate-800 pb-2 relative"
              >
                 <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
                    <Database size={14} /> Tech Stack
                 </h4>
-                <span className="text-[9px] font-mono text-slate-600">VERIFIED</span>
+                <span className="text-[9px] font-mono text-slate-600">INPUT_NODES</span>
+
+                <div className="hidden md:block absolute -right-[49px] top-1/2 -translate-y-1/2 w-[49px] h-px border-t border-dashed border-slate-700/50">
+                     <div className="absolute right-0 -top-[3px] w-1.5 h-1.5 rounded-full bg-slate-800 border border-slate-600"></div>
+                </div>
              </Motion.div>
 
              <div className="space-y-6">
@@ -171,30 +426,53 @@ const Skills: React.FC = () => {
                          {cat.items.map((itemName, i) => {
                             const tech = TECH_STACK.find(t => t.name === itemName);
                             if (!tech) return null;
+                            
+                            // Highlight Logic
+                            const isHovered = activeHighlight?.type === 'tech' && activeHighlight.id === itemName;
+                            const isRelated = activeHighlight?.type === 'module' && activeHighlight.related.includes(itemName);
+                            const isDimmed = activeHighlight !== null && !isHovered && !isRelated;
+
                             return (
                                <Motion.div
                                   key={itemName}
-                                  initial={{ scale: 0, opacity: 0, rotate: -90 }} // Mechanical "Lock-in" rotation
+                                  // Ref attached for line calculation
+                                  ref={(el: HTMLDivElement | null) => { techRefs.current[itemName] = el; }}
+                                  initial={{ scale: 0, opacity: 0, rotate: -90 }}
                                   whileInView={{ scale: 1, opacity: 1, rotate: 0 }}
                                   transition={{ 
                                     type: "spring", 
-                                    stiffness: 300, // Snappy
+                                    stiffness: 300, 
                                     damping: 20, 
                                     delay: (index * 0.1) + (i * 0.05) 
                                   }}
                                   viewport={{ once: false }}
+                                  onMouseEnter={() => handleTechHover(itemName)}
+                                  onMouseLeave={clearHighlight}
+                                  className={`transition-all duration-300 ${isDimmed ? 'opacity-20 blur-[1px] scale-90' : 'opacity-100 scale-100'}`}
                                >
-                                 <GlassCard className="p-1.5 aspect-square bg-[#0f172a]/80 hover:bg-slate-800/90 group transition-all cursor-default hover:border-slate-600 hover:shadow-[0_0_15px_rgba(34,211,238,0.15)]">
-                                    <div className="w-full h-full flex flex-col items-center justify-center gap-1">
+                                 <GlassCard 
+                                    className={`p-1.5 aspect-square bg-[#0f172a]/80 transition-all cursor-crosshair
+                                      ${isHovered || isRelated 
+                                          ? 'border-cyan-400 bg-cyan-900/20 shadow-[0_0_15px_rgba(34,211,238,0.3)] scale-110 z-30' 
+                                          : 'hover:border-slate-600 hover:bg-slate-800/90'
+                                      }
+                                    `}
+                                    hoverEffect={false} // Disable default hover to control manually
+                                 >
+                                    <div className="w-full h-full flex flex-col items-center justify-center gap-1 pointer-events-none">
                                       <div className="w-9 h-9 relative flex items-center justify-center shrink-0">
                                           <TechLogo 
                                             name={tech.name} 
                                             logo={tech.logo} 
                                             localLogo={tech.localLogo}
-                                            className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity filter grayscale group-hover:grayscale-0"
+                                            className={`w-full h-full object-contain transition-all filter
+                                              ${isHovered || isRelated ? 'grayscale-0 opacity-100' : 'grayscale opacity-70'}
+                                            `}
                                           />
                                       </div>
-                                      <span className="text-[8px] font-mono text-slate-500 text-center leading-tight group-hover:text-white transition-colors w-full break-words">
+                                      <span className={`text-[8px] font-mono text-center leading-tight transition-colors w-full break-words
+                                          ${isHovered || isRelated ? 'text-white font-bold' : 'text-slate-500'}
+                                      `}>
                                         {tech.name}
                                       </span>
                                     </div>
@@ -208,76 +486,96 @@ const Skills: React.FC = () => {
              </div>
           </div>
 
+          {/* === CENTER SPINE (Desktop Only) - Spacer === */}
+          <div className="hidden md:block md:col-span-1 relative h-full min-h-[600px]" />
+
           {/* RIGHT COLUMN: FUNCTIONAL LAYER (Competencies) */}
-          <div className="md:col-span-7 perspective-1000">
-              <Motion.div 
-                 initial={{ opacity: 0, x: 30 }}
-                 whileInView={{ opacity: 1, x: 0 }}
-                 transition={{ duration: 0.5 }}
-                 viewport={{ once: false }}
-                 className="flex items-center justify-between border-b border-slate-800 pb-2 mb-8"
-              >
-                 <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <Layers size={14} /> Core Skills
-                 </h4>
-                 <span className="text-[9px] font-mono text-slate-600">OPERATIONS</span>
-              </Motion.div>
+          <div className="md:col-span-6 perspective-1000 relative z-10 pl-6 md:pl-12 flex flex-col justify-between">
+              <div>
+                <Motion.div 
+                   initial={{ opacity: 0, x: 30 }}
+                   whileInView={{ opacity: 1, x: 0 }}
+                   transition={{ duration: 0.5 }}
+                   viewport={{ once: false }}
+                   className="flex items-center justify-between border-b border-slate-800 pb-2 mb-8 relative"
+                >
+                   <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                      <Layers size={14} /> Core Skills
+                   </h4>
+                   <span className="text-[9px] font-mono text-slate-600">OUTPUT_MODULES</span>
 
-              <div className="grid sm:grid-cols-2 gap-5">
-                 {competencyModules.map((mod, index) => {
-                    const borderColor = mod.accent === 'cyan' ? 'group-hover:border-cyan-500/50' : 
-                                      mod.accent === 'blue' ? 'group-hover:border-blue-500/50' :
-                                      mod.accent === 'purple' ? 'group-hover:border-purple-500/50' : 
-                                      'group-hover:border-emerald-500/50';
-                    
-                    const iconColor = mod.accent === 'cyan' ? 'text-cyan-400' : 
-                                    mod.accent === 'blue' ? 'text-blue-400' :
-                                    mod.accent === 'purple' ? 'text-purple-400' : 
-                                    'text-emerald-400';
+                   <div className="hidden md:block absolute -left-[49px] top-1/2 -translate-y-1/2 w-[49px] h-px border-t border-dashed border-slate-700/50">
+                       <div className="absolute left-0 -top-[3px] w-1.5 h-1.5 rounded-full bg-slate-800 border border-slate-600"></div>
+                  </div>
+                </Motion.div>
 
-                    return (
-                        <Motion.div
-                           key={mod.title}
-                           initial={{ opacity: 0, x: 100, rotateY: 45, scale: 0.9 }} // 3D Fly-in "Swing"
-                           whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
-                           transition={{ 
-                             type: "spring", 
-                             stiffness: 100, 
-                             damping: 12, // Bouncy arrival
-                             delay: index * 0.15 
-                           }}
-                           viewport={{ once: false, margin: "-50px" }}
-                        >
-                           <GlassCard className={`h-full p-6 bg-[#0f172a]/80 ${borderColor} transition-colors group hover:-translate-y-1 hover:shadow-[0_5px_30px_rgba(0,0,0,0.5)]`}>
-                               <div className="flex items-start gap-4 mb-6">
-                                   <div className={`p-2.5 rounded bg-slate-900 border border-slate-800 ${iconColor} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                                       {mod.icon}
-                                   </div>
-                                   <div>
-                                       <h4 className="text-sm font-bold text-white font-display tracking-wide">{mod.title}</h4>
-                                       <div className={`h-0.5 w-8 mt-2 bg-${mod.accent}-500/50 rounded-full group-hover:w-full transition-all duration-500`}></div>
-                                   </div>
-                               </div>
+                <div className="grid sm:grid-cols-2 gap-5">
+                   {competencyModules.map((mod, index) => {
+                      const isHovered = activeHighlight?.type === 'module' && activeHighlight.id === mod.title;
+                      const isRelated = activeHighlight?.type === 'tech' && activeHighlight.related.includes(mod.title);
+                      const isDimmed = activeHighlight !== null && !isHovered && !isRelated;
 
-                               <ul className="space-y-3">
-                                   {mod.skills.map((skill, i) => (
-                                       <Motion.li 
-                                          key={skill} 
-                                          initial={{ opacity: 0, x: 10 }}
-                                          whileInView={{ opacity: 1, x: 0 }}
-                                          transition={{ delay: 0.4 + (index * 0.1) + (i * 0.05) }}
-                                          className="text-xs text-slate-400 font-mono flex items-center gap-2.5 group/item"
-                                       >
-                                           <span className={`w-1 h-1 rounded-full bg-slate-600 group-hover/item:bg-${mod.accent}-400 transition-colors group-hover/item:scale-150`}></span>
-                                           <span className="group-hover/item:text-slate-200 transition-colors">{skill}</span>
-                                       </Motion.li>
-                                   ))}
-                               </ul>
-                           </GlassCard>
-                        </Motion.div>
-                    );
-                 })}
+                      const borderColor = mod.accent === 'cyan' ? 'border-cyan-500/50' : 
+                                        mod.accent === 'blue' ? 'border-blue-500/50' :
+                                        'border-purple-500/50';
+                      
+                      const iconColor = mod.accent === 'cyan' ? 'text-cyan-400' : 
+                                      mod.accent === 'blue' ? 'text-blue-400' :
+                                      'text-purple-400';
+
+                      const activeBorder = mod.accent === 'cyan' ? 'border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.2)]' :
+                                           mod.accent === 'blue' ? 'border-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.2)]' :
+                                           'border-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.2)]';
+
+                      return (
+                          <Motion.div
+                             key={mod.title}
+                             // Attach Ref to whole card container
+                             ref={(el: HTMLDivElement | null) => { moduleRefs.current[mod.title] = el; }}
+                             onMouseEnter={() => handleModuleHover(mod.title)}
+                             onMouseLeave={clearHighlight}
+                             initial={{ opacity: 0, x: 100, rotateY: 45, scale: 0.9 }}
+                             whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+                             transition={{ 
+                               type: "spring", 
+                               stiffness: 100, 
+                               damping: 12,
+                               delay: index * 0.15 
+                             }}
+                             viewport={{ once: false, margin: "-50px" }}
+                             className={`h-full transition-all duration-500 ${isDimmed ? 'opacity-20 blur-[2px] scale-95' : 'opacity-100 scale-100'}`}
+                          >
+                             <GlassCard 
+                                className={`h-full p-6 bg-[#0f172a]/80 transition-all duration-300 group cursor-crosshair
+                                ${isHovered || isRelated ? `${activeBorder} bg-slate-900` : 'hover:-translate-y-1 hover:shadow-lg'}
+                             `}
+                                hoverEffect={false}
+                             >
+                                 <div className="flex items-start gap-4 mb-6 pointer-events-none">
+                                     <div className={`p-2.5 rounded bg-slate-900 border border-slate-800 ${iconColor} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                                         {mod.icon}
+                                     </div>
+                                     <div>
+                                         <h4 className={`text-sm font-bold font-display tracking-wide transition-colors ${isHovered || isRelated ? 'text-white' : 'text-slate-200'}`}>{mod.title}</h4>
+                                         <div className={`h-0.5 w-8 mt-2 bg-${mod.accent}-500/50 rounded-full group-hover:w-full transition-all duration-500`}></div>
+                                     </div>
+                                 </div>
+
+                                 <ul className="space-y-3 pointer-events-none">
+                                     {mod.skills.map((skill, i) => (
+                                        <li key={skill} className="text-xs font-mono flex items-center gap-2.5 text-slate-400">
+                                            <span className={`w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-${mod.accent}-400 transition-colors`}></span>
+                                            <span>{skill}</span>
+                                        </li>
+                                     ))}
+                                 </ul>
+                             </GlassCard>
+                          </Motion.div>
+                      );
+                   })}
+                </div>
               </div>
+              
           </div>
 
         </div>

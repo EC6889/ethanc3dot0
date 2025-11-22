@@ -82,10 +82,27 @@ const Contact: React.FC = () => {
       id="contact" 
       ref={containerRef}
       style={{ opacity: smoothOpacity, scale: smoothScale, y: smoothY }}
-      className="border-t border-slate-900 relative overflow-hidden py-48 md:py-96"
+      className="border-t border-slate-900 relative overflow-hidden py-32 md:py-48"
     >
-       {/* Background Visuals - Horizon Line */}
-       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
+       {/* === BACKGROUND: Signal Uplink === */}
+       {/* Concentric rings to suggest radar/broadcasting */}
+       <div className="absolute inset-0 pointer-events-none z-0">
+           {/* Radial Rings */}
+           {[...Array(3)].map((_, i) => (
+               <div 
+                 key={i}
+                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-500/5"
+                 style={{
+                    width: `${(i + 1) * 30}%`,
+                    height: `${(i + 1) * 80}%`, // Elliptical to match perspective
+                 }}
+               />
+           ))}
+           {/* Top Highlight Line */}
+           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
+           {/* Bottom Glow */}
+           <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-cyan-900/5 to-transparent"></div>
+       </div>
 
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
         
@@ -97,7 +114,10 @@ const Contact: React.FC = () => {
            viewport={{ once: false }}
            className="mb-14 md:mb-20 text-center md:text-left"
         >
-            <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase mb-4">06. CONTACT</h2>
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
+                <div className="h-px w-8 bg-cyan-500/50"></div>
+                <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase">06. CONTACT</h2>
+            </div>
             <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
               Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Touch</span>
             </h3>
@@ -236,79 +256,87 @@ const Contact: React.FC = () => {
              transition={{ type: "spring", stiffness: 50, damping: 20, delay: 0.4 }}
              viewport={{ once: false }}
           >
-             <GlassCard className="border-slate-800 bg-[#0f172a]/80 relative overflow-hidden flex flex-col h-full shadow-2xl p-0">
+             <GlassCard className="border-slate-800 bg-[#0f172a]/90 relative overflow-hidden flex flex-col h-full shadow-2xl p-0">
+                {/* Decorative Background Grid */}
+                <div className="absolute inset-0 opacity-10 pointer-events-none" 
+                     style={{ backgroundImage: 'linear-gradient(#334155 1px, transparent 1px), linear-gradient(90deg, #334155 1px, transparent 1px)', backgroundSize: '20px 20px' }}
+                />
+
                 {/* Terminal Header Bar */}
-                <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800 bg-slate-950">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950/80 backdrop-blur-sm z-10">
                     <div className="flex items-center gap-3">
-                        <div className="flex gap-1.5">
-                            <div className="w-2.5 h-2.5 rounded-full bg-slate-800 border border-slate-700"></div>
-                            <div className="w-2.5 h-2.5 rounded-full bg-slate-800 border border-slate-700"></div>
-                            <div className="w-2.5 h-2.5 rounded-full bg-slate-800 border border-slate-700"></div>
+                        <div className="flex flex-col gap-0.5">
+                             <div className="w-6 h-0.5 bg-cyan-500"></div>
+                             <div className="w-3 h-0.5 bg-cyan-500/50"></div>
                         </div>
-                        <div className="h-4 w-px bg-slate-800 mx-2"></div>
-                        <span className="text-[10px] font-mono text-slate-500 flex items-center gap-2 uppercase tracking-wider">
-                           <Terminal size={10} /> MESSAGE_LINK
+                        <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest">
+                           Uplink_Active
                         </span>
                     </div>
-                    <div className="flex items-center gap-2 text-[9px] font-mono text-cyan-500/70 tracking-wider">
-                        SECURE_CONNECTION
-                        <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></div>
+                    <div className="flex items-center gap-2">
+                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_5px_rgba(16,185,129,0.8)]"></div>
+                        <span className="text-[9px] font-mono text-slate-400">SECURE</span>
                     </div>
                 </div>
 
-                <div className="p-6 md:p-8 flex-grow flex flex-col">
-                     <div className="mb-8">
-                        <h4 className="text-xl font-display font-bold text-white mb-2">Initialize Transmission</h4>
+                <div className="p-6 md:p-8 flex-grow flex flex-col relative z-10">
+                     <div className="mb-8 border-l-2 border-cyan-500/20 pl-4">
+                        <h4 className="text-xl font-display font-bold text-white mb-1">Initialize Transmission</h4>
                         <p className="text-xs font-mono text-slate-500">
-                           > Awaiting input parameters...
+                           &gt; Est. Latency: 24ms <br/>
+                           &gt; Encryption: AES-256
                         </p>
                      </div>
 
-                     <form onSubmit={handleSubmit} className="space-y-5 flex-grow">
-                        <div className="grid md:grid-cols-2 gap-5">
-                           {/* Name Input */}
-                           <div className="group space-y-1.5">
-                               <label htmlFor="name" className="text-[9px] font-mono text-slate-500 group-focus-within:text-cyan-400 transition-colors flex items-center gap-2 uppercase tracking-wider">
-                                  // User_ID
-                               </label>
-                               <div className="relative">
-                                  <input 
-                                     type="text" 
-                                     id="name"
-                                     name="name"
-                                     value={formState.name}
-                                     onChange={handleChange}
-                                     className="w-full bg-slate-950 border border-slate-800 rounded-sm px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-500/50 focus:bg-slate-950 transition-all placeholder:text-slate-800 font-mono"
-                                     placeholder="ENTER_NAME"
-                                     required
-                                  />
-                               </div>
-                           </div>
+                     <form onSubmit={handleSubmit} className="space-y-6 flex-grow">
+                        
+                        {/* Name Input */}
+                        <div className="group space-y-2 relative">
+                            <label htmlFor="name" className="text-[9px] font-mono text-slate-500 group-focus-within:text-cyan-400 transition-colors uppercase tracking-wider flex justify-between">
+                               <span>01 // User_ID</span>
+                               <span className="opacity-0 group-focus-within:opacity-100 transition-opacity text-cyan-500/50">INPUT_ACTIVE</span>
+                            </label>
+                            <div className="relative">
+                               <input 
+                                  type="text" 
+                                  id="name"
+                                  name="name"
+                                  value={formState.name}
+                                  onChange={handleChange}
+                                  className="w-full bg-slate-900/50 border-b border-slate-700 px-0 py-3 text-sm text-white focus:outline-none focus:border-cyan-500 focus:bg-slate-900/80 transition-all placeholder:text-slate-700 font-mono rounded-none"
+                                  placeholder="ENTER_NAME"
+                                  required
+                               />
+                               <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-cyan-400 shadow-[0_0_10px_cyan] group-focus-within:w-full transition-all duration-500"></div>
+                            </div>
+                        </div>
 
-                           {/* Email Input */}
-                           <div className="group space-y-1.5">
-                               <label htmlFor="email" className="text-[9px] font-mono text-slate-500 group-focus-within:text-cyan-400 transition-colors flex items-center gap-2 uppercase tracking-wider">
-                                  // Contact_Node
-                               </label>
-                               <div className="relative">
-                                  <input 
-                                     type="email" 
-                                     id="email"
-                                     name="email"
-                                     value={formState.email}
-                                     onChange={handleChange}
-                                     className="w-full bg-slate-950 border border-slate-800 rounded-sm px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-500/50 focus:bg-slate-950 transition-all placeholder:text-slate-800 font-mono"
-                                     placeholder="ENTER_EMAIL"
-                                     required
-                                  />
-                               </div>
-                           </div>
+                        {/* Email Input */}
+                        <div className="group space-y-2 relative">
+                            <label htmlFor="email" className="text-[9px] font-mono text-slate-500 group-focus-within:text-cyan-400 transition-colors uppercase tracking-wider flex justify-between">
+                               <span>02 // Return_Address</span>
+                               <span className="opacity-0 group-focus-within:opacity-100 transition-opacity text-cyan-500/50">INPUT_ACTIVE</span>
+                            </label>
+                            <div className="relative">
+                               <input 
+                                  type="email" 
+                                  id="email"
+                                  name="email"
+                                  value={formState.email}
+                                  onChange={handleChange}
+                                  className="w-full bg-slate-900/50 border-b border-slate-700 px-0 py-3 text-sm text-white focus:outline-none focus:border-cyan-500 focus:bg-slate-900/80 transition-all placeholder:text-slate-700 font-mono rounded-none"
+                                  placeholder="ENTER_EMAIL"
+                                  required
+                               />
+                               <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-cyan-400 shadow-[0_0_10px_cyan] group-focus-within:w-full transition-all duration-500"></div>
+                            </div>
                         </div>
 
                         {/* Message Input */}
-                        <div className="group space-y-1.5">
-                           <label htmlFor="message" className="text-[9px] font-mono text-slate-500 group-focus-within:text-cyan-400 transition-colors flex items-center gap-2 uppercase tracking-wider">
-                              // Payload_Data
+                        <div className="group space-y-2 relative">
+                           <label htmlFor="message" className="text-[9px] font-mono text-slate-500 group-focus-within:text-cyan-400 transition-colors uppercase tracking-wider flex justify-between">
+                              <span>03 // Data_Payload</span>
+                              <span className="opacity-0 group-focus-within:opacity-100 transition-opacity text-cyan-500/50">INPUT_ACTIVE</span>
                            </label>
                            <div className="relative">
                               <textarea 
@@ -316,19 +344,22 @@ const Contact: React.FC = () => {
                                  name="message"
                                  value={formState.message}
                                  onChange={handleChange}
-                                 rows={6}
-                                 className="w-full bg-slate-950 border border-slate-800 rounded-sm px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-500/50 focus:bg-slate-950 transition-all placeholder:text-slate-800 resize-none font-mono leading-relaxed"
-                                 placeholder="> TYPE_MESSAGE..."
+                                 rows={5}
+                                 className="w-full bg-slate-900/50 border-b border-slate-700 px-0 py-3 text-sm text-white focus:outline-none focus:border-cyan-500 focus:bg-slate-900/80 transition-all placeholder:text-slate-700 resize-none font-mono leading-relaxed rounded-none"
+                                 placeholder="> INPUT_MESSAGE..."
                                  required
                               />
+                              <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-cyan-400 shadow-[0_0_10px_cyan] group-focus-within:w-full transition-all duration-500"></div>
                            </div>
                         </div>
 
                         <button 
                           type="submit" 
                           disabled={isSubmitting || isSubmitted}
-                          className="w-full py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono text-xs rounded-sm uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] disabled:opacity-70 disabled:cursor-not-allowed mt-auto group relative overflow-hidden"
+                          className="w-full py-4 bg-cyan-500/10 border border-cyan-500/50 hover:bg-cyan-500/20 text-cyan-400 font-bold font-mono text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] disabled:opacity-50 disabled:cursor-not-allowed mt-auto group relative overflow-hidden"
                         >
+                           <div className="absolute inset-0 w-full h-full bg-cyan-400/10 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                           
                            <AnimatePresence mode="wait">
                               {isSubmitted ? (
                                  <Motion.span 
@@ -336,9 +367,9 @@ const Contact: React.FC = () => {
                                     initial={{ y: 10, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     exit={{ y: -10, opacity: 0 }}
-                                    className="flex items-center gap-2 relative z-10"
+                                    className="flex items-center gap-2 relative z-10 text-emerald-400"
                                  >
-                                    [ TRANSMISSION_COMPLETE ] <CheckCircle size={14} />
+                                    [ PACKET_DELIVERED ] <CheckCircle size={14} />
                                  </Motion.span>
                               ) : isSubmitting ? (
                                  <Motion.span 
@@ -348,7 +379,8 @@ const Contact: React.FC = () => {
                                     exit={{ y: -10, opacity: 0 }}
                                     className="flex items-center gap-2 relative z-10"
                                  >
-                                    [ UPLOADING... ]
+                                    <span className="w-3 h-3 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></span>
+                                    UPLOADING...
                                  </Motion.span>
                               ) : (
                                  <Motion.span 
@@ -356,15 +388,12 @@ const Contact: React.FC = () => {
                                     initial={{ y: 10, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     exit={{ y: -10, opacity: 0 }}
-                                    className="flex items-center gap-2 relative z-10"
+                                    className="flex items-center gap-2 relative z-10 group-hover:text-cyan-300"
                                  >
-                                    EXECUTE_SEND <Send size={12} className="group-hover:translate-x-1 transition-transform" />
+                                    TRANSMIT_DATA <Send size={12} className="group-hover:translate-x-1 transition-transform" />
                                  </Motion.span>
                               )}
                            </AnimatePresence>
-                           
-                           {/* Subtle white gloss overlay on hover */}
-                           <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
                         </button>
                      </form>
                 </div>

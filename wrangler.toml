@@ -1,0 +1,7 @@
+name = "ethan-c-portfolio"
+compatibility_date = "2024-03-20"
+pages_build_output_dir = "dist"
+
+# Optional: Bindings and other settings can be added here
+# [vars]
+# ENVIRONMENT = "production"

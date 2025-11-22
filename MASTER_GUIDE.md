@@ -1,0 +1,158 @@
+# MASTER_GUIDE.md
+
+## 1. Project Overview
+
+**Title:** Ethan C. | Operational Architect Portfolio
+**Role:** CX Strategist & Operational Architect
+**Concept:** "Terminal to the Future" / "Operational Architect"
+**Core Aesthetic:** Dark, Sci-Fi, Cyberpunk-Lite, Glassmorphism, Neon Accents.
+
+This project is a high-performance, visually immersive portfolio built to demonstrate the intersection of strategic operations and technical execution. It uses a "Tri-Core Spectrum" color system (Cyan, Blue, Purple) to represent different facets of the user's expertise.
+
+## 2. Tech Stack
+
+- **Core Framework:** React 18+ (TypeScript)
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS v4 (PostCSS)
+- **Animation:** Framer Motion (Scroll, Layout, Micro-interactions)
+- **Icons:** Lucide React
+- **Utilities:** jsPDF (Resume Generation), Recharts (Data Viz)
+
+## 3. Architecture & File Structure
+
+```
+/src
+├── components/          # Major section components
+│   ├── ui/              # Reusable UI atoms (GlassCard, Grids, etc.)
+│   ├── Hero.tsx         # Landing section with telemetry
+│   ├── About.tsx        # Profile & "Module" cards
+│   ├── Experience.tsx   # Timeline & Work History
+│   ├── Skills.tsx       # Tech stack visualization
+│   ├── Projects.tsx     # Case studies with File Tree nav
+│   ├── Contact.tsx      # Terminal-style contact form
+│   ├── Navbar.tsx       # Sticky nav & Mobile menu
+│   └── Footer.tsx       # Footer & Socials
+├── constants.ts         # SINGLE SOURCE OF TRUTH for content
+├── types.ts             # TypeScript interfaces
+├── App.tsx              # Main composition layer
+├── index.css            # Global styles & Tailwind imports
+└── main.tsx             # Entry point
+```
+
+### Key Principles
+1.  **Data-Driven:** All text, project data, and experience logs are stored in `constants.ts`. Components render based on this data.
+2.  **Composition:** `App.tsx` stacks the major components sequentially.
+3.  **Global State:** Minimal global state. Local state is used for component-specific interactions (e.g., selected project, hover states).
+
+## 4. Component Deep Dive
+
+### 4.1. Hero (`Hero.tsx`)
+-   **Purpose:** Immediate visual impact and persona establishment.
+-   **Key Features:**
+    -   **Telemetry:** Displays real-time time, location, network status, and battery (via `useTelemetry` hook).
+    -   **Parallax:** Background elements move at different speeds using `useScroll` and `useTransform`.
+    -   **Typewriter:** Cycles through roles (Ops Lead, CX Strategist, etc.).
+-   **Animation:** Heavy use of `framer-motion` for entrance effects.
+
+### 4.2. About (`About.tsx`)
+-   **Purpose:** Professional bio and "System Modules" (core competencies).
+-   **Key Features:**
+    -   **Perspective Grid:** Uses `PerspectiveGrid` component for a 3D floor effect.
+    -   **Module Cards:** 2-column grid connected by a central "Data Pipeline".
+    -   **Connectors:** SVG/Div lines drawn from the center spine to each card.
+-   **Logic:** `ModuleCard` sub-component handles its own hover state and "lit" status.
+
+### 4.3. Experience (`Experience.tsx`)
+-   **Purpose:** Work history timeline.
+-   **Key Features:**
+    -   **Navigation:** Left sidebar list of roles.
+    -   **Content:** Right panel details (Responsibilities, Achievements, Tech Stack).
+    -   **Image Fallback:** Uses `TechLogo` logic to fallback to local images if remote URLs fail.
+-   **Interaction:** Clicking a role updates the `selectedJob` state and animates the content switch.
+
+### 4.4. Skills (`Skills.tsx`)
+-   **Purpose:** Visualizing the relationship between Tech Stack and Competencies.
+-   **Key Features:**
+    -   **Interactive Lines:** Hovering a skill draws SVG lines to related categories.
+    -   **Optimization:** Uses `requestAnimationFrame` in `calculateLines` to prevent layout thrashing during rapid mouse movements.
+    -   **Categories:** "Tech Stack" (Left) vs "Core Modules" (Right).
+
+### 4.5. Projects (`Projects.tsx`)
+-   **Purpose:** Detailed case studies.
+-   **Key Features:**
+    -   **File Tree:** "Windows Explorer" / "VS Code" style navigation sidebar.
+    -   **Glass Display:** Main content area uses `GlassCard`.
+    -   **Metrics:** Animated progress bars for project impact.
+
+### 4.6. Contact (`Contact.tsx`)
+-   **Purpose:** Lead generation.
+-   **Key Features:**
+    -   **Terminal Form:** Input fields styled like a command-line interface.
+    -   **Resume Download:** Generates a PDF on the fly using `jsPDF` and content from `constants.ts`.
+    -   **Validation:** Simple state-based validation and "sending" simulation.
+
+### 4.7. Navbar (`Navbar.tsx`)
+-   **Purpose:** Navigation and Resume access.
+-   **Key Features:**
+    -   **Scroll Awareness:** Changes appearance (glassmorphism) after scrolling.
+    -   **Active State:** Highlights current section based on scroll position.
+    -   **Mobile Menu:** Full-screen overlay with "Sci-Fi" entrance animation.
+
+## 5. UI Library (`components/ui`)
+
+These are reusable "atoms" used to build the larger sections.
+
+-   **`GlassCard.tsx`**: The fundamental building block. Provides the translucent background, border, and blur effect. Supports `hoverEffect` prop for 3D lift.
+-   **`InteractiveGrid.tsx`**: Canvas-based starfield background. Responds to mouse movement.
+-   **`PerspectiveGrid.tsx`**: CSS-3D transformed grid plane for the `About` section floor.
+-   **`DataPipeline.tsx`**: Vertical animated gradient lines that visually connect sections.
+-   **`TechLogo.tsx`**: Smart image component that handles loading errors by switching to a local fallback.
+-   **`BackgroundBoxes.tsx`**: Decorative grid pattern used in `Hero` or `Projects`.
+
+## 6. Styling & Design System
+
+### 6.1. Tailwind Configuration
+-   **Fonts:**
+    -   `font-display`: 'Space Grotesk' (Headers, bold statements)
+    -   `font-sans`: 'Inter' (Body text)
+    -   `font-mono`: 'JetBrains Mono' (Data, code, micro-labels)
+-   **Colors (The Tri-Core Spectrum):**
+    -   **Cyan (`cyan-400/500`)**: Strategy, Planning, "The Architect".
+    -   **Blue (`blue-500/600`)**: Technology, Implementation, "The Engineer".
+    -   **Purple (`purple-500/900`)**: Operations, Depth, "The System".
+    -   **Slate (`slate-950`)**: The Void (Background).
+
+### 6.2. Global Styles (`index.css`)
+-   Custom scrollbar styling (thin, dark).
+-   `@import "tailwindcss";` directive (Tailwind v4).
+
+## 7. Animation Guidelines
+
+-   **Library:** Use `framer-motion` for all complex animations.
+-   **Performance:**
+    -   Use `transform` (x, y, scale, rotate) and `opacity` for smooth 60fps animations.
+    -   Avoid animating `width`, `height`, `top`, `left` unless absolutely necessary (causes reflow).
+    -   Use `layout` prop for shared element transitions (e.g., the active tab background in Navbar).
+-   **Standard Transitions:**
+    -   `ease: "circOut"` for snappy entrances.
+    -   `type: "spring"` for physical, tactile interactions.
+
+## 8. Development Rules (For AI & Developers)
+
+1.  **Strict Typing:** Do **NOT** use `any`. Define interfaces in `types.ts` or locally if specific to a component.
+2.  **Content Management:** If the user asks to change text, dates, or job descriptions, edit `constants.ts`. Do not hardcode text in components.
+3.  **Aesthetic Consistency:**
+    -   Always use `slate-950` or `slate-900` for backgrounds.
+    -   Use `backdrop-blur` and `bg-opacity` for glass effects.
+    -   Maintain the "Terminal" look: Monospace fonts for labels, uppercase text, "system status" indicators.
+4.  **Performance:**
+    -   When adding scroll listeners, use `useEffect` with cleanup.
+    -   For heavy visual updates (like the lines in `Skills.tsx`), use `requestAnimationFrame`.
+5.  **Mobile First:** Ensure all grids collapse to 1 column on mobile (`md:grid-cols-2`). Check touch targets for buttons.
+
+## 9. How to Modify
+
+-   **To Add a Project:** Add a new entry to `PROJECTS_DATA` in `constants.ts`.
+-   **To Add a Job:** Add to `EXPERIENCE_DATA` in `constants.ts`.
+-   **To Change Colors:** Update `tailwind.config.js` or use the existing `cyan/blue/purple` utility classes.
+-   **To Fix Images:** Ensure images are in `public/assets/` and referenced correctly in `constants.ts`. Use `TechLogo` for external logos to ensure fallbacks work.

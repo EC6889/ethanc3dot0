@@ -5,8 +5,6 @@ import { MapPin, Calendar, ChevronRight, Layers, Briefcase, RefreshCw, ArrowDown
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { GlassCard } from './ui/GlassCard';
 
-const Motion = motion as any;
-
 const THEME_COLORS = {
    cyan: {
       accent: 'text-cyan-400',
@@ -76,7 +74,7 @@ const Experience: React.FC = () => {
    const smoothY = useSpring(y, springConfig);
 
    return (
-      <Motion.section
+      <motion.section
          id="experience"
          ref={containerRef}
          style={{ opacity: smoothOpacity, scale: smoothScale, y: smoothY }}
@@ -99,7 +97,7 @@ const Experience: React.FC = () => {
             {/* Moving Data Lines */}
             {[25, 50, 75].map((pos, i) => (
                <div key={i} className="absolute left-0 w-full h-px bg-slate-800/20" style={{ top: `${pos}%` }}>
-                  <Motion.div
+                  <motion.div
                      className="w-32 h-full bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"
                      animate={{ x: ['-100vw', '100vw'] }}
                      transition={{ duration: 8 + i * 2, repeat: Infinity, ease: "linear" }}
@@ -111,7 +109,7 @@ const Experience: React.FC = () => {
          <div className="max-w-[1300px] mx-auto px-4 md:px-8 w-full relative z-10">
 
             {/* Compact Section Header */}
-            <Motion.div
+            <motion.div
                initial={{ opacity: 0, x: -20 }}
                whileInView={{ opacity: 1, x: 0 }}
                transition={{ duration: 0.5 }}
@@ -124,7 +122,7 @@ const Experience: React.FC = () => {
                <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
                   Operational <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">History</span>
                </h3>
-            </Motion.div>
+            </motion.div>
 
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
 
@@ -144,8 +142,8 @@ const Experience: React.FC = () => {
                               key={item.id}
                               onClick={() => setSelectedId(item.id)}
                               className={`group w-full text-left px-4 py-4 border border-slate-800 transition-all duration-300 relative overflow-hidden rounded-md ${isSelected
-                                    ? `bg-slate-900/80 border-${colorKeys[index % 3]}-500/50`
-                                    : 'hover:border-slate-600 hover:bg-slate-900/40'
+                                 ? `bg-slate-900/80 border-${colorKeys[index % 3]}-500/50`
+                                 : 'hover:border-slate-600 hover:bg-slate-900/40'
                                  }`}
                            >
                               {/* Active Glow Background */}
@@ -167,7 +165,7 @@ const Experience: React.FC = () => {
                                           </span>
                                           <div className="flex items-end gap-0.5 h-3">
                                              {[0, 1, 2].map((bar) => (
-                                                <Motion.div
+                                                <motion.div
                                                    key={bar}
                                                    className={`w-0.5 rounded-full ${itemTheme.line}`}
                                                    initial={{ height: '20%' }}
@@ -194,7 +192,7 @@ const Experience: React.FC = () => {
 
                               {/* Background Scan Effect for Active Item */}
                               {isSelected && (
-                                 <Motion.div
+                                 <motion.div
                                     className={`absolute inset-0 bg-gradient-to-r from-transparent via-${colorKeys[index % 3]}-400/10 to-transparent`}
                                     initial={{ x: '-100%' }}
                                     animate={{ x: '200%' }}
@@ -210,7 +208,7 @@ const Experience: React.FC = () => {
                {/* RIGHT COLUMN: Content Display */}
                <div className="lg:col-span-9 relative z-10">
                   <AnimatePresence mode='wait'>
-                     <Motion.div
+                     <motion.div
                         key={activeItem.id}
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -328,14 +326,14 @@ const Experience: React.FC = () => {
                               </div>
                            )}
                         </GlassCard>
-                     </Motion.div>
+                     </motion.div>
                   </AnimatePresence>
                </div>
 
             </div>
          </div>
 
-      </Motion.section>
+      </motion.section>
    );
 }
 

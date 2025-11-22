@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Ethan C. — Resume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind CDN for utilities -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Page setup for print */
+    @page {
+      size: A4;
+      margin: 10mm;
+      /* tight but readable, keeps to 2 pages */
+    }
+
+    html,
+    body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
+
+    .page {
+      page-break-after: always;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+    }
+
+    /* Reusable small helpers */
+    .side-card {
+      background-color: rgb(248 250 252);
+      /* slate-50 */
+      border: 1px solid rgb(226 232 240);
+      /* slate-200 */
+      border-radius: 0.5rem;
+      padding: 0.625rem;
+    }
+
+    .ico {
+      width: 14px;
+      height: 14px;
+      stroke-width: 1.8;
+    }
+
+    .list-tight>li {
+      margin-top: 0.15rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .leading-snugish {
+      line-height: 1.35;
+    }
+
+    .avoid-break {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .hide-print {}
+
+    /* Print tuning to ensure 2 pages and allow Languages on page 1 */
+    @media print {
+
+      /* Slightly reduce global size */
+      body {
+        font-size: 0.88rem;
+      }
+
+      header {
+        padding-bottom: 0.4rem !important;
+      }
+
+      h1 {
+        font-size: 1.76rem !important;
+      }
+
+      h2 {
+        font-size: 0.86rem !important;
+      }
+
+      h3 {
+        font-size: 0.94rem !important;
+      }
+
+      /* Tighten blocks and lists */
+      .side-card {
+        padding: 0.34rem !important;
+      }
+
+      .leading-snugish {
+        line-height: 1.26 !important;
+      }
+
+      .list-tight>li {
+        margin-top: 0.04rem !important;
+        margin-bottom: 0.04rem !important;
+      }
+
+      .gap-print-tight {
+        gap: 0.70rem !important;
+      }
+
+      .mb-4 {
+        margin-bottom: 0.5rem !important;
+      }
+
+      .mt-4 {
+        margin-top: 0.7rem !important;
+      }
+
+      .mt-3 {
+        margin-top: 0.5rem !important;
+      }
+
+      .mt-2 {
+        margin-top: 0.375rem !important;
+      }
+
+      .pl-4 {
+        padding-left: 0.70rem !important;
+      }
+
+      /* Slightly scale right column text to avoid spill */
+      main.col-span-8 {
+        font-size: 0.93em;
+      }
+
+      section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Hide purely decorative elements in print to save space */
+      .hide-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-slate-800 text-left">
+  <!-- PAGE 1 -->
+  <section class="page max-w-4xl mx-auto">
+    <!-- Header (grey bottom border removed, spacing tightened) -->
+    <header class="pb-2">
+      <div class="flex items-end justify-between">
+        <div>
+          <h1 class="text-3xl font-semibold tracking-tight text-blue-900">Ethan C.</h1>
+          <p class="mt-1 text-[13px] text-slate-600">
+            CX Management &amp; Operations · Tech Implementation · Operational Excellence · Project Management
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-2 flex flex-wrap gap-x-6 gap-y-1.5 text-[13px] text-slate-700">
+        <div class="flex items-center gap-2">
+          <svg class="ico text-blue-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.63 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.18a2 2 0 0 1 2.11-.45c.83.3 1.7.51 2.6.63A2 2 0 0 1 22 16.92z">
+            </path>
+          </svg>
+          <span>+60 11 1012 6889</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="ico text-blue-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M4 4h16v16H4z"></path>
+            <path d="M22 6l-10 7L2 6"></path>
+          </svg>
+          <span>gmeal6889@gmail.com</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="ico text-blue-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-2-2h-2v-4h2z"></path>
+            <rect x="2" y="9" width="8" height="11" rx="2"></rect>
+            <path d="M8 9V7a4 4 0 0 1 4-4h4"></path>
+          </svg>
+          <a href="https://www.linkedin.com/in/echia6889/"
+            class="text-blue-800 hover:underline">linkedin.com/in/echia6889</a>
+        </div>
+      </div>
+
+      <!-- Accent bar (kept for screen, hidden in print to save space) -->
+      <div class="mt-2 h-1.5 w-full rounded-full bg-gradient-to-r from-blue-900 via-indigo-700 to-sky-600 hide-print">
+      </div>
+    </header>
+
+    <!-- Two-column layout (moved slightly upward: mt-4) -->
+    <div class="grid grid-cols-12 gap-6 mt-4 gap-print-tight">
+      <!-- Left column -->
+      <aside class="col-span-4">
+        <!-- Career Summary -->
+        <section class="mb-4 avoid-break">
+          <h2 class="text-xs font-semibold tracking-wide uppercase text-slate-500">
+            <span
+              class="accent-pill inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-100">Career
+              Summary</span>
+          </h2>
+          <div class="mt-2 side-card border-l-2 border-blue-700/80">
+            <p class="text-[13px] leading-snugish">CX strategist with 15+ years optimizing contact centers across
+              hospitality and logistics. Proficient in SaaS (Zendesk, Genesys, CISCO UCCX, Microsoft). Proven success in
+              process re-engineering, performance improvement, and system implementation. Multilingual with strong
+              stakeholder management.</p>
+          </div>
+        </section>
+
+        <!-- Areas of Expertise -->
+        <section class="mb-4 avoid-break">
+          <h2 class="text-xs font-semibold tracking-wide uppercase text-slate-500">
+            <span
+              class="accent-pill inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-100">Areas
+              of Expertise</span>
+          </h2>
+          <div class="mt-2 side-card border-l-2 border-blue-700/80">
+            <ul class="text-[13px] leading-snugish list-disc pl-5 list-tight marker:text-blue-700">
+              <li>CX Leadership &amp; Strategy</li>
+              <li>Omnichannel Management</li>
+              <li>Operational Excellence</li>
+              <li>CX Tech Transformation</li>
+              <li>Hotel Reservation &amp; Ticketing</li>
+              <li>Voice of Customer (VoC)</li>
+              <li>Project &amp; Stakeholder Management</li>
+              <li>Crisis &amp; Business Continuity</li>
+              <li>Reporting &amp; Data Analysis</li>
+              <li>Quality &amp; Compliance Governance</li>
+              <li>Client Relationship Management</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Technical Proficiency -->
+        <section class="mb-4 avoid-break">
+          <h2 class="text-xs font-semibold tracking-wide uppercase text-slate-500">
+            <span
+              class="accent-pill inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-100">Technical
+              Proficiency</span>
+          </h2>
+          <div class="mt-2 side-card border-l-2 border-blue-700/80">
+            <ul class="text-[13px] leading-snugish list-disc pl-5 list-tight marker:text-blue-700">
+              <li>Zendesk Suite</li>
+              <li>Genesys Cloud CX1</li>
+              <li>Cisco Unified CCX</li>
+              <li>Opera PMS, SiteMinder</li>
+              <li>Google Workspace (Apps Script)</li>
+              <li>Lark Suite</li>
+              <li>Microsoft Teams</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Languages (moved to Page 1, bottom of left column) -->
+        <section class="mb-0 avoid-break">
+          <h2 class="text-xs font-semibold tracking-wide uppercase text-slate-500">
+            <span
+              class="accent-pill inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-100">Languages</span>
+          </h2>
+          <div class="mt-2 side-card border-l-2 border-blue-700/80">
+            <ul class="text-[13px] leading-snugish list-disc pl-5 list-tight marker:text-blue-700">
+              <li><span class="font-semibold">English, Cantonese:</span> Native</li>
+              <li><span class="font-semibold">Mandarin, Bahasa:</span> Intermediate</li>
+              <li><span class="font-semibold">French:</span> Beginner</li>
+            </ul>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Right column -->
+      <main class="col-span-8">
+        <!-- Professional Experience -->
+        <section class="mb-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xs font-semibold tracking-wide uppercase text-slate-500">
+              <span
+                class="accent-pill inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-100">Professional
+                Experience</span>
+            </h2>
+          </div>
+
+          <!-- Ninja Van -->
+          <div class="mt-2 avoid-break">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-base font-semibold text-slate-900">Ninja Van</h3>
+              <span class="text-xs text-slate-500">2024 – Mar 2025</span>
+            </div>
+            <p class="text-[13px] text-slate-700 font-medium">Shipper Support Manager</p>
+            <div class="mt-1.5 border-l-2 border-blue-700 pl-4">
+              <p
+                class="text-[11px] uppercase tracking-wide text-blue-900 bg-blue-50 inline-block px-1 rounded border border-blue-100">
+                Leadership &amp; Operations</p>
+              <ul class="mt-0.5 list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Managed daily operations across chat, email, and voice; maintained SLA performance during demand
+                  spikes via agile staffing and queue controls.</li>
+                <li>Introduced daily huddles and weekly reviews to drive transparency, accountability, and
+                  timely course-correction.</li>
+                <li>Set cross-functional escalation paths with Ops, Product, and Finance to accelerate resolution for
+                  high-value shippers.</li>
+              </ul>
+
+              <p
+                class="mt-2 text-[11px] uppercase tracking-wide text-blue-900 bg-blue-50 inline-block px-1 rounded border border-blue-100">
+                Process &amp; Quality</p>
+              <ul class="mt-0.5 list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Updated SOPs to remove handoff bottlenecks; tightened QA and coaching to boost consistency and
+                  compliance.</li>
+                <li>Improved IVR and routing logic to capture intent and prioritize VIP queues, improving time-to-agent
+                  for priority segments.</li>
+              </ul>
+
+              <p
+                class="mt-2 text-[11px] uppercase tracking-wide text-blue-900 bg-blue-50 inline-block px-1 rounded border border-blue-100">
+                Analytics &amp; Reporting</p>
+              <ul class="mt-0.5 list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Implemented real-time dashboards to reduce manual reporting and support data-led staffing and
+                  backlog decisions.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Klook Travel -->
+          <div class="mt-4 avoid-break">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-base font-semibold text-slate-900">Klook Travel</h3>
+              <span class="text-xs text-slate-500">2018 – 2022</span>
+            </div>
+            <div class="text-[13px] text-slate-700 font-medium leading-snug">
+              <p>CEG System Manager (2021 – 2022)</p>
+              <p>CEG Operations Manager (2018 – 2020)</p>
+            </div>
+            <div class="mt-1.5 border-l-2 border-blue-700 pl-4">
+              <p
+                class="text-[11px] uppercase tracking-wide text-blue-900 bg-blue-50 inline-block px-1 rounded border border-blue-100">
+                Omnichannel Platform &amp; Routing</p>
+              <ul class="mt-0.5 list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Designed routing flows across chat, email, voice, and social—aligning skills, priorities, and SLAs
+                  by business tier and region.</li>
+                <li>Reduced misroutes and transfers via intent-based flows and queue design; standardized macros,
+                  knowledge, and tagging.</li>
+              </ul>
+
+              <p
+                class="mt-2 text-[11px] uppercase tracking-wide text-blue-900 bg-blue-50 inline-block px-1 rounded border border-blue-100">
+                Performance Management</p>
+              <ul class="mt-0.5 list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Set service targets and governance; led WBR/MBR to translate trends into staffing, coaching, and
+                  platform changes.</li>
+                <li>Set up monitoring alerts and backup plans to stabilize response times during peaks and
+                  incidents.</li>
+              </ul>
+
+              <p
+                class="mt-2 text-[11px] uppercase tracking-wide text-blue-900 bg-blue-50 inline-block px-1 rounded border border-blue-100">
+                Vendor &amp; Cost Stewardship</p>
+              <ul class="mt-0.5 list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Managed telco and CX platform vendors; reviewed lines and services, with usage monitoring and
+                  forecasting.</li>
+              </ul>
+
+              <p
+                class="mt-2 text-[11px] uppercase tracking-wide text-blue-900 bg-blue-50 inline-block px-1 rounded border border-blue-100">
+                Risk &amp; Continuity</p>
+              <ul class="mt-0.5 list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Ensured reliability through monitoring, controlled change windows, and failover playbooks
+                  to minimize CX disruption.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page max-w-4xl mx-auto">
+    <div class="grid grid-cols-12 gap-6 gap-print-tight">
+      <!-- Left column (page 2) -->
+      <aside class="col-span-4">
+        <!-- Project Highlights -->
+        <section class="mb-4 avoid-break">
+          <h2 class="text-xs font-semibold tracking-wide uppercase text-slate-500">
+            <span
+              class="accent-pill inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-100">Project
+              Highlights</span>
+          </h2>
+          <div class="mt-2 space-y-2">
+            <div class="side-card border-l-2 border-blue-700/80">
+              <p class="text-[13px] leading-snugish">
+                <span class="font-semibold text-blue-900">Ninja Van — Order Creation Automation:</span>
+                Google Sheets + Apps Script + backend APIs with address normalization and phone validation; reduced
+                manual processing by 90%.
+              </p>
+            </div>
+            <div class="side-card border-l-2 border-blue-700/80">
+              <p class="text-[13px] leading-snugish">
+                <span class="font-semibold text-blue-900">Klook — Zendesk Migration:</span>
+                Led a US$1.18M platform switch; full CEG configuration and go-live across services in 3 months.
+              </p>
+              <p class="mt-1 text-[13px] leading-snugish">
+                <span class="font-semibold text-blue-900">Klook — Cost Optimization:</span>
+                Rationalized phone lines and licensing; instituted monthly usage projections to control spend.
+              </p>
+              <p class="mt-1 text-[13px] leading-snugish">
+                <span class="font-semibold text-blue-900">Klook — AHT Reduction:</span>
+                Lowered AHT via macros, routing improvements, and structured backlog drives.
+              </p>
+            </div>
+            <div class="side-card border-l-2 border-blue-700/80">
+              <p class="text-[13px] leading-snugish">
+                <span class="font-semibold text-blue-900">Melco — Contact Center Centralization:</span>
+                Consolidated a sister hotel’s center; standardized SOPs, optimized workforce, and stabilized operating
+                costs.
+              </p>
+              <p class="mt-1 text-[13px] leading-snugish">
+                <span class="font-semibold text-blue-900">Melco — Multi-Hotel Pre-Opening:</span>
+                Built the knowledge base and delivered cross-property product and policy training.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Awards & Recognition -->
+        <section class="mb-4 avoid-break">
+          <h2 class="text-xs font-semibold tracking-wide uppercase text-slate-500">
+            <span
+              class="accent-pill inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-100">Awards
+              &amp; Recognition</span>
+          </h2>
+          <div class="mt-2 side-card border-l-2 border-blue-700/80">
+            <ul class="text-[13px] leading-snugish list-disc pl-5 list-tight marker:text-blue-700">
+              <li>HKCCA — Best Call Centre Award (Silver)</li>
+              <li>FORBES 5 Star — 6 years</li>
+              <li>Melco Courage Award</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section class="mb-4 avoid-break">
+          <h2 class="text-xs font-semibold tracking-wide uppercase text-slate-500">
+            <span
+              class="accent-pill inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-100">Education</span>
+          </h2>
+          <div class="mt-2 side-card border-l-2 border-blue-700/80">
+            <p class="text-[13px] leading-snugish">
+              <span class="font-semibold text-slate-900">Taylor's School of Hospitality &amp; Tourism</span><br />
+              Diploma in Hotel Management
+            </p>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Right column (page 2) -->
+      <main class="col-span-8">
+        <!-- Additional Experience -->
+        <section class="mb-4">
+          <h2 class="text-xs font-semibold tracking-wide uppercase text-slate-500">
+            <span
+              class="accent-pill inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-100">Additional
+              Experience</span>
+          </h2>
+
+          <!-- Melco Crown Entertainment -->
+          <div class="mt-2 avoid-break">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-base font-semibold text-slate-900">Melco Crown Entertainment</h3>
+              <span class="text-xs text-slate-500">2009 – 2017</span>
+            </div>
+            <div class="text-[13px] text-slate-700 font-medium leading-snug">
+              <p>Service Quality Manager (2014 – 2017)</p>
+              <p>Contact Centre Assistant Manager (2009 – 2013)</p>
+            </div>
+            <div class="mt-1.5 border-l-2 border-blue-700 pl-4">
+              <p
+                class="text-[11px] uppercase tracking-wide text-blue-900 bg-blue-50 inline-block px-1 rounded border border-blue-100">
+                Service Quality</p>
+              <ul class="mt-0.5 list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Managed the Service Quality team; designed end-to-end QA framework aligned to brand and regulatory
+                  standards.
+                </li>
+                <li>Organized coaching sessions and reporting cadence to lift consistency and compliance across teams.
+                </li>
+              </ul>
+              <p
+                class="mt-2 text-[11px] uppercase tracking-wide text-blue-900 bg-blue-50 inline-block px-1 rounded border border-blue-100">
+                Contact Centre Operations</p>
+              <ul class="mt-0.5 list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Managed guest support, reservations, and ticketing; optimized workflows and resources to meet SLA.
+                </li>
+                <li>Partnered with Revenue Management on standardized selling strategies and yield opportunities.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Shell Malaysia -->
+          <div class="mt-3 avoid-break">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-base font-semibold text-slate-900">Shell Malaysia</h3>
+              <span class="text-xs text-slate-500">2007 – 2009</span>
+            </div>
+            <p class="text-[13px] text-slate-700 font-medium">Support Schedule Lead</p>
+            <div class="mt-1.5 border-l-2 border-blue-700 pl-4">
+              <ul class="list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Handled 24/7 scheduling aligned with HSSE protocols and SLAs; made real-time adjustments to
+                  maintain coverage.</li>
+                <li>Mentored schedulers; ensured critical supplies and tooling readiness.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Fifth Media -->
+          <div class="mt-3 avoid-break">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-base font-semibold text-slate-900">Fifth Media</h3>
+              <span class="text-xs text-slate-500">2005 – 2007</span>
+            </div>
+            <p class="text-[13px] text-slate-700 font-medium">Support Executive</p>
+            <div class="mt-1.5 border-l-2 border-blue-700 pl-4">
+              <ul class="list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Conducted product demos to prospective investors; supported post-sales troubleshooting.</li>
+                <li>Developed internal and customer-facing knowledge repositories.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Genting Group -->
+          <div class="mt-3 avoid-break">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-base font-semibold text-slate-900">Genting Group</h3>
+              <span class="text-xs text-slate-500">2003 – 2005</span>
+            </div>
+            <p class="text-[13px] text-slate-700 font-medium">Team Leader</p>
+            <div class="mt-1.5 border-l-2 border-blue-700 pl-4">
+              <ul class="list-disc pl-5 text-[13px] leading-snugish list-tight marker:text-blue-700">
+                <li>Oversaw daily call-center operations and workforce allocation; maintained low abandonment rates.
+                </li>
+                <li>Ran weekly call monitoring and targeted coaching to improve quality and productivity.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- References (visible on screen, hidden in print to keep 2 pages) -->
+        <section class="hide-print">
+          <p class="text-[11px] text-slate-500">References available upon request.</p>
+        </section>
+      </main>
+    </div>
+  </section>
+
+  <!-- Hidden print anchor -->
+  <div class="hidden print:block"></div>
+
+  <!-- Optional console proxy (safe to remove) -->
+  <script>
+    try {
+      window.parent && window.parent.postMessage({ action: "ready" }, "*");
+      window.console = new Proxy(console, {
+        get(target, prop) {
+          if (['log', 'warn', 'error'].includes(prop)) {
+            return new Proxy(target[prop], {
+              apply(fn, thisArg, args) {
+                fn.apply(thisArg, args);
+                try {
+                  window.parent && window.parent.postMessage({
+                    action: 'console',
+                    type: prop,
+                    args: args.map((arg) => {
+                      try { return JSON.stringify(arg).replace(/^["']|["']$/g, ''); }
+                      catch (e) { return String(arg); }
+                    })
+                  }, '*');
+                } catch (e) { }
+              }
+            });
+          }
+          return target[prop];
+        }
+      });
+    } catch (e) { }
+  </script>
+</body>
+
+</html>

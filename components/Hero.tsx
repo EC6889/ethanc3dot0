@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
-import { MapPin, Clock, Activity, Cpu, ChevronRight, Wifi, Battery, Monitor, Loader2, Scan, Hash } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
 import { InteractiveGrid } from './ui/InteractiveGrid';
 
 const ROLES = [
@@ -11,112 +11,6 @@ const ROLES = [
   "SYSTEM_ADMINISTRATOR"
 ];
 
-const SYSTEM_LOGS = [
-  "INIT_CORE...",
-  "UPLINK_OK",
-  "DECRYPTING...",
-  "OPT_ALGO...",
-  "SYS_NOMINAL",
-  "SECURE_CONN...",
-  "LOAD_ASSETS..."
-];
-
-interface TelemetryState {
-  lat: string;
-  long: string;
-  city: string;
-  networkType: string;
-  downlink: number;
-  rtt: number;
-  battery: number;
-  charging: boolean;
-  cores: number;
-  platform: string;
-}
-
-const useTelemetry = () => {
-  const [telemetry, setTelemetry] = useState<TelemetryState>({
-    lat: 'SCANNING...',
-    long: '',
-    city: 'UNKNOWN_SECTOR',
-    networkType: 'DETECTING',
-    downlink: 0,
-    rtt: 0,
-    battery: 100,
-    charging: true,
-    cores: 4,
-    platform: 'UNKNOWN_TERMINAL'
-  });
-
-  useEffect(() => {
-    const nav = navigator as any;
-    const platform = nav.userAgentData?.platform || nav.platform || "UNKNOWN";
-    const cores = nav.hardwareConcurrency || 4;
-
-    const updateNetwork = () => {
-      const connection = nav.connection || nav.mozConnection || nav.webkitConnection;
-      if (connection) {
-        setTelemetry(prev => ({
-          ...prev,
-          networkType: connection.effectiveType?.toUpperCase() || 'WIFI',
-          downlink: connection.downlink || 10,
-          rtt: connection.rtt || 20
-        }));
-      }
-    };
-
-    const updateBattery = async () => {
-      if (nav.getBattery) {
-        try {
-          const battery = await nav.getBattery();
-          const updateCharge = () => {
-            setTelemetry(prev => ({
-              ...prev,
-              battery: Math.round(battery.level * 100),
-              charging: battery.charging
-            }));
-          };
-          updateCharge();
-          battery.addEventListener('levelchange', updateCharge);
-          battery.addEventListener('chargingchange', updateCharge);
-        } catch (e) { /* Ignore */ }
-      }
-    };
-
-    const updateLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setTelemetry(prev => ({
-              ...prev,
-              lat: position.coords.latitude.toFixed(4) + '° N',
-              long: position.coords.longitude.toFixed(4) + '° E',
-              city: 'COORDS_LOCKED'
-            }));
-          },
-          () => {
-            setTelemetry(prev => ({ ...prev, lat: 'ACCESS_DENIED', long: '', city: 'TRACE_BLOCKED' }));
-          }
-        );
-      }
-    };
-
-    setTelemetry(prev => ({ ...prev, platform: platform.toUpperCase(), cores }));
-    updateNetwork();
-    updateBattery();
-    updateLocation();
-
-    const connection = nav.connection || nav.mozConnection || nav.webkitConnection;
-    if (connection) connection.addEventListener('change', updateNetwork);
-
-    return () => {
-      if (connection) connection.removeEventListener('change', updateNetwork);
-    };
-  }, []);
-
-  return telemetry;
-};
-
 const Hero: React.FC = () => {
   const { scrollY } = useScroll();
 
@@ -124,26 +18,6 @@ const Hero: React.FC = () => {
   const bgY = useTransform(scrollY, [0, 1000], [0, 450]);
   const fgY = useTransform(scrollY, [0, 1000], [0, 150]);
   const fadeOut = useTransform(scrollY, [0, 600], [1, 0]);
-
-  // --- REAL-TIME TELEMETRY STATE ---
-  const [time, setTime] = useState('');
-  const telemetry = useTelemetry();
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setTime(now.toLocaleTimeString('en-US', {
-        hour12: false,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      }));
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Typewriter Logic
   const [text, setText] = useState('');
@@ -198,12 +72,12 @@ const Hero: React.FC = () => {
           {[...Array(10)].map((_, i) => (<div key={i} className="w-3 h-px bg-slate-700/50" />))}
           <div className="absolute bottom-0 -right-1 text-[8px] text-slate-600 -rotate-90 origin-center">AZIM_02</div>
         </div>
-        <div className="absolute top-24 left-6 md:left-12 w-16 h-16 border-t border-l border-cyan-900/30 rounded-tl-xl opacity-50 animate-pulse"></div>
-        <div className="absolute top-24 right-6 md:right-12 w-16 h-16 border-t border-r border-cyan-900/30 rounded-tr-xl opacity-50 animate-pulse"></div>
-        <div className="absolute bottom-24 left-6 md:left-12 w-16 h-16 border-b border-l border-cyan-900/30 rounded-bl-xl opacity-50 animate-pulse"></div>
-        <div className="absolute bottom-24 right-6 md:right-12 w-16 h-16 border-b border-r border-cyan-900/30 rounded-br-xl opacity-50 animate-pulse"></div>
+        <div className="absolute top-24 left-6 md:left-12 w-16 h-16 border-t border-l border-brand-cyan-deep/30 rounded-tl-xl opacity-50 animate-pulse"></div>
+        <div className="absolute top-24 right-6 md:right-12 w-16 h-16 border-t border-r border-brand-cyan-deep/30 rounded-tr-xl opacity-50 animate-pulse"></div>
+        <div className="absolute bottom-24 left-6 md:left-12 w-16 h-16 border-b border-l border-brand-cyan-deep/30 rounded-bl-xl opacity-50 animate-pulse"></div>
+        <div className="absolute bottom-24 right-6 md:right-12 w-16 h-16 border-b border-r border-brand-cyan-deep/30 rounded-br-xl opacity-50 animate-pulse"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-slate-800/20 animate-spin-slow opacity-20">
-          <div className="absolute top-0 left-1/2 w-px h-1/2 bg-gradient-to-t from-cyan-500/20 to-transparent origin-bottom"></div>
+          <div className="absolute top-0 left-1/2 w-px h-1/2 bg-gradient-to-t from-brand-cyan-dim/20 to-transparent origin-bottom"></div>
         </div>
       </motion.div>
 
@@ -229,8 +103,8 @@ const Hero: React.FC = () => {
               className="flex flex-col items-start text-left"
             >
               <div className="flex items-center gap-4 mb-8 opacity-80">
-                <div className="h-px w-12 bg-gradient-to-r from-cyan-500/50 to-transparent"></div>
-                <span className="text-[10px] md:text-[11px] text-cyan-400/90 tracking-[0.3em] uppercase font-bold font-mono px-2 border border-cyan-500/20 rounded bg-cyan-950/30 backdrop-blur-sm py-1">
+                <div className="h-px w-12 bg-gradient-to-r from-brand-cyan/50 to-transparent"></div>
+                <span className="text-[10px] md:text-[11px] text-brand-cyan/90 tracking-[0.3em] uppercase font-bold font-mono px-2 border border-brand-cyan/20 rounded bg-brand-cyan-deep/30 backdrop-blur-sm py-1">
                   Operational_Architect
                 </span>
               </div>
@@ -238,35 +112,35 @@ const Hero: React.FC = () => {
               {/* Redesigned Title - Solid & Clear - Single Line */}
               <div className="relative mb-6 group">
                 {/* Ambient Glow */}
-                <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-cyan-500/20 blur-[100px] w-96 h-96 rounded-full opacity-40 pointer-events-none"></div>
+                <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-brand-cyan-deep/20 blur-[100px] w-96 h-96 rounded-full opacity-40 pointer-events-none"></div>
 
                 {/* Main Title */}
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-black tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
-                  ETHAN <span className="text-cyan-400">C.</span>
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
+                  ETHAN <span className="text-brand-cyan">C.</span>
                 </h1>
 
                 {/* Depth Layer */}
-                <h1 className="absolute inset-0 text-5xl md:text-7xl lg:text-8xl font-sans font-black text-cyan-950 opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
+                <h1 className="absolute inset-0 text-5xl md:text-7xl lg:text-8xl font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
                   ETHAN C.
                 </h1>
               </div>
 
               {/* Subtitle - Bio */}
-              <div className="mb-8 pl-2 border-l-2 border-cyan-500/50 max-w-2xl">
+              <div className="mb-8 pl-2 border-l-2 border-brand-cyan/50 max-w-2xl">
                 <p className="text-xs md:text-sm text-slate-400 font-mono tracking-wide leading-relaxed">
-                  Building scalable, data-driven customer experience operations. I combine <span className="text-cyan-400 font-bold">operational management</span> with <span className="text-blue-400 font-bold">technical solutions</span> to reduce friction and architect efficiency.
+                  Building scalable, data-driven customer experience operations. I combine <span className="text-brand-cyan font-bold">operational management</span> with <span className="text-brand-blue font-bold">technical solutions</span> to reduce friction and architect efficiency.
                 </p>
               </div>
 
               {/* Stable Typewriter Container - Left Aligned */}
               <div className="h-10 flex items-center justify-start relative w-full max-w-xl mb-10">
-                <div className="flex items-center gap-4 w-full px-4 justify-start border-l-2 border-cyan-500/30 bg-slate-900/20 py-2 rounded-r">
-                  <span className="text-cyan-500 text-[10px] md:text-xs font-bold font-mono tracking-widest whitespace-nowrap shrink-0">
+                <div className="flex items-center gap-4 w-full px-4 justify-start border-l-2 border-brand-cyan/30 bg-slate-900/20 py-2 rounded-r">
+                  <span className="text-brand-cyan text-[10px] md:text-xs font-bold font-mono tracking-widest whitespace-nowrap shrink-0">
                     ID: USER_ADMIN //
                   </span>
                   <span className="text-sm md:text-lg text-slate-300 tracking-widest font-mono uppercase flex items-center whitespace-nowrap overflow-hidden">
                     {text}
-                    <span className="w-2 h-4 md:w-2.5 md:h-5 bg-cyan-400 animate-pulse ml-1 shadow-[0_0_10px_cyan]"></span>
+                    <span className="w-2 h-4 md:w-2.5 md:h-5 bg-brand-cyan animate-pulse ml-1 shadow-[0_0_10px_cyan]"></span>
                   </span>
                 </div>
               </div>
@@ -280,14 +154,14 @@ const Hero: React.FC = () => {
               >
                 <a
                   href="#experience"
-                  className="group relative px-8 py-4 bg-cyan-950/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-[0.2em] overflow-hidden hover:bg-cyan-500/10 transition-all duration-300 hover:border-cyan-400"
+                  className="group relative px-8 py-4 bg-brand-cyan-deep/10 border border-brand-cyan/30 text-brand-cyan text-xs font-bold uppercase tracking-[0.2em] overflow-hidden hover:bg-brand-cyan/10 transition-all duration-300 hover:border-brand-cyan"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-cyan/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
                   <span className="relative flex items-center gap-3">
                     Initialize_Protocol <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </span>
-                  <div className="absolute top-0 left-0 w-1 h-1 bg-cyan-400 transition-all duration-300 group-hover:w-full"></div>
-                  <div className="absolute bottom-0 right-0 w-1 h-1 bg-cyan-400 transition-all duration-300 group-hover:w-full"></div>
+                  <div className="absolute top-0 left-0 w-1 h-1 bg-brand-cyan transition-all duration-300 group-hover:w-full"></div>
+                  <div className="absolute bottom-0 right-0 w-1 h-1 bg-brand-cyan transition-all duration-300 group-hover:w-full"></div>
                 </a>
                 <a
                   href="#contact"
@@ -301,69 +175,8 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* --- FOOTER DASHBOARD WIDGETS --- */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-4 border-t border-slate-800/40 mt-4 relative">
-          <div className="absolute top-0 left-0 h-px bg-cyan-500/50 w-0 animate-[shine_4s_ease-in-out_infinite]"></div>
+        {/* --- FOOTER DASHBOARD WIDGETS REMOVED --- */}
 
-          {/* TELEMETRY WIDGETS */}
-          <div className="flex flex-col gap-1.5 border-r border-slate-800/30">
-            <h5 className="text-[9px] text-slate-600 uppercase tracking-widest flex items-center gap-2">
-              <Wifi size={10} /> Uplink_Status
-            </h5>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-bold font-mono">
-                {telemetry.networkType === 'DETECTING' ? (
-                  <span className="animate-pulse">ESTABLISHING...</span>
-                ) : (
-                  <span>{telemetry.networkType} // {telemetry.downlink}Mbps</span>
-                )}
-              </div>
-              <div className="flex items-center gap-2 text-[8px] text-slate-500 font-mono mt-0.5">
-                PING: {telemetry.rtt}ms <span className="w-1 h-1 bg-emerald-500 rounded-full animate-ping"></span>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-1.5 border-r border-slate-800/30 pl-4">
-            <h5 className="text-[9px] text-slate-600 uppercase tracking-widest flex items-center gap-2">
-              <MapPin size={10} /> Geo_Tag
-            </h5>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2 text-[10px] text-blue-400 font-bold font-mono">
-                <span>{telemetry.lat} {telemetry.long}</span>
-              </div>
-              <div className="flex items-center gap-2 text-[8px] text-slate-500 font-mono mt-0.5">
-                {telemetry.city === 'SCANNING...' ? <Loader2 size={8} className="animate-spin" /> : <Scan size={8} />}
-                {telemetry.city}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-1.5 pl-4 border-r border-slate-800/30">
-            <h5 className="text-[9px] text-slate-600 uppercase tracking-widest flex items-center gap-2">
-              <Monitor size={10} /> Terminal
-            </h5>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2 text-[10px] text-purple-400 font-bold font-mono">
-                <span>{telemetry.platform}</span>
-              </div>
-              <div className="flex items-center gap-2 text-[8px] text-slate-500 font-mono mt-0.5">
-                <Hash size={8} /> CORES: {telemetry.cores}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-1.5 items-end">
-            <h5 className="text-[9px] text-slate-600 uppercase tracking-widest flex items-center gap-2">
-              Sys_Time <Clock size={10} />
-            </h5>
-            <span className="text-[10px] text-slate-200 font-bold font-mono tabular-nums">{time}</span>
-            <div className="flex items-center gap-2 text-[8px] text-slate-500 font-mono">
-              <Battery size={8} className={telemetry.charging ? "text-yellow-400" : "text-slate-400"} />
-              PWR: {telemetry.battery}%
-            </div>
-          </div>
-        </div>
 
       </motion.div>
 

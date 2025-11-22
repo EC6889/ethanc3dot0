@@ -77,18 +77,18 @@ const Navbar: React.FC = () => {
         transition={{ duration: 0.5, ease: "circOut" }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b
           ${isScrolled
-            ? 'h-[70px] bg-slate-950/90 backdrop-blur-md border-cyan-900/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
+            ? 'h-[70px] bg-slate-950/90 backdrop-blur-md border-brand-cyan-deep/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
             : 'h-[90px] bg-transparent border-transparent'
           }
         `}
       >
         {/* Tech Decoration Lines */}
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-900/50 to-transparent opacity-50"></div>
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-cyan-deep/50 to-transparent opacity-50"></div>
 
         {/* Scroll Progress Line - Styled as Data Stream */}
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-slate-800/50">
           <Motion.div
-            className="h-full bg-cyan-500 shadow-[0_0_10px_cyan]"
+            className="h-full bg-brand-cyan shadow-[0_0_10px_cyan]"
             style={{ scaleX, transformOrigin: "0%" }}
           />
         </div>
@@ -101,15 +101,15 @@ const Navbar: React.FC = () => {
             onClick={(e) => scrollToSection(e, '#home')}
             className="flex items-center gap-3 group"
           >
-            <div className="relative w-10 h-10 flex items-center justify-center bg-slate-900/50 border border-slate-700 group-hover:border-cyan-500/50 transition-colors rounded-sm overflow-hidden">
-              <div className="absolute inset-0 bg-cyan-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-              <Hexagon className="w-5 h-5 text-cyan-500 relative z-10 group-hover:rotate-90 transition-transform duration-500" strokeWidth={1.5} />
+            <div className="relative w-10 h-10 flex items-center justify-center bg-slate-900/50 border border-slate-700 group-hover:border-brand-cyan-deep/50 transition-colors rounded-sm overflow-hidden">
+              <div className="absolute inset-0 bg-brand-cyan-deep/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+              <Hexagon className="w-5 h-5 text-brand-cyan relative z-10 group-hover:rotate-90 transition-transform duration-500" strokeWidth={1.5} />
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-display font-bold text-white tracking-tight leading-none group-hover:text-cyan-400 transition-colors">
+              <span className="text-base font-display font-bold text-white tracking-tight leading-none group-hover:text-brand-cyan transition-colors">
                 ETHAN C.
               </span>
-              <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-cyan-500/70 transition-colors mt-1">
+              <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-brand-cyan/70 transition-colors mt-1">
                  // Ops_Architect
               </span>
             </div>
@@ -128,21 +128,21 @@ const Navbar: React.FC = () => {
                   onMouseLeave={() => setHoveredTab(null)}
                   className={`
                         relative px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.15em] transition-colors duration-300
-                        ${isActive ? 'text-cyan-400' : 'text-slate-400 hover:text-slate-200'}
+                        ${isActive ? 'text-brand-cyan' : 'text-slate-400 hover:text-slate-200'}
                       `}
                 >
                   {/* Active Indicator: Brackets */}
                   <span className="relative z-10 flex items-center gap-1">
-                    <span className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-cyan-600' : 'opacity-0'}`}>[</span>
+                    <span className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-brand-cyan' : 'opacity-0'}`}>[</span>
                     {link.label}
-                    <span className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-cyan-600' : 'opacity-0'}`}>]</span>
+                    <span className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-brand-cyan' : 'opacity-0'}`}>]</span>
                   </span>
 
                   {/* Background Glow for Active */}
                   {isActive && (
                     <Motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 bg-cyan-500/5 border-b border-cyan-500/50"
+                      className="absolute inset-0 bg-brand-cyan/5 border-b border-brand-cyan/50"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -157,9 +157,9 @@ const Navbar: React.FC = () => {
             <a
               href="/Ethan_C_Resume.pdf"
               download="Ethan_C_Resume.pdf"
-              className="group relative px-5 py-2 bg-slate-900/50 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest border border-slate-700 hover:border-cyan-500/50 hover:text-cyan-400 transition-all overflow-hidden flex items-center"
+              className="group relative px-5 py-2 bg-slate-900/50 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest border border-slate-700 hover:border-brand-cyan/50 hover:text-brand-cyan transition-all overflow-hidden flex items-center"
             >
-              <div className="absolute inset-0 bg-cyan-500/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-brand-cyan/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
               <span className="relative z-10 flex items-center gap-2">
                 <FileText size={12} /> RESUME_V3.0
               </span>
@@ -168,7 +168,7 @@ const Navbar: React.FC = () => {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden group p-2 text-slate-400 hover:text-cyan-400 border border-transparent hover:border-slate-800 transition-all bg-slate-900/50"
+            className="md:hidden group p-2 text-slate-400 hover:text-brand-cyan border border-transparent hover:border-slate-800 transition-all bg-slate-900/50"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -188,7 +188,7 @@ const Navbar: React.FC = () => {
           >
             {/* Mobile Menu Header */}
             <div className="h-[70px] border-b border-slate-800 flex items-center justify-between px-6">
-              <span className="text-xs font-mono text-cyan-500">// NAVIGATION_PROTOCOL</span>
+              <span className="text-xs font-mono text-brand-cyan">// NAVIGATION_PROTOCOL</span>
               <button onClick={() => setMobileMenuOpen(false)} className="text-slate-400 hover:text-white">
                 <X size={24} />
               </button>
@@ -208,9 +208,9 @@ const Navbar: React.FC = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + i * 0.1 }}
-                  className={`text-3xl font-display font-bold tracking-tight flex items-center gap-4 group ${activeSection === link.href.substring(1) ? 'text-cyan-400' : 'text-slate-500'}`}
+                  className={`text-3xl font-display font-bold tracking-tight flex items-center gap-4 group ${activeSection === link.href.substring(1) ? 'text-brand-cyan' : 'text-slate-500'}`}
                 >
-                  <span className="text-sm font-mono text-slate-700 group-hover:text-cyan-500/50 transition-colors">0{i + 1}</span>
+                  <span className="text-sm font-mono text-slate-700 group-hover:text-brand-cyan/50 transition-colors">0{i + 1}</span>
                   {link.label}
                 </Motion.a>
               ))}
@@ -223,7 +223,7 @@ const Navbar: React.FC = () => {
                 transition={{ delay: 0.5 }}
                 href="/Ethan_C_Resume.pdf"
                 download="Ethan_C_Resume.pdf"
-                className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-cyan-900/20 border border-cyan-500/30 text-cyan-400 font-bold font-mono uppercase tracking-widest hover:bg-cyan-500/10 transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-brand-cyan/20 border border-brand-cyan/30 text-brand-cyan font-bold font-mono uppercase tracking-widest hover:bg-brand-cyan/10 transition-colors"
               >
                 <FileText size={16} /> ACCESS_RESUME_FILE
               </Motion.a>

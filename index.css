@@ -6,6 +6,27 @@
   }
 }
 
+@theme {
+  /* Brand Spectrum: Cyan */
+  --color-brand-cyan: #22d3ee;
+  --color-brand-cyan-dim: #06b6d4;
+  --color-brand-cyan-deep: #164e63;
+
+  /* Brand Spectrum: Blue */
+  --color-brand-blue: #3b82f6;
+  --color-brand-blue-dim: #2563eb;
+  --color-brand-blue-deep: #1e3a8a;
+
+  /* Brand Spectrum: Purple */
+  --color-brand-purple: #a855f7;
+  --color-brand-purple-dim: #9333ea;
+  --color-brand-purple-deep: #581c87;
+  
+  /* Slate Palette Extension */
+  --color-slate-850: #151f32;
+  --color-slate-950: #020617;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

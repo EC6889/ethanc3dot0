@@ -7,28 +7,28 @@ import { GlassCard } from './ui/GlassCard';
 
 const THEME_COLORS = {
    cyan: {
-      accent: 'text-cyan-400',
-      bg: 'bg-cyan-500/10',
-      border: 'border-cyan-500/20',
-      bullet: 'bg-cyan-400',
+      accent: 'text-brand-cyan',
+      bg: 'bg-brand-cyan/10',
+      border: 'border-brand-cyan/20',
+      bullet: 'bg-brand-cyan',
       shadow: 'shadow-[0_0_15px_rgba(34,211,238,0.3)]',
-      line: 'bg-cyan-400'
+      line: 'bg-brand-cyan'
    },
    blue: {
-      accent: 'text-blue-400',
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/20',
-      bullet: 'bg-blue-400',
+      accent: 'text-brand-blue',
+      bg: 'bg-brand-blue/10',
+      border: 'border-brand-blue/20',
+      bullet: 'bg-brand-blue',
       shadow: 'shadow-[0_0_15px_rgba(59,130,246,0.3)]',
-      line: 'bg-blue-400'
+      line: 'bg-brand-blue'
    },
    purple: {
-      accent: 'text-purple-400',
-      bg: 'bg-purple-500/10',
-      border: 'border-purple-500/20',
-      bullet: 'bg-purple-400',
+      accent: 'text-brand-purple',
+      bg: 'bg-brand-purple/10',
+      border: 'border-brand-purple/20',
+      bullet: 'bg-brand-purple',
       shadow: 'shadow-[0_0_15px_rgba(168,85,247,0.3)]',
-      line: 'bg-purple-400'
+      line: 'bg-brand-purple'
    }
 };
 
@@ -98,7 +98,7 @@ const Experience: React.FC = () => {
             {[25, 50, 75].map((pos, i) => (
                <div key={i} className="absolute left-0 w-full h-px bg-slate-800/20" style={{ top: `${pos}%` }}>
                   <motion.div
-                     className="w-32 h-full bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"
+                     className="w-32 h-full bg-gradient-to-r from-transparent via-brand-cyan/20 to-transparent"
                      animate={{ x: ['-100vw', '100vw'] }}
                      transition={{ duration: 8 + i * 2, repeat: Infinity, ease: "linear" }}
                   />
@@ -116,8 +116,8 @@ const Experience: React.FC = () => {
                className="mb-8 md:mb-12"
             >
                <div className="flex items-center gap-3 mb-4">
-                  <div className="h-px w-8 bg-cyan-500/50"></div>
-                  <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase">03. WORK_HISTORY</h2>
+                  <div className="h-px w-8 bg-brand-cyan/50"></div>
+                  <h2 className="text-[10px] font-mono text-brand-cyan tracking-[0.2em] uppercase">03. WORK_HISTORY</h2>
                </div>
                <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
                   Operational <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">History</span>
@@ -317,7 +317,7 @@ const Experience: React.FC = () => {
                                     {activeItem.techStack.map((tech) => (
                                        <span
                                           key={tech}
-                                          className="px-2.5 py-1 rounded text-[10px] font-mono font-medium text-slate-400 bg-slate-900 border border-slate-800 hover:text-cyan-400 hover:border-cyan-500/30 transition-colors cursor-default"
+                                          className="px-2.5 py-1 rounded text-[10px] font-mono font-medium text-slate-400 bg-slate-900 border border-slate-800 hover:text-brand-cyan hover:border-brand-cyan/30 transition-colors cursor-default"
                                        >
                                           {tech}
                                        </span>

@@ -70,33 +70,33 @@ const Skills: React.FC = () => {
     {
       id: 'core',
       label: 'Core Platforms',
-      color: 'text-cyan-400',
-      bg: 'bg-cyan-500/10',
-      border: 'border-cyan-500/20',
+      color: 'text-brand-cyan',
+      bg: 'bg-brand-cyan/10',
+      border: 'border-brand-cyan/20',
       items: ['Zendesk', 'Salesforce', 'Genesys', 'Cisco UCCX']
     },
     {
       id: 'auto',
       label: 'Automation & API',
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/20',
+      color: 'text-brand-blue',
+      bg: 'bg-brand-blue/10',
+      border: 'border-brand-blue/20',
       items: ['Zapier', 'Webhook', 'REST API', 'Google Apps Script']
     },
     {
       id: 'data',
       label: 'Data & Analytics',
-      color: 'text-purple-400',
-      bg: 'bg-purple-500/10',
-      border: 'border-purple-500/20',
+      color: 'text-brand-purple',
+      bg: 'bg-brand-purple/10',
+      border: 'border-brand-purple/20',
       items: ['Google Looker', 'Google Workspace']
     },
     {
       id: 'collab',
       label: 'Ecosystem',
-      color: 'text-blue-400',
-      bg: 'bg-blue-500/10',
-      border: 'border-blue-500/20',
+      color: 'text-brand-blue',
+      bg: 'bg-brand-blue/10',
+      border: 'border-brand-blue/20',
       items: ['Lark', 'Slack', 'SiteMinder', 'SISTIC']
     }
   ];

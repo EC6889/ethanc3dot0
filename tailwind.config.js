@@ -21,6 +21,9 @@ export default {
           950: '#020617', // Deep dark background
         },
         // Brand Spectrum: Cyan, Blue, Purple (Used flexibly across the site)
+        // Brand Spectrum: Cyan, Blue, Purple (Used flexibly across the site)
+        // Brand Spectrum: Cyan, Blue, Purple (Used flexibly across the site)
+        // Defined in index.css via @theme for Tailwind v4 compatibility
         cyan: {
           400: '#22d3ee', 
           500: '#06b6d4',

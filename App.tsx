@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -8,34 +8,110 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Terms from './components/legal/Terms';
+import Privacy from './components/legal/Privacy';
+import NotFound from './components/NotFound';
+import Maintenance from './components/Maintenance';
+
+import CookieConsent from './components/CookieConsent';
+
+type ViewState = 'home' | 'terms' | 'privacy' | '404' | 'maintenance';
+
+// Toggle this to true to enable maintenance mode manually
+const MAINTENANCE_MODE = false;
 
 function App() {
+  const [view, setView] = useState<ViewState>('home');
+
+  // Handle initial load and browser back button
+  useEffect(() => {
+    if (MAINTENANCE_MODE) {
+      setView('maintenance');
+      return;
+    }
+
+    const handleLocation = () => {
+      const path = window.location.pathname;
+      if (path === '/' || path === '') {
+        setView('home');
+      } else if (path === '/terms') {
+        setView('terms');
+      } else if (path === '/privacy') {
+        setView('privacy');
+      } else {
+        setView('404');
+      }
+    };
+
+    // Check on mount
+    handleLocation();
+
+    const handlePopState = (event: PopStateEvent) => {
+      if (event.state && event.state.view) {
+        setView(event.state.view);
+      } else {
+        handleLocation();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigateTo = (newView: ViewState) => {
+    if (MAINTENANCE_MODE) return;
+
+    setView(newView);
+    const path = newView === 'home' ? '/' : `/${newView}`;
+    window.history.pushState({ view: newView }, '', path);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (view === 'maintenance') {
+    return <Maintenance />;
+  }
+
+  if (view === '404') {
+    return <NotFound onBack={() => navigateTo('home')} />;
+  }
+
   return (
     <div className="bg-[#030712] min-h-screen text-slate-50 selection:bg-cyan-500/30 selection:text-cyan-200 relative">
-      <Navbar />
+      {view === 'home' && <Navbar />}
+
       <main className="relative z-10">
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Contact />
+        {view === 'home' ? (
+          <>
+            <Hero />
+            <About />
+            <Experience />
+            <Skills />
+            <Projects />
+            <Contact />
+          </>
+        ) : view === 'terms' ? (
+          <Terms onBack={() => navigateTo('home')} />
+        ) : (
+          <Privacy onBack={() => navigateTo('home')} />
+        )}
       </main>
-      <Footer />
-      
+
+      <Footer onNavigate={navigateTo} />
+      <CookieConsent />
+
       {/* Global Background: Reduced opacity to allow section-specific backgrounds to be visible */}
       <div className="fixed inset-0 pointer-events-none z-0 bg-[#030712]">
-         {/* Very subtle noise texture for coherence */}
-         <div 
-            className="absolute inset-0 opacity-[0.03]"
-            style={{
-              backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)',
-              backgroundSize: '40px 40px'
-            }}
-         ></div>
-         
-         {/* Vignette to focus center */}
-         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030712_100%)]"></div>
+        {/* Very subtle noise texture for coherence */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }}
+        ></div>
+
+        {/* Vignette to focus center */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030712_100%)]"></div>
       </div>
     </div>
   );

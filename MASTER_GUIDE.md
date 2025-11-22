@@ -111,20 +111,41 @@ These are reusable "atoms" used to build the larger sections.
 
 ## 6. Styling & Design System
 
-### 6.1. Tailwind Configuration
--   **Fonts:**
-    -   `font-display`: 'Space Grotesk' (Headers, bold statements)
-    -   `font-sans`: 'Inter' (Body text)
-    -   `font-mono`: 'JetBrains Mono' (Data, code, micro-labels)
--   **Colors (The Tri-Core Spectrum):**
-    -   **Cyan (`cyan-400/500`)**: Strategy, Planning, "The Architect".
-    -   **Blue (`blue-500/600`)**: Technology, Implementation, "The Engineer".
-    -   **Purple (`purple-500/900`)**: Operations, Depth, "The System".
-    -   **Slate (`slate-950`)**: The Void (Background).
+### 6.1. Brand Identity
+**Essence:** Precision, Scalability, Futurism.
+**Core Concept:** "The Terminal to the Future." The UI mimics a high-end command center—dark, data-rich, and distraction-free.
 
-### 6.2. Global Styles (`index.css`)
--   Custom scrollbar styling (thin, dark).
--   `@import "tailwindcss";` directive (Tailwind v4).
+### 6.2. Color System (The Tri-Core Spectrum)
+| Token | Hex | Name | Usage |
+| :--- | :--- | :--- | :--- |
+| `brand-cyan` | `#22d3ee` | **Neon Cyan** | Highlights, Active States, Primary Accents. |
+| `brand-cyan-dim` | `#06b6d4` | **Muted Cyan** | Secondary highlights. |
+| `brand-cyan-deep` | `#164e63` | **Deep Cyan** | Backgrounds, borders. |
+| `brand-blue` | `#3b82f6` | **Electric Blue** | Links, Interactive Elements. |
+| `brand-blue-dim` | `#2563eb` | **Muted Blue** | Secondary links. |
+| `brand-blue-deep` | `#1e3a8a` | **Deep Blue** | Backgrounds, borders. |
+| `brand-purple` | `#a855f7` | **Deep Purple** | Gradients, Depth Indicators. |
+| `brand-purple-dim` | `#9333ea` | **Muted Purple** | Secondary gradients. |
+| `brand-purple-deep` | `#581c87` | **Deep Purple** | Backgrounds, borders. |
+
+**Backgrounds:**
+- `slate-950` (#020617): Void (Main Background)
+- `slate-900` (#0f172a): Console (Cards)
+- `slate-800` (#1e293b): Border
+
+### 6.3. Typography
+- **Display:** `Space Grotesk` (Headers, Company Names). Geometric, quirky, high-tech.
+- **Body:** `Inter` (Paragraphs). Neutral, highly legible.
+- **Data/Code:** `JetBrains Mono` (Tags, Dates, Terminal Inputs). Monospaced, engineered.
+
+### 6.4. Iconography & Imagery
+- **Icons:** `Lucide-react`. Stroke width `1.5px` or `2px`.
+- **Visuals:** No photography. Use CSS-generated gradients, glowing orbs, and grid lines.
+
+### 6.5. Interaction Patterns
+- **Hover:** Glow effects, border color shift.
+- **Active:** Neon underline or "light up" indicator.
+- **Glassmorphism:** `bg-slate-900/40`, `backdrop-blur-md`, `border-slate-800`.
 
 ## 7. Animation Guidelines
 
@@ -154,5 +175,37 @@ These are reusable "atoms" used to build the larger sections.
 
 -   **To Add a Project:** Add a new entry to `PROJECTS_DATA` in `constants.ts`.
 -   **To Add a Job:** Add to `EXPERIENCE_DATA` in `constants.ts`.
--   **To Change Colors:** Update `tailwind.config.js` or use the existing `cyan/blue/purple` utility classes.
+-   **To Change Colors:** Update `tailwind.config.js` or use the existing `brand-*` utility classes.
 -   **To Fix Images:** Ensure images are in `public/assets/` and referenced correctly in `constants.ts`. Use `TechLogo` for external logos to ensure fallbacks work.
+
+## 10. Resume Content (Source of Truth)
+*Content used for PDF generation via `scripts/generate-pdf.js`*
+
+**ETHAN C. | CX OPERATIONS MANAGER & STRATEGIST**
+Location: Kuala Lumpur, Malaysia | Email: gmeal6889@gmail.com | LinkedIn: linkedin.com/in/echia6889
+
+**PROFESSIONAL PROFILE**
+Results-oriented CX Leader with 15+ years of experience managing contact center operations in Hospitality and Logistics. Proven track record of bridging the gap between operational needs and technical solutions. Expert in leading high-performance teams, implementing enterprise software (Zendesk/Salesforce), and driving efficiency through process automation and data analytics.
+
+**CORE COMPETENCIES**
+- CX Operations Management
+- Digital Transformation & Strategy
+- System Implementation (SaaS/CRM)
+- Process Improvement & Automation
+- Crisis Management & BCP
+- Vendor Management & Cost Control
+- Data Analytics & Reporting
+- Cross-Functional Leadership
+
+**TECHNICAL PROFICIENCY**
+- Core Platforms: Zendesk, Genesys Cloud, Salesforce, Cisco UCCX
+- Productivity: Google Workspace, Apps Script, Looker Studio
+- Collaboration: Lark, Slack, Microsoft Teams
+- Integration: Zapier, Webhooks, REST API, Postman
+- Hospitality: SiteMinder, Opera PMS, SISTIC
+
+**PROFESSIONAL EXPERIENCE**
+*See `constants.ts` or `pdf_content.txt` archive for full history.*
+- **Ninja Van (2024 – Mar 2025):** Shipper Support Manager
+- **Klook Travel (2018 – 2022):** CEG System Manager / Operations Manager
+- **Melco Crown Entertainment (2009 – 2017):** Service Quality Manager / Assistant Manager

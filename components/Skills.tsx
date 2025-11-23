@@ -378,7 +378,7 @@ const Skills: React.FC = () => {
         </svg>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 w-full">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10 w-full">
         <motion.div
           initial={{ opacity: 0, y: -20, scale: 1.1 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -393,7 +393,7 @@ const Skills: React.FC = () => {
             </h2>
           </div>
           <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
-            Tools & Expertise
+            Technical Expertise
           </h3>
         </motion.div>
 
@@ -415,13 +415,9 @@ const Skills: React.FC = () => {
             <span className="text-blue-500">Strategy</span>.
           </h2>
           <p className="text-slate-400 text-sm md:text-base leading-loose mb-6">
-            I don't just manage teams; I engineer the digital ecosystems they operate in. By
-            mastering the underlying technology, I bridge the gap between abstract strategy and
-            ground-level execution—ensuring the tools serve the people, not the other way around.
+            Skilled in industry-standard tools such as Zendesk and Salesforce, utilizing automation and data analytics, while integrating essential competencies in strategic operations, technical configuration, and resilience planning to optimize efficiency and customer experience.
           </p>
           <p className="text-[10px] md:text-xs font-mono text-slate-500 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
-            INTERACTION: Hover over nodes to visualize operational dependencies.
           </p>
         </motion.div>
 
@@ -496,11 +492,10 @@ const Skills: React.FC = () => {
                         >
                           <GlassCard
                             className={`p-1.5 aspect-square bg-[#0f172a]/80 transition-all cursor-crosshair
-                                      ${
-                                        isHovered || isRelated
-                                          ? 'border-cyan-400 bg-cyan-900/20 shadow-[0_0_15px_rgba(34,211,238,0.3)] scale-110 z-30'
-                                          : 'hover:border-slate-600 hover:bg-slate-800/90'
-                                      }
+                                      ${isHovered || isRelated
+                                ? 'border-cyan-400 bg-cyan-900/20 shadow-[0_0_15px_rgba(34,211,238,0.3)] scale-110 z-30'
+                                : 'hover:border-slate-600 hover:bg-slate-800/90'
+                              }
                                     `}
                             hoverEffect={false} // Disable default hover to control manually
                           >

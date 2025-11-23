@@ -26,7 +26,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] h-px bg-gradient-to-r from-transparent via-brand-cyan-deep/50 to-transparent"></div>
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-brand-cyan-deep/5 to-transparent pointer-events-none"></div>
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div className="md:col-span-2 space-y-6">

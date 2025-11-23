@@ -73,9 +73,9 @@ const Experience: React.FC = () => {
     offset: ['start end', 'end start'],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.95]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [50, 0, 0, -50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0.95, 1, 1, 1]);
+  const y = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [50, 0, 0, 0]);
 
   const springConfig = { stiffness: 50, damping: 20 };
   const smoothOpacity = useSpring(opacity, springConfig);
@@ -120,13 +120,15 @@ const Experience: React.FC = () => {
         ))}
       </div>
 
-      <div className="max-w-[1300px] mx-auto px-4 md:px-8 w-full relative z-10">
-        {/* Compact Section Header */}
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12 w-full relative z-10">
+        {/* Header - Fades in first */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8 md:mb-12"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -30 }}
+          viewport={{ margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-14 md:mb-20"
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-8 bg-brand-cyan/50"></div>
@@ -134,20 +136,33 @@ const Experience: React.FC = () => {
               03. WORK_HISTORY
             </h2>
           </div>
-          <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
-            Operational{' '}
+          <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight mb-8">
+            Milestones{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">
-              History
+
             </span>
           </h3>
+
+          <div className="max-w-3xl">
+            <p className="text-sm md:text-base text-slate-400 leading-loose font-light">
+              Experiences that facilitated the acquisition of new skills, expanded knowledge, refined abilities, and provided opportunities to work with emerging technologies.
+            </p>
+          </div>
         </motion.div>
 
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
-          {/* LEFT COLUMN: Navigation */}
-          <div className="lg:col-span-3 relative z-10">
+          {/* LEFT COLUMN: Navigation - Slides in from left */}
+          <motion.div
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -80 }}
+            viewport={{ margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-3 relative z-10"
+          >
             <div className="flex flex-col space-y-2">
               <div className="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-2 pl-3">
-                // Select_Role
+                // WORKFORCE
               </div>
 
               {EXPERIENCE_DATA.map((item, index) => {
@@ -158,11 +173,10 @@ const Experience: React.FC = () => {
                   <button
                     key={item.id}
                     onClick={() => setSelectedId(item.id)}
-                    className={`group w-full text-left px-4 py-4 border border-slate-800 transition-all duration-300 relative overflow-hidden rounded-md ${
-                      isSelected
-                        ? `bg-slate-900/80 border-${colorKeys[index % 3]}-500/50`
-                        : 'hover:border-slate-600 hover:bg-slate-900/40'
-                    }`}
+                    className={`group w-full text-left px-4 py-4 border border-slate-800 transition-all duration-300 relative overflow-hidden rounded-md ${isSelected
+                      ? `bg-slate-900/80 border-${colorKeys[index % 3]}-500/50`
+                      : 'hover:border-slate-600 hover:bg-slate-900/40'
+                      }`}
                   >
                     {/* Active Glow Background */}
                     {isSelected && (
@@ -229,10 +243,22 @@ const Experience: React.FC = () => {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
 
-          {/* RIGHT COLUMN: Content Display */}
-          <div className="lg:col-span-9 relative z-10">
+          {/* RIGHT COLUMN: Content Display - Flies in from right */}
+          <motion.div
+            initial={{ opacity: 0, x: 100, rotateY: 5 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+            exit={{ opacity: 0, x: 100, rotateY: 5 }}
+            viewport={{ margin: "-100px" }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              ease: [0.22, 1, 0.36, 1],
+              opacity: { duration: 0.5 }
+            }}
+            className="lg:col-span-9 relative z-10"
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeItem.id}
@@ -249,8 +275,13 @@ const Experience: React.FC = () => {
                     className={`absolute top-0 right-0 w-64 h-64 ${theme.bg} rounded-full blur-[100px] opacity-20 pointer-events-none`}
                   />
 
-                  {/* Header Banner */}
-                  <div className="relative px-6 py-5 border-b border-slate-800 bg-slate-900/50 flex items-center justify-between gap-4">
+                  {/* Header Banner - Cascades in */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.4 }}
+                    className="relative px-6 py-5 border-b border-slate-800 bg-slate-900/50 flex items-center justify-between gap-4"
+                  >
                     <div className="flex items-center gap-4">
                       <div
                         className={`w-12 h-12 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center p-2 shadow-lg shrink-0`}
@@ -288,10 +319,15 @@ const Experience: React.FC = () => {
                     >
                       {activeItem.logoInitials}
                     </div>
-                  </div>
+                  </motion.div>
 
-                  {/* Content Body */}
-                  <div className="px-6 py-6 space-y-8 bg-gradient-to-b from-slate-900/0 to-slate-900/20 max-h-[60vh] md:max-h-[70vh] overflow-y-auto custom-scrollbar">
+                  {/* Content Body - Cascades in after header */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25, duration: 0.5 }}
+                    className="px-6 py-6 space-y-8 bg-gradient-to-b from-slate-900/0 to-slate-900/20 max-h-[60vh] md:max-h-[70vh] overflow-y-auto custom-scrollbar"
+                  >
                     {activeItem.positions.map((pos, idx) => (
                       <div key={idx} className="relative group/pos">
                         <div
@@ -354,7 +390,7 @@ const Experience: React.FC = () => {
                         </div>
                       </div>
                     ))}
-                  </div>
+                  </motion.div>
 
                   {/* Footer */}
                   {activeItem.techStack && activeItem.techStack.length > 0 && (
@@ -377,7 +413,7 @@ const Experience: React.FC = () => {
                 </GlassCard>
               </motion.div>
             </AnimatePresence>
-          </div>
+          </motion.div>
         </div>
       </div>
     </motion.section>

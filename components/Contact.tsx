@@ -152,10 +152,11 @@ const Contact: React.FC = () => {
             <div>
               <h3 className="text-2xl md:text-3xl font-display font-bold text-white leading-[1.3]">
                 Open for <br />
-                <span className="text-brand-cyan">Collaboration</span>
+                <span className="text-brand-cyan">New Opportunities</span>
               </h3>
               <p className="text-slate-400 text-sm md:text-base mt-6 leading-loose max-w-md">
-                Available for operations management and consulting roles. Let's organize your support team and improve your workflows.
+                Looking for the next challenge in operations management or consulting. Whether you want to explore collaboration,
+                discuss a role, or just say hi—I'd love to hear from you.
               </p>
             </div>
 
@@ -186,6 +187,43 @@ const Contact: React.FC = () => {
                   </div>
                   <div className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-brand-purple to-brand-blue w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
                   <div className="absolute inset-0 bg-brand-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                </GlassCard>
+              </a>
+
+              {/* GoodTime Schedule Module */}
+              <a
+                href="https://meet.goodtime.io/u/gmeal6889-100/letschat"
+                target="_blank"
+                rel="noreferrer"
+                className="block w-full"
+              >
+                <GlassCard
+                  className="p-0 group relative overflow-hidden transition-all border-slate-800 hover:border-brand-cyan/40 hover:shadow-[0_0_25px_rgba(34,211,238,0.15)] bg-[#0f172a]/80"
+                  hoverEffect={false} // Disabling default to use custom fill
+                >
+                  <div className="p-5 flex items-center gap-5 relative z-10">
+                    <div className="h-12 w-12 rounded bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-cyan group-hover:text-white group-hover:border-brand-cyan/50 transition-all shadow-[0_0_15px_rgba(34,211,238,0.1)] group-hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]">
+                      <Calendar size={20} />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors font-display tracking-wide">
+                        Schedule Briefing
+                      </h5>
+                      <p className="text-[10px] font-mono text-slate-500 mt-1 group-hover:text-brand-cyan/70">
+                        SYNC_CALENDAR
+                      </p>
+                    </div>
+                    <ExternalLink
+                      size={16}
+                      className="text-slate-600 group-hover:text-brand-cyan transition-colors"
+                    />
+                  </div>
+
+                  {/* Progress Bar Animation */}
+                  <div className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-brand-cyan to-brand-blue w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+
+                  {/* Hover Background Fill */}
+                  <div className="absolute inset-0 bg-brand-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                 </GlassCard>
               </a>
 
@@ -257,51 +295,61 @@ const Contact: React.FC = () => {
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5 flex-grow">
-                  {/* Name */}
-                  <div className="group space-y-2 relative">
-                    <label htmlFor="name" className="text-[9px] font-mono text-slate-500 group-focus-within:text-brand-cyan uppercase tracking-wider flex justify-between">
-                      <span>01 // User_ID</span>
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formState.name}
-                        onChange={handleChange}
-                        className="w-full bg-slate-900/50 border-b border-slate-700 px-0 py-3 text-sm text-white focus:outline-none focus:border-brand-cyan focus:bg-slate-900/80 transition-all placeholder:text-slate-700 font-mono rounded-none"
-                        placeholder="ENTER_NAME"
-                        required
-                      />
-                      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-cyan shadow-[0_0_10px_cyan] group-focus-within:w-full transition-all duration-500"></div>
+                <form onSubmit={handleSubmit} className="space-y-6 flex-grow">
+                  {/* Name & Email - Two Column Layout */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Name */}
+                    <div className="group space-y-3 relative">
+                      <label htmlFor="name" className="text-[10px] font-mono text-slate-500 group-focus-within:text-brand-cyan uppercase tracking-wider flex justify-between">
+                        <span>01 // User_ID</span>
+                        <span className="opacity-0 group-focus-within:opacity-100 transition-opacity text-brand-cyan/50">
+                          ACTIVE
+                        </span>
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formState.name}
+                          onChange={handleChange}
+                          className="w-full bg-slate-900/50 border border-slate-800 rounded px-4 py-4 text-sm text-white focus:outline-none focus:border-brand-cyan focus:bg-slate-900/80 transition-all placeholder:text-slate-600 font-mono hover:border-slate-700"
+                          placeholder="Enter your name"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* Email */}
+                    <div className="group space-y-3 relative">
+                      <label htmlFor="email" className="text-[10px] font-mono text-slate-500 group-focus-within:text-brand-cyan uppercase tracking-wider flex justify-between">
+                        <span>02 // Return_Address</span>
+                        <span className="opacity-0 group-focus-within:opacity-100 transition-opacity text-brand-cyan/50">
+                          ACTIVE
+                        </span>
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formState.email}
+                          onChange={handleChange}
+                          className="w-full bg-slate-900/50 border border-slate-800 rounded px-4 py-4 text-sm text-white focus:outline-none focus:border-brand-cyan focus:bg-slate-900/80 transition-all placeholder:text-slate-600 font-mono hover:border-slate-700"
+                          placeholder="your.email@example.com"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  {/* Email */}
-                  <div className="group space-y-2 relative">
-                    <label htmlFor="email" className="text-[9px] font-mono text-slate-500 group-focus-within:text-brand-cyan uppercase tracking-wider flex justify-between">
-                      <span>02 // Return_Address</span>
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formState.email}
-                        onChange={handleChange}
-                        className="w-full bg-slate-900/50 border-b border-slate-700 px-0 py-3 text-sm text-white focus:outline-none focus:border-brand-cyan focus:bg-slate-900/80 transition-all placeholder:text-slate-700 font-mono rounded-none"
-                        placeholder="ENTER_EMAIL"
-                        required
-                      />
-                      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-cyan shadow-[0_0_10px_cyan] group-focus-within:w-full transition-all duration-500"></div>
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div className="group space-y-2 relative">
-                    <label htmlFor="message" className="text-[9px] font-mono text-slate-500 group-focus-within:text-brand-cyan uppercase tracking-wider flex justify-between">
+                  {/* Message - Full Width */}
+                  <div className="group space-y-3 relative">
+                    <label htmlFor="message" className="text-[10px] font-mono text-slate-500 group-focus-within:text-brand-cyan uppercase tracking-wider flex justify-between">
                       <span>03 // Data_Payload</span>
+                      <span className="opacity-0 group-focus-within:opacity-100 transition-opacity text-brand-cyan/50">
+                        ACTIVE
+                      </span>
                     </label>
                     <div className="relative">
                       <textarea
@@ -309,17 +357,16 @@ const Contact: React.FC = () => {
                         name="message"
                         value={formState.message}
                         onChange={handleChange}
-                        rows={4}
-                        className="w-full bg-slate-900/50 border-b border-slate-700 px-0 py-3 text-sm text-white focus:outline-none focus:border-brand-cyan focus:bg-slate-900/80 transition-all placeholder:text-slate-700 resize-none font-mono leading-relaxed rounded-none"
-                        placeholder="> INPUT_MESSAGE..."
+                        rows={5}
+                        className="w-full bg-slate-900/50 border border-slate-800 rounded px-4 py-4 text-sm text-white focus:outline-none focus:border-brand-cyan focus:bg-slate-900/80 transition-all placeholder:text-slate-600 resize-none font-mono leading-relaxed hover:border-slate-700"
+                        placeholder="Type your message here..."
                         required
                       />
-                      <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-cyan shadow-[0_0_10px_cyan] group-focus-within:w-full transition-all duration-500"></div>
                     </div>
                   </div>
 
                   {/* CAPTCHA Widget */}
-                  <div className="pt-2 flex justify-center md:justify-start">
+                  <div className="pt-4 flex justify-center">
                     <Turnstile
                       ref={turnstileRef}
                       siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || ''}
@@ -329,6 +376,7 @@ const Contact: React.FC = () => {
                   </div>
 
                   {/* Submit Button */}
+                  {/* Submit Button - The Transmission Trigger */}
                   <button
                     type="submit"
                     disabled={isSubmitting || isSubmitted || !token}
@@ -336,33 +384,100 @@ const Contact: React.FC = () => {
                       w-full py-4 font-bold font-mono text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all mt-auto group relative overflow-hidden
                       ${!token
                         ? 'bg-slate-800/50 border border-slate-700 text-slate-500 cursor-not-allowed'
-                        : 'bg-brand-cyan/10 border border-brand-cyan/50 hover:bg-brand-cyan/20 text-brand-cyan hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] cursor-pointer'}
+                        : 'bg-brand-cyan/5 border border-brand-cyan/50 text-brand-cyan cursor-pointer'}
                     `}
                   >
+                    {/* Background Fills */}
                     {!token && <div className="absolute inset-0 bg-stripes opacity-5"></div>}
-                    {token && <div className="absolute inset-0 w-full h-full bg-brand-cyan/10 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>}
 
+                    {/* Hover Fill Effect (Only when active) */}
+                    {token && !isSubmitting && !isSubmitted && (
+                      <div className="absolute inset-0 bg-brand-cyan/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                    )}
+
+                    {/* Progress Bar (Uploading) */}
+                    {isSubmitting && (
+                      <Motion.div
+                        initial={{ width: '0%' }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: 2, ease: "linear" }}
+                        className="absolute inset-0 bg-brand-cyan/20"
+                      />
+                    )}
+
+                    {/* Success Fill */}
+                    {isSubmitted && (
+                      <Motion.div
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.5, ease: "circOut" }}
+                        className="absolute inset-0 bg-emerald-500/20 origin-left"
+                      />
+                    )}
+
+                    {/* Error Fill */}
+                    {error && (
+                      <Motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="absolute inset-0 bg-red-500/20"
+                      />
+                    )}
+
+                    {/* Button Content */}
                     <AnimatePresence mode="wait">
                       {isSubmitted ? (
-                        <Motion.span key="success" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} className="flex items-center gap-2 relative z-10 text-emerald-400">
-                          [ PACKET_DELIVERED ] <CheckCircle size={14} />
+                        <Motion.span
+                          key="success"
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -20, opacity: 0 }}
+                          className="flex items-center gap-2 relative z-10 text-emerald-400"
+                        >
+                          <span className="text-emerald-400">[ TRANSMISSION_COMPLETE ]</span> <CheckCircle size={16} />
                         </Motion.span>
                       ) : error ? (
-                        <Motion.span key="error" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} className="flex items-center gap-2 relative z-10 text-red-400">
-                          [ TRANSMISSION_FAILED ] <AlertCircle size={14} />
+                        <Motion.span
+                          key="error"
+                          initial={{ x: 0 }}
+                          animate={{ x: [-5, 5, -5, 5, 0] }}
+                          transition={{ duration: 0.4 }}
+                          className="flex items-center gap-2 relative z-10 text-red-400"
+                        >
+                          [ CONNECTION_REFUSED ] <AlertCircle size={16} />
                         </Motion.span>
                       ) : isSubmitting ? (
-                        <Motion.span key="loading" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} className="flex items-center gap-2 relative z-10">
-                          <span className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
-                          UPLOADING...
+                        <Motion.span
+                          key="loading"
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -20, opacity: 0 }}
+                          className="flex items-center gap-2 relative z-10 text-brand-cyan"
+                        >
+                          <span className="font-mono">UPLOADING_PACKET...</span>
                         </Motion.span>
                       ) : !token ? (
-                        <Motion.span key="locked" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} className="flex items-center gap-2 relative z-10">
+                        <Motion.span
+                          key="locked"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="flex items-center gap-2 relative z-10"
+                        >
                           LOCKED // VERIFY HUMAN <Lock size={12} />
                         </Motion.span>
                       ) : (
-                        <Motion.span key="idle" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} className="flex items-center gap-2 relative z-10 group-hover:text-brand-cyan">
-                          TRANSMIT_DATA <Send size={12} className="group-hover:translate-x-1 transition-transform" />
+                        <Motion.span
+                          key="idle"
+                          initial={{ y: 0 }}
+                          exit={{ y: -20, opacity: 0 }}
+                          className="flex items-center gap-2 relative z-10 group-hover:text-white transition-colors"
+                        >
+                          <span className="group-hover:hidden">&gt; INITIALIZE_UPLOAD</span>
+                          <span className="hidden group-hover:inline-block text-brand-cyan drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">
+                            &gt;&gt; EXECUTE_TRANSMISSION
+                          </span>
+                          <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                         </Motion.span>
                       )}
                     </AnimatePresence>

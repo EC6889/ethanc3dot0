@@ -218,7 +218,7 @@ const About: React.FC = () => {
     { name: 'English', code: 'EN_US', level: 'Native', score: 4, color: 'cyan' },
     { name: 'Cantonese', code: 'ZH_HK', level: 'Native', score: 4, color: 'cyan' },
     { name: 'Mandarin', code: 'ZH_CN', level: 'Intermediate', score: 3, color: 'blue' },
-    { name: 'Bahasa', code: 'MS_MY', level: 'Intermediate', score: 2, color: 'blue' },
+    { name: 'Bahasa', code: 'MS_MY', level: 'Intermediate', score: 3, color: 'blue' },
     { name: 'French', code: 'FR_FR', level: 'Beginner', score: 1, color: 'purple' },
   ];
 
@@ -317,17 +317,14 @@ const About: React.FC = () => {
 
                 <div className="space-y-6 text-sm md:text-base text-slate-400 leading-loose max-w-lg font-light">
                   <p>
-                    I am a{' '}
-                    <strong className="text-white font-medium">
-                      CX Operations Manager with 15+ years of experience
-                    </strong>{' '}
-                    running contact centers in the Hospitality and Logistics sectors. My operational
-                    philosophy is simple: Identify the bottleneck, then engineer the solution.
+                    A Strategic CX Leader with over 15 years of experience across Hospitality, Travel Tech,
+                    Contact Centers, and Logistics.
                   </p>
                   <p>
-                    Acting as the translator between support agents and technical teams, I
-                    specialize in configuring enterprise ecosystems (Zendesk, Salesforce, Genesys)
-                    to ensure tools serve the people, not the other way around.
+                    I specialize in breaking down operational challenges and rebuilding them as efficient,
+                    automated systems. Working with enterprise platforms like Zendesk, Genesys, and Salesforce,
+                    I bridge the gap between operations and technology—ensuring tools work for people, not the
+                    other way around.
                   </p>
                 </div>
               </div>
@@ -373,7 +370,7 @@ const About: React.FC = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + index * 0.1, duration: 0.4 }}
                       viewport={{ once: false, margin: '-50px' }}
-                      className="group relative flex items-center justify-between p-3 bg-[#0f172a]/60 border border-slate-800/50 hover:border-cyan-500/30 transition-all overflow-hidden rounded-sm"
+                      className="group relative flex items-center justify-between p-3 bg-[#0f172a]/60 border border-slate-800/50 hover:border-cyan-500/30 transition-all rounded-sm hover:shadow-xl hover:bg-[#0f172a]/90"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none"></div>
                       <div className="flex items-center gap-4 relative z-10">

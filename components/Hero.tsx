@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { InteractiveGrid } from './ui/InteractiveGrid';
+import { GlitchText } from './ui/GlitchText';
+import { MagneticButton } from './ui/MagneticButton';
 
 const ROLES = [
   'CX_OPERATIONS_MANAGER',
@@ -126,9 +128,9 @@ const Hero: React.FC = () => {
                 {/* Ambient Glow */}
                 <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-brand-cyan-deep/20 blur-[100px] w-96 h-96 rounded-full opacity-40 pointer-events-none"></div>
 
-                {/* Main Title */}
+                {/* Main Title with Glitch Effect */}
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
-                  ETHAN <span className="text-brand-cyan">C.</span>
+                  <GlitchText text="ETHAN" /> <span className="text-brand-cyan">C.</span>
                 </h1>
 
                 {/* Depth Layer */}
@@ -167,28 +169,37 @@ const Hero: React.FC = () => {
                 transition={{ delay: 0.8 }}
                 className="flex flex-col sm:flex-row items-start gap-5"
               >
-                <a
-                  href="#experience"
-                  className="group relative px-8 py-4 bg-brand-cyan-deep/10 border border-brand-cyan/30 text-brand-cyan text-xs font-bold uppercase tracking-[0.2em] overflow-hidden hover:bg-brand-cyan/10 transition-all duration-300 hover:border-brand-cyan"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-cyan/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
-                  <span className="relative flex items-center gap-3">
-                    Initialize_Protocol{' '}
-                    <ChevronRight
-                      size={14}
-                      className="group-hover:translate-x-1 transition-transform"
-                    />
-                  </span>
-                  <div className="absolute top-0 left-0 w-1 h-1 bg-brand-cyan transition-all duration-300 group-hover:w-full"></div>
-                  <div className="absolute bottom-0 right-0 w-1 h-1 bg-brand-cyan transition-all duration-300 group-hover:w-full"></div>
-                </a>
-                <a
-                  href="#contact"
-                  className="px-8 py-4 border border-slate-800 text-slate-500 text-xs font-bold uppercase tracking-[0.2em] hover:text-white hover:border-slate-600 transition-all duration-300 hover:bg-slate-900/50 flex items-center gap-2"
-                >
-                  Establish_Comms
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-green-500 transition-colors"></span>
-                </a>
+                <MagneticButton>
+                  <a
+                    href="#experience"
+                    className="group relative px-8 py-4 bg-brand-cyan-deep/10 border border-brand-cyan/30 text-brand-cyan text-xs font-bold uppercase tracking-[0.2em] overflow-hidden hover:bg-brand-cyan/10 transition-all duration-300 hover:border-brand-cyan block"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-cyan/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
+                    <span className="relative flex items-center gap-3">
+                      Initialize_Protocol{' '}
+                      <ChevronRight
+                        size={14}
+                        className="group-hover:translate-x-1 transition-transform"
+                      />
+                    </span>
+                    <div className="absolute top-0 left-0 w-1 h-1 bg-brand-cyan transition-all duration-300 group-hover:w-full"></div>
+                    <div className="absolute bottom-0 right-0 w-1 h-1 bg-brand-cyan transition-all duration-300 group-hover:w-full"></div>
+                  </a>
+                </MagneticButton>
+
+                <MagneticButton strength={20}>
+                  <a
+                    href="#contact"
+                    className="px-8 py-4 border border-slate-800 text-slate-500 text-xs font-bold uppercase tracking-[0.2em] hover:text-white hover:border-slate-600 transition-all duration-300 hover:bg-slate-900/50 flex items-center gap-2 relative overflow-hidden group"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      Establish_Comms
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-green-500 transition-colors"></span>
+                    </span>
+                    {/* Scanline Effect */}
+                    <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                  </a>
+                </MagneticButton>
               </motion.div>
             </motion.div>
           </div>

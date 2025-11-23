@@ -73,10 +73,9 @@ const Navbar: React.FC = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: 'circOut' }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b
-          ${
-            isScrolled
-              ? 'h-[70px] bg-slate-950/90 backdrop-blur-md border-brand-cyan-deep/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
-              : 'h-[90px] bg-transparent border-transparent'
+          ${isScrolled
+            ? 'h-[70px] bg-slate-950/90 backdrop-blur-md border-brand-cyan-deep/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
+            : 'h-[90px] bg-transparent border-transparent'
           }
         `}
       >
@@ -91,7 +90,7 @@ const Navbar: React.FC = () => {
           />
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 md:px-8 flex items-center justify-between w-full h-full relative">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-8 flex items-center justify-between w-full h-full relative">
           {/* Logo Section */}
           <a
             href="#home"

@@ -34,10 +34,9 @@ const FileTreeItem: React.FC<{
       onClick={onClick}
       className={`
         w-full flex items-center gap-2 py-2 px-3 rounded-sm transition-all duration-200 group relative
-        ${
-          isSelected
-            ? 'bg-brand-cyan/10 text-brand-cyan'
-            : 'text-slate-500 hover:text-slate-300 hover:bg-slate-900/30'
+        ${isSelected
+          ? 'bg-brand-cyan/10 text-brand-cyan'
+          : 'text-slate-500 hover:text-slate-300 hover:bg-slate-900/30'
         }
       `}
       style={{ paddingLeft: `${depth * 16 + 12}px` }}
@@ -120,21 +119,18 @@ const Projects: React.FC = () => {
     offset: ['start end', 'end start'],
   });
 
-  const smoothOpacity = useSpring(useTransform(scrollYProgress, [0, 0.2], [0, 1]), {
-    stiffness: 50,
-    damping: 20,
-  });
-  const smoothY = useSpring(useTransform(scrollYProgress, [0, 0.2], [50, 0]), {
-    stiffness: 50,
-    damping: 20,
-  });
+  // Section-level fade in (subtle, just for overall visibility)
+  const sectionOpacity = useSpring(
+    useTransform(scrollYProgress, [0, 0.15], [0, 1]),
+    { stiffness: 100, damping: 25 }
+  );
 
   return (
     <Motion.section
       id="projects"
       ref={containerRef}
-      style={{ opacity: smoothOpacity, y: smoothY }}
-      className="bg-[#030712] relative border-t border-slate-900 overflow-hidden min-h-screen py-32 md:py-48"
+      style={{ opacity: sectionOpacity }}
+      className="bg-[#030712] relative border-t border-slate-900 overflow-hidden min-h-[600px] py-32 md:py-48"
     >
       {/* === BACKGROUND: Blueprint Grid === */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -149,8 +145,15 @@ const Projects: React.FC = () => {
       </div>
 
       <div className="max-w-[1300px] mx-auto px-6 md:px-12 relative z-10">
-        {/* Header */}
-        <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        {/* Header - Fades in first */}
+        <Motion.div
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -30 }}
+          viewport={{ margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6"
+        >
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-8 bg-brand-cyan/50"></div>
@@ -159,7 +162,7 @@ const Projects: React.FC = () => {
               </h2>
             </div>
             <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
-              Operational <span className="text-slate-500">Case Studies</span>
+              Project <span className="text-slate-500">Highlight</span>
             </h3>
           </div>
           <div className="hidden md:block text-right">
@@ -174,11 +177,18 @@ const Projects: React.FC = () => {
               ALL_SYSTEMS_OPTIMAL
             </div>
           </div>
-        </div>
+        </Motion.div>
 
         <div className="grid lg:grid-cols-12 gap-8 items-stretch min-h-[600px]">
-          {/* LEFT COLUMN: File Directory */}
-          <div className="lg:col-span-3 flex flex-col">
+          {/* LEFT COLUMN: File Directory - Slides in from left */}
+          <Motion.div
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -80 }}
+            viewport={{ margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-3 flex flex-col"
+          >
             <div className="bg-slate-950/50 border border-slate-800 rounded-lg overflow-hidden flex flex-col h-full backdrop-blur-sm">
               {/* Terminal Header */}
               <div className="h-9 bg-slate-900 border-b border-slate-800 flex items-center px-3 gap-2">
@@ -243,28 +253,40 @@ const Projects: React.FC = () => {
                 LAST_INDEX: {new Date().toLocaleDateString()}
               </div>
             </div>
-          </div>
+          </Motion.div>
 
-          {/* RIGHT COLUMN: Mission Log Display */}
-          <div className="lg:col-span-9">
+
+          {/* RIGHT COLUMN: Mission Log Display - Flies in from right */}
+          <Motion.div
+            initial={{ opacity: 0, x: 100, rotateY: 5 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+            exit={{ opacity: 0, x: 100, rotateY: 5 }}
+            viewport={{ margin: "-100px" }}
+            transition={{
+              duration: 0.8,
+              delay: 0.4,
+              ease: [0.22, 1, 0.36, 1],
+              opacity: { duration: 0.5 }
+            }}
+            className="lg:col-span-9"
+          >
             <AnimatePresence mode="wait">
               <Motion.div
                 key={activeProject.id}
-                initial={{ opacity: 0, scale: 0.98, filter: 'blur(4px)' }}
-                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, scale: 0.98, filter: 'blur(4px)' }}
-                transition={{ duration: 0.4, ease: 'circOut' }}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
                 className="h-full"
               >
-                <GlassCard className="h-full p-0 border-slate-800 bg-[#0f172a]/80 relative overflow-hidden flex flex-col group">
-                  {/* Decorative HUD Corners */}
-                  <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-brand-cyan-deep/30 rounded-tl-lg z-20 pointer-events-none"></div>
-                  <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-brand-cyan-deep/30 rounded-tr-lg z-20 pointer-events-none"></div>
-                  <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-brand-cyan-deep/30 rounded-bl-lg z-20 pointer-events-none"></div>
-                  <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-brand-cyan-deep/30 rounded-br-lg z-20 pointer-events-none"></div>
-
-                  {/* Header Bar */}
-                  <div className="px-6 md:px-10 py-6 border-b border-slate-800/50 bg-slate-950/30 flex flex-col md:flex-row justify-between gap-4 relative z-10">
+                <GlassCard className="h-full p-0 border-slate-800 bg-[#0f172a]/80 relative overflow-hidden flex flex-col group hover:border-brand-cyan/30 transition-colors duration-500">
+                  {/* Header Bar - Cascades in */}
+                  <Motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.4 }}
+                    className="px-6 md:px-10 py-6 border-b border-slate-800/50 bg-slate-950/30 flex flex-col md:flex-row justify-between gap-4 relative z-10"
+                  >
                     <div>
                       <div className="flex items-center gap-3 mb-2">
                         <span className="px-2 py-0.5 rounded bg-brand-cyan-deep/10 border border-brand-cyan-deep/30 text-brand-cyan text-[10px] font-mono font-bold uppercase tracking-wider">
@@ -288,7 +310,7 @@ const Projects: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Status Badge - Replaces Play Button */}
+                      {/* Status Badge */}
                       <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-900/80 border border-slate-700/50 shadow-inner">
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_5px_#10b981]"></div>
                         <span className="text-[10px] font-mono font-bold text-emerald-500/90 uppercase tracking-widest">
@@ -296,10 +318,15 @@ const Projects: React.FC = () => {
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </Motion.div>
 
-                  {/* Body Content */}
-                  <div className="p-6 md:p-10 grid md:grid-cols-3 gap-10 flex-grow relative z-10">
+                  {/* Body Content - Cascades in after header */}
+                  <Motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25, duration: 0.5 }}
+                    className="p-6 md:p-10 grid md:grid-cols-3 gap-10 flex-grow relative z-10"
+                  >
                     {/* Main Description & Stack */}
                     <div className="md:col-span-2 flex flex-col gap-8">
                       <div>
@@ -394,19 +421,11 @@ const Projects: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Scanning Line Effect */}
-                  <Motion.div
-                    initial={{ top: 0, opacity: 0 }}
-                    animate={{ top: '100%', opacity: [0, 0.5, 0] }}
-                    transition={{ duration: 2, ease: 'linear' }}
-                    className="absolute left-0 right-0 h-px bg-brand-cyan shadow-[0_0_10px_#00f3ff] z-30 pointer-events-none"
-                  />
+                  </Motion.div>
                 </GlassCard>
               </Motion.div>
             </AnimatePresence>
-          </div>
+          </Motion.div>
         </div>
       </div>
     </Motion.section>

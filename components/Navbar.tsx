@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
-import { Menu, X, Hexagon, FileText } from 'lucide-react';
+import { Menu, X, FileText } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 const Motion = motion as any;
@@ -99,9 +99,10 @@ const Navbar: React.FC = () => {
           >
             <div className="relative w-10 h-10 flex items-center justify-center bg-slate-900/50 border border-slate-700 group-hover:border-brand-cyan-deep/50 transition-colors rounded-sm overflow-hidden">
               <div className="absolute inset-0 bg-brand-cyan-deep/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-              <Hexagon
-                className="w-5 h-5 text-brand-cyan relative z-10 group-hover:rotate-90 transition-transform duration-500"
-                strokeWidth={1.5}
+              <img
+                src="/assets/logo.png"
+                alt="Logo"
+                className="w-full h-full object-cover relative z-10"
               />
             </div>
             <div className="flex flex-col">

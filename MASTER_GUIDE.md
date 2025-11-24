@@ -153,7 +153,7 @@ These are reusable "atoms" used to build the larger sections.
 ### 6.4. Iconography & Imagery
 
 - **Icons:** `Lucide-react`. Stroke width `1.5px` or `2px`.
-- **Visuals:** No photography. Use CSS-generated gradients, glowing orbs, and grid lines.
+- Visuals: No photography (except for Logo/Favicon). Use CSS-generated gradients, glowing orbs, and grid lines.
 
 ### 6.5. Interaction Patterns
 

@@ -105,6 +105,16 @@ This project is a high-performance, visually immersive portfolio built to demons
   - **Scroll Awareness:** Changes appearance (glassmorphism) after scrolling.
   - **Active State:** Highlights current section based on scroll position.
   - **Mobile Menu:** Full-screen overlay with "Sci-Fi" entrance animation.
+  - **Logo:** Uses AI-generated "EC" logo with circuit board design (`/assets/logo.png`, 200x200px).
+
+### 4.8. Logo & Branding Assets
+
+- **Logo:** `/public/assets/logo.png` (200x200px) - AI-generated "EC" logo with circuit board design in brand colors
+- **Favicon:** `/public/favicon.png` (64x64px) - Smaller version of the logo for browser tabs
+- **Source:** `/public/assets/logo-source.png` (1024x1024px) - Original high-resolution source image
+- **Colors:** Cyan (#22d3ee), Blue (#3b82f6), Purple (#a855f7) gradients
+- **Style:** Modern tech aesthetic with circuit board elements and connected nodes
+
 
 ## 5. UI Library (`components/ui`)
 

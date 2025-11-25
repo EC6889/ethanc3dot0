@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hexagon, Linkedin, Mail, ArrowUp, Cpu } from 'lucide-react';
+import { Linkedin, Mail, ArrowUp, Cpu } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (view: 'home' | 'terms' | 'privacy') => void;
@@ -41,17 +41,14 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               onClick={scrollToTop}
             >
               <div className="flex items-center gap-3 mb-2">
-                <Hexagon
-                  className="w-5 h-5 text-brand-cyan group-hover:rotate-90 transition-transform duration-500"
-                  strokeWidth={2}
-                />
-                <h3 className="text-lg font-display font-bold text-white tracking-widest group-hover:text-brand-cyan transition-colors">
-                  ETHAN C.
-                </h3>
+                <div className="relative w-12 h-12 flex items-center justify-center transition-transform duration-300 hover:scale-105">
+                  <img
+                    src="/assets/logo.png"
+                    alt="Logo"
+                    className="w-full h-full object-contain relative z-10"
+                  />
+                </div>
               </div>
-              <p className="text-[10px] font-mono text-brand-cyan/60 uppercase tracking-[0.2em] pl-8">
-                // Operational_Architect
-              </p>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed font-light max-w-xs">
               Building scalable systems for high-performance teams. Bridging strategy and execution.

@@ -97,22 +97,14 @@ const Navbar: React.FC = () => {
             onClick={(e) => scrollToSection(e, '#home')}
             className="flex items-center gap-3 group"
           >
-            <div className="relative w-10 h-10 flex items-center justify-center bg-slate-900/50 border border-slate-700 group-hover:border-brand-cyan-deep/50 transition-colors rounded-sm overflow-hidden">
-              <div className="absolute inset-0 bg-brand-cyan-deep/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            <div className="relative w-12 h-12 flex items-center justify-center transition-transform duration-300 hover:scale-105">
               <img
                 src="/assets/logo.png"
                 alt="Logo"
-                className="w-full h-full object-cover relative z-10"
+                className="w-full h-full object-contain relative z-10"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="text-base font-display font-bold text-white tracking-tight leading-none group-hover:text-brand-cyan transition-colors">
-                ETHAN C.
-              </span>
-              <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-brand-cyan/70 transition-colors mt-1">
-                // Ops_Architect
-              </span>
-            </div>
+
           </a>
 
           {/* Desktop Navigation */}

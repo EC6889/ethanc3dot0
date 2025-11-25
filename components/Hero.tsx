@@ -116,12 +116,7 @@ const Hero: React.FC = () => {
               transition={{ type: 'spring', stiffness: 60, damping: 20, delay: 0.2 }}
               className="flex flex-col items-start text-left"
             >
-              <div className="flex items-center gap-4 mb-8 opacity-80">
-                <div className="h-px w-12 bg-gradient-to-r from-brand-cyan/50 to-transparent"></div>
-                <span className="text-[10px] md:text-[11px] text-brand-cyan/90 tracking-[0.3em] uppercase font-bold font-mono px-2 border border-brand-cyan/20 rounded bg-brand-cyan-deep/30 backdrop-blur-sm py-1">
-                  Operational_Architect
-                </span>
-              </div>
+
 
               {/* Redesigned Title - Solid & Clear - Single Line */}
               <div className="relative mb-6 group">
@@ -129,12 +124,12 @@ const Hero: React.FC = () => {
                 <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-brand-cyan-deep/20 blur-[100px] w-96 h-96 rounded-full opacity-40 pointer-events-none"></div>
 
                 {/* Main Title with Glitch Effect */}
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
                   <GlitchText text="ETHAN" /> <span className="text-brand-cyan">C.</span>
                 </h1>
 
                 {/* Depth Layer */}
-                <h1 className="absolute inset-0 text-5xl md:text-7xl lg:text-8xl font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
+                <h1 className="absolute inset-0 text-4xl md:text-6xl lg:text-7xl font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
                   ETHAN C.
                 </h1>
               </div>
@@ -153,7 +148,7 @@ const Hero: React.FC = () => {
               <div className="h-10 flex items-center justify-start relative w-full max-w-xl mb-10">
                 <div className="flex items-center gap-4 w-full px-4 justify-start border-l-2 border-brand-cyan/30 bg-slate-900/20 py-2 rounded-r">
                   <span className="text-brand-cyan text-[10px] md:text-xs font-bold font-mono tracking-widest whitespace-nowrap shrink-0">
-                    ID: USER_ADMIN //
+                    ID :
                   </span>
                   <span className="text-sm md:text-lg text-slate-300 tracking-widest font-mono uppercase flex items-center whitespace-nowrap overflow-hidden">
                     {text}

@@ -109,7 +109,7 @@ const Hero: React.FC = () => {
           {/* Sidebars Removed per user request */}
 
           {/* Main Content Block - Full Width Left Aligned */}
-          <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-start justify-center h-full pb-20">
+          <div className="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col items-start justify-center h-full pb-20 px-6 md:px-12">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}

@@ -166,9 +166,23 @@ These are reusable "atoms" used to build the larger sections.
 
 ### 6.3. Typography
 
-- **Display:** `Space Grotesk` (Headers, Company Names). Geometric, quirky, high-tech.
-- **Body:** `Inter` (Paragraphs). Neutral, highly legible.
-- **Data/Code:** `JetBrains Mono` (Tags, Dates, Terminal Inputs). Monospaced, engineered.
+**Font Families:**
+- **Display:** `Orbitron` (Headers, Section Titles). Geometric, futuristic, purpose-built for tech interfaces.
+- **Body:** `Inter` (Paragraphs, UI Labels). Neutral, highly legible, professional.
+- **Mono:** `JetBrains Mono` (Tags, Dates, Terminal Inputs). Monospaced, engineered, technical.
+- **Accent:** `Audiowide` (CTAs, Special Emphasis). Ultra-tech, retro-futuristic, high-impact.
+
+**Typography Scale:**
+- Display: `display-xl` (80px), `display-lg` (56px), `display-md` (40px), `display-sm` (28px)
+- Body: `body-lg` (18px), `body-md` (16px), `body-sm` (14px), `body-xs` (12px)
+- Mono: `mono-lg` (14px), `mono-md` (12px), `mono-sm` (10px)
+- Accent: `accent-lg` (32px), `accent-md` (24px)
+
+**Usage Guidelines:**
+- Use `font-display` for all headers and section titles
+- Use `font-sans` for body text and descriptions
+- Use `font-mono` for data, tags, and technical elements
+- Use `font-accent` for CTAs and special emphasis
 
 ### 6.4. Iconography & Imagery
 

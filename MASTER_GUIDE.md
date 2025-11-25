@@ -98,6 +98,16 @@ This project is a high-performance, visually immersive portfolio built to demons
   - **Resume Download:** Generates a PDF on the fly using `jsPDF` and content from `constants.ts`.
   - **Validation:** Simple state-based validation and "sending" simulation.
 
+### 4.7. Footer (`Footer.tsx`)
+
+- **Purpose:** Final navigation, social links, and branding.
+- **Key Features:**
+  - **3-Column Layout:** Brand/CTA, Quick Links, Connect (Email, LinkedIn, GitHub).
+  - **CTA:** "Ready to Collaborate?" with link to Contact section.
+  - **Tech Stack:** Displays React, TypeScript, and Tailwind logos.
+  - **Minimalist Design:** Clean, cohesive with overall site aesthetic.
+- **Styling:** Subtle grid background, cyan accents, monospace typography.
+
 ### 4.7. Navbar (`Navbar.tsx`)
 
 - **Purpose:** Navigation and Resume access.

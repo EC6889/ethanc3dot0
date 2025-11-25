@@ -132,7 +132,7 @@ const Contact: React.FC = () => {
               06. CONTACT
             </h2>
           </div>
-          <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h3 className="text-display-md md:text-display-lg font-display font-bold text-white tracking-tight">
             Get In{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">
               Touch

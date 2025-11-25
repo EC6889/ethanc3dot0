@@ -136,7 +136,7 @@ const Experience: React.FC = () => {
               03. WORK_HISTORY
             </h2>
           </div>
-          <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight mb-8">
+          <h3 className="text-display-md md:text-display-lg font-display font-bold text-white tracking-tight mb-8">
             Milestones{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">
 
@@ -300,7 +300,7 @@ const Experience: React.FC = () => {
                         )}
                       </div>
                       <div>
-                        <h2 className="text-xl md:text-2xl font-display font-bold text-white tracking-tight leading-none">
+                        <h2 className="text-display-sm md:text-display-md font-display font-bold text-white tracking-tight leading-none">
                           {activeItem.company}
                         </h2>
                         <div className="flex items-center gap-4 mt-1.5 text-[10px] font-mono text-slate-500">

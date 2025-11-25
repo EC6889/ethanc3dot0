@@ -210,7 +210,14 @@ These are reusable "atoms" used to build the larger sections.
 
 1.  **Strict Typing:** Do **NOT** use `any`. Define interfaces in `types.ts` or locally if specific to a component.
 2.  **Content Management:** If the user asks to change text, dates, or job descriptions, edit `constants.ts`. Do not hardcode text in components.
-3.  **Aesthetic Consistency:**
+3.  **Typography Standards (GLOBAL):**
+    - **ALWAYS** use the new typography system for all components
+    - Headers: Use `font-display` with `text-display-*` classes (Orbitron font)
+    - Body text: Use `font-sans` with `text-body-*` classes (Inter font)
+    - Code/Data: Use `font-mono` with `text-mono-*` classes (JetBrains Mono)
+    - CTAs/Special: Use `font-accent` with `text-accent-*` classes (Audiowide font)
+    - **DO NOT** use arbitrary text sizes - stick to the defined scale
+4.  **Aesthetic Consistency:**
     - Always use `slate-950` or `slate-900` for backgrounds.
     - Use `backdrop-blur` and `bg-opacity` for glass effects.
     - Maintain the "Terminal" look: Monospace fonts for labels, uppercase text, "system status" indicators.

@@ -124,12 +124,12 @@ const Hero: React.FC = () => {
                 <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-brand-cyan-deep/20 blur-[100px] w-96 h-96 rounded-full opacity-40 pointer-events-none"></div>
 
                 {/* Main Title with Glitch Effect */}
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
+                <h1 className="text-4xl md:text-6xl lg:text-display-lg font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
                   <GlitchText text="ETHAN" /> <span className="text-brand-cyan">C.</span>
                 </h1>
 
                 {/* Depth Layer */}
-                <h1 className="absolute inset-0 text-4xl md:text-6xl lg:text-7xl font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
+                <h1 className="absolute inset-0 text-4xl md:text-6xl lg:text-display-lg font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
                   ETHAN C.
                 </h1>
               </div>

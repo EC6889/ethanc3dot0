@@ -284,7 +284,7 @@ const About: React.FC = () => {
               02. PROFILE_DATA
             </h2>
           </div>
-          <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h3 className="text-display-md md:text-display-lg font-display font-bold text-white tracking-tight">
             Professional{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">
               Profile
@@ -304,7 +304,7 @@ const About: React.FC = () => {
             >
               <div className="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-cyan-500/50 via-transparent to-transparent"></div>
               <div className="pl-6">
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-6 leading-[1.4]">
+                <h2 className="text-display-sm md:text-display-md font-display font-bold text-white mb-6 leading-[1.4]">
                   Bridging{' '}
                   <span className="text-cyan-400 border-b border-cyan-500/30 pb-1">Operations</span>{' '}
                   <br />

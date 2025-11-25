@@ -392,7 +392,7 @@ const Skills: React.FC = () => {
               04. TOOLKIT
             </h2>
           </div>
-          <h3 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h3 className="text-display-md md:text-display-lg font-display font-bold text-white tracking-tight">
             Technical Expertise
           </h3>
         </motion.div>
@@ -410,7 +410,7 @@ const Skills: React.FC = () => {
               Operational Mapping
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white leading-tight mb-6">
+          <h2 className="text-display-sm md:text-display-md font-display font-bold text-white leading-tight mb-6">
             Connecting the <span className="text-cyan-400">Stack</span> to the <br />
             <span className="text-blue-500">Strategy</span>.
           </h2>

@@ -1,4 +1,5 @@
 import { ExperienceItem, ProjectItem, SkillMetric } from './types';
+import { History, Network } from 'lucide-react';
 
 export const NAV_LINKS = [
   { label: 'Home', href: '#home' },
@@ -77,11 +78,13 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     id: 'ninja-van',
     company: 'Ninja Van',
-    logo: 'https://logo.clearbit.com/ninjavan.co',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Ninja_Van_Logo.svg/512px-Ninja_Van_Logo.svg.png',
     localLogo: '/assets/photos/ninjavan.png',
+    isWordmark: true,
     location: 'Kuala Lumpur, Malaysia',
     logoInitials: 'NV',
     techStack: ['Salesforce', 'Google Workspace', 'Google Looker'],
+    channels: ['Chat', 'Email', 'Call', 'WhatsApp'],
     positions: [
       {
         title: 'Shipper Support Manager',
@@ -115,11 +118,13 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     id: 'klook',
     company: 'Klook Travel',
-    logo: 'https://logo.clearbit.com/klook.com',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Klook_Travel_Technology_Logo.svg/512px-Klook_Travel_Technology_Logo.svg.png',
     localLogo: '/assets/photos/klook.png',
+    isWordmark: true,
     location: 'Kuala Lumpur, Malaysia',
     logoInitials: 'KT',
     techStack: ['Zendesk', 'Genesys', 'Lark', 'Zapier'],
+    channels: ['Chat', 'Email', 'Call', 'Line', 'Kakao Talk'],
     positions: [
       {
         title: 'CEG System Manager',
@@ -158,12 +163,14 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   },
   {
     id: 'melco',
-    company: 'Melco Crown Entertainment',
-    logo: 'https://logo.clearbit.com/melco-resorts.com',
+    company: 'Melco Crown Ent.',
+    logo: 'https://companieslogo.com/img/orig/MLCO-9a64a706.png',
     localLogo: '/assets/photos/melco.png',
+    isWordmark: true,
     location: 'Macau / KL',
     logoInitials: 'MC',
     techStack: ['SiteMinder', 'Cisco UCCX', 'Opera PMS'],
+    channels: ['Email', 'Call', 'Fax'],
     positions: [
       {
         title: 'Service Quality Manager',
@@ -196,14 +203,18 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     id: 'earlier-days',
     company: 'Earlier Days',
-    logo: '', // No single logo for group
-    location: 'Malaysia',
+    logo: '', // No logo for this one
+    localLogo: '',
+    isWordmark: false,
+    location: 'Various',
     logoInitials: 'ED',
-    techStack: [],
+    techStack: ['Avaya', 'Oracle', 'Microsoft Office'],
+    channels: ['Email', 'Call'],
     positions: [
       {
         title: 'Support Schedule Lead',
         companyOverride: 'Shell Malaysia',
+        localLogoOverride: '/assets/photos/shell.png',
         period: '2007 – 2009',
         content: [
           {
@@ -217,6 +228,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
       {
         title: 'Support Executive',
         companyOverride: 'Fifth Media',
+        localLogoOverride: '/assets/photos/fifthmedia.png',
         period: '2005 – 2007',
         content: [
           {
@@ -230,6 +242,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
       {
         title: 'Team Leader',
         companyOverride: 'Genting Group',
+        localLogoOverride: '/assets/photos/genting.png',
         period: '2003 – 2005',
         content: [
           {
@@ -393,6 +406,7 @@ export const TECH_STACK = [
     name: 'REST API',
     logo: '',
     localLogo: '',
+    icon: Network,
   },
   {
     name: 'SISTIC',

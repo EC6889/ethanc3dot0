@@ -146,23 +146,24 @@ These are reusable "atoms" used to build the larger sections.
 
 ### 6.2. Color System (The Tri-Core Spectrum)
 
-| Token               | Hex       | Name              | Usage                                       |
-| :------------------ | :-------- | :---------------- | :------------------------------------------ |
-| `brand-cyan`        | `#22d3ee` | **Neon Cyan**     | Highlights, Active States, Primary Accents. |
-| `brand-cyan-dim`    | `#06b6d4` | **Muted Cyan**    | Secondary highlights.                       |
-| `brand-cyan-deep`   | `#164e63` | **Deep Cyan**     | Backgrounds, borders.                       |
-| `brand-blue`        | `#3b82f6` | **Electric Blue** | Links, Interactive Elements.                |
-| `brand-blue-dim`    | `#2563eb` | **Muted Blue**    | Secondary links.                            |
-| `brand-blue-deep`   | `#1e3a8a` | **Deep Blue**     | Backgrounds, borders.                       |
-| `brand-purple`      | `#a855f7` | **Deep Purple**   | Gradients, Depth Indicators.                |
-| `brand-purple-dim`  | `#9333ea` | **Muted Purple**  | Secondary gradients.                        |
-| `brand-purple-deep` | `#581c87` | **Deep Purple**   | Backgrounds, borders.                       |
+The system now uses **HSL CSS Variables** for dynamic theming and precise control.
 
-**Backgrounds:**
+**Core Palettes:**
 
-- `slate-950` (#020617): Void (Main Background)
-- `slate-900` (#0f172a): Console (Cards)
-- `slate-800` (#1e293b): Border
+| Palette | Variable Prefix | Description |
+| :--- | :--- | :--- |
+| **Neutral** | `--neutral-*` | Slate-based grays for text and UI structure. |
+| **Brand** | `--brand-*` | Cyan, Blue, and Purple spectrums. |
+| **Semantic** | `--semantic-*` | Success (Emerald), Error (Rose), Warning (Amber), Info (Sky). |
+
+**Theme Strategy (Dark Mode Default):**
+
+- **Background Base (0%):** `hsl(var(--neutral-h) var(--neutral-s) 0%)` - Deepest void.
+- **Surface (5%):** `hsl(var(--neutral-h) var(--neutral-s) 5%)` - Cards and panels.
+- **Highlight (10%):** `hsl(var(--neutral-h) var(--neutral-s) 10%)` - Hover states or emphasized areas.
+
+**Usage:**
+Use Tailwind utility classes which map to these variables (e.g., `bg-slate-950` maps to base, `text-cyan-400` maps to brand cyan).
 
 ### 6.3. Typography
 

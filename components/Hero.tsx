@@ -52,7 +52,7 @@ const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative w-full h-screen bg-slate-950 overflow-hidden flex flex-col font-mono"
+      className="relative w-full h-dvh bg-slate-950 overflow-hidden flex flex-col font-mono"
     >
       {/* === BACKGROUND LAYERS === */}
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
@@ -121,17 +121,22 @@ const Hero: React.FC = () => {
               {/* Redesigned Title - Solid & Clear - Single Line */}
               <div className="relative mb-6 group">
                 {/* Ambient Glow */}
-                <div className="absolute -left-20 top-1/2 -translate-y-1/2 bg-brand-cyan-deep/20 blur-[100px] w-96 h-96 rounded-full opacity-40 pointer-events-none"></div>
+                <div className="overflow-hidden mb-4 relative">
+                  <motion.div
+                    initial={{ y: 100 }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                  >
+                    <h1 className="text-display-xl md:text-display-2xl font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
+                      ETHAN CHIA <span className="text-brand-cyan">C.</span>
+                    </h1>
 
-                {/* Main Title with Glitch Effect */}
-                <h1 className="text-4xl md:text-6xl lg:text-display-lg font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] whitespace-nowrap">
-                  <GlitchText text="ETHAN" /> <span className="text-brand-cyan">C.</span>
-                </h1>
-
-                {/* Depth Layer */}
-                <h1 className="absolute inset-0 text-4xl md:text-6xl lg:text-display-lg font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
-                  ETHAN C.
-                </h1>
+                    {/* Depth Layer */}
+                    <h1 className="absolute inset-0 text-display-xl md:text-display-2xl font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
+                      ETHAN CHIA C.
+                    </h1>
+                  </motion.div>
+                </div>
               </div>
 
               {/* Subtitle - Bio */}
@@ -203,8 +208,8 @@ const Hero: React.FC = () => {
         {/* --- FOOTER DASHBOARD WIDGETS REMOVED --- */}
       </motion.div>
 
-      {/* Gradient Fade for Section Transition */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent z-10 pointer-events-none"></div>
+      {/* Gradient Fade for Section Transition - Extended for seamless blend */}
+      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent z-10 pointer-events-none"></div>
     </section>
   );
 };

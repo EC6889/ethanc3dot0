@@ -7,6 +7,7 @@ export interface ExperiencePosition {
   title: string;
   period: string;
   companyOverride?: string; // For grouped earlier roles (e.g. Shell, Fifth Media)
+  localLogoOverride?: string; // For grouped earlier roles
   content: ExperienceContent[];
 }
 
@@ -15,9 +16,12 @@ export interface ExperienceItem {
   company: string;
   logo: string; // Added logo property
   localLogo?: string;
+  isWordmark?: boolean; // Added to support wordmark logos
   location: string;
   logoInitials: string;
+  icon?: any;
   techStack?: string[];
+  channels?: string[]; // Added communication channels
   positions: ExperiencePosition[];
 }
 

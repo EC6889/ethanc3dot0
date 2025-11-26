@@ -36,10 +36,10 @@ export const PerspectiveGrid = () => {
 
       {/* 2. Horizon Fade Gradient (The "Fog") */}
       {/* Masks the top of the grid so it fades into the distance */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-[#020617]/80 to-transparent h-1/2 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-transparent h-1/2 z-10" />
 
       {/* 3. Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#020617] to-transparent z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-slate-950 to-transparent z-10" />
 
       {/* 4. Subtle Floating Particles for Atmosphere */}
       <div className="absolute inset-0 overflow-hidden z-20">

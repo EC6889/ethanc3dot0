@@ -1,252 +1,301 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { EXPERIENCE_DATA } from '../constants';
+import { GlassCard } from './ui/GlassCard';
 import {
+  Folder,
+  FolderOpen,
+  FileText,
+  Terminal,
   MapPin,
   Calendar,
-  ChevronRight,
-  Layers,
-  Briefcase,
-  RefreshCw,
-  ArrowDown,
+  CheckCircle2,
+  Cpu,
+  Server,
+  Activity,
+  Database,
 } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
-import { GlassCard } from './ui/GlassCard';
 
-const THEME_COLORS = {
-  cyan: {
-    accent: 'text-brand-cyan',
-    bg: 'bg-brand-cyan/10',
-    border: 'border-brand-cyan/20',
-    bullet: 'bg-brand-cyan',
-    shadow: 'shadow-[0_0_15px_rgba(34,211,238,0.3)]',
-    line: 'bg-brand-cyan',
-  },
-  blue: {
-    accent: 'text-brand-blue',
-    bg: 'bg-brand-blue/10',
-    border: 'border-brand-blue/20',
-    bullet: 'bg-brand-blue',
-    shadow: 'shadow-[0_0_15px_rgba(59,130,246,0.3)]',
-    line: 'bg-brand-blue',
-  },
-  purple: {
-    accent: 'text-brand-purple',
-    bg: 'bg-brand-purple/10',
-    border: 'border-brand-purple/20',
-    bullet: 'bg-brand-purple',
-    shadow: 'shadow-[0_0_15px_rgba(168,85,247,0.3)]',
-    line: 'bg-brand-purple',
-  },
+const Motion = motion as any;
+
+// --- Helper Components (Reused/Adapted from Projects.tsx) ---
+
+const FileTreeItem: React.FC<{
+  label: string;
+  isOpen?: boolean;
+  isSelected?: boolean;
+  onClick: () => void;
+  type?: 'folder' | 'file';
+  depth?: number;
+}> = ({ label, isOpen, isSelected, onClick, type = 'folder', depth = 0 }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        w-full flex items-center gap-2 py-2 px-3 rounded-sm transition-all duration-200 group relative
+        ${isSelected
+          ? 'bg-brand-cyan/10 text-brand-cyan'
+          : 'text-slate-500 hover:text-slate-300 hover:bg-slate-900/30'
+        }
+      `}
+      style={{ paddingLeft: `${depth * 16 + 12}px` }}
+    >
+      {/* Tree Line Guide */}
+      {depth > 0 && <div className="absolute left-[18px] top-0 bottom-0 w-px bg-slate-800/50" />}
+
+      {/* Icon */}
+      <div
+        className={`shrink-0 relative z-10 ${isSelected ? 'text-brand-cyan' : 'text-slate-600 group-hover:text-slate-400'}`}
+      >
+        {type === 'folder' ? (
+          isOpen ? (
+            <FolderOpen size={14} />
+          ) : (
+            <Folder size={14} />
+          )
+        ) : (
+          <FileText size={14} />
+        )}
+      </div>
+
+      {/* Label */}
+      <span className={`text-xs font-mono truncate relative z-10 ${isSelected ? 'font-bold' : ''}`}>
+        {label}
+      </span>
+
+      {/* Active Indicator */}
+      {isSelected && (
+        <Motion.div
+          layoutId="activeExperienceFile"
+          className="absolute left-0 w-[2px] top-0 bottom-0 bg-brand-cyan shadow-[0_0_8px_#00f3ff]"
+        />
+      )}
+    </button>
+  );
 };
 
 const Experience: React.FC = () => {
-  const [selectedId, setSelectedId] = useState<string>(EXPERIENCE_DATA[0].id);
-  const [imgSrc, setImgSrc] = useState<string | undefined>(EXPERIENCE_DATA[0].logo);
-  const [hasError, setHasError] = useState(false);
-  const containerRef = useRef<HTMLElement>(null);
+  const [openCompanies, setOpenCompanies] = useState<Record<string, boolean>>({});
+  // Default to first company, first position
+  const [selectedPositionId, setSelectedPositionId] = useState<string>(`${EXPERIENCE_DATA[0].id}-0`);
 
-  const activeItem = EXPERIENCE_DATA.find((item) => item.id === selectedId) || EXPERIENCE_DATA[0];
-  const activeIndex = EXPERIENCE_DATA.findIndex((item) => item.id === selectedId);
+  // Flatten positions for easier access
+  const allPositions = useMemo(() => {
+    return EXPERIENCE_DATA.flatMap((company) =>
+      company.positions.map((pos, posIndex) => ({
+        ...pos,
+        companyId: company.id,
+        companyName: pos.companyOverride || company.company,
+        companyLocation: company.location,
+        companyLogo: company.logo,
+        companyLocalLogo: pos.localLogoOverride || company.localLogo,
+        companyTechStack: company.techStack,
+        companyChannels: company.channels,
+        uniqueId: `${company.id}-${posIndex}`,
+        isCurrent: pos.period.toLowerCase().includes('present') || pos.period.toLowerCase().includes('now'),
+      }))
+    );
+  }, []);
 
-  const colorKeys: (keyof typeof THEME_COLORS)[] = ['cyan', 'blue', 'purple'];
-  const colorKey = colorKeys[activeIndex % colorKeys.length];
-  const theme = THEME_COLORS[colorKey];
+  const activePosition = allPositions.find((p) => p.uniqueId === selectedPositionId) || allPositions[0];
 
-  useEffect(() => {
-    setImgSrc(activeItem.logo);
-    setHasError(false);
-  }, [selectedId, activeItem.logo]);
+  // Initialize folders as open
+  useMemo(() => {
+    const initialOpen: Record<string, boolean> = {};
+    EXPERIENCE_DATA.forEach((c) => (initialOpen[c.id] = true));
+    if (Object.keys(openCompanies).length === 0) setOpenCompanies(initialOpen);
+  }, [openCompanies]);
 
-  const handleError = () => {
-    if (imgSrc === activeItem.logo && activeItem.localLogo) {
-      console.warn(
-        `Failed to load CDN image for ${activeItem.company}, switching to local backup: ${activeItem.localLogo}`
-      );
-      setImgSrc(activeItem.localLogo);
-    } else {
-      setHasError(true);
-    }
+  const toggleCompany = (companyId: string) => {
+    setOpenCompanies((prev) => ({ ...prev, [companyId]: !prev[companyId] }));
   };
 
+  const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 1]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0.95, 1, 1, 1]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [50, 0, 0, 0]);
-
-  const springConfig = { stiffness: 50, damping: 20 };
-  const smoothOpacity = useSpring(opacity, springConfig);
-  const smoothScale = useSpring(scale, springConfig);
-  const smoothY = useSpring(y, springConfig);
+  const sectionOpacity = useSpring(
+    useTransform(scrollYProgress, [0, 0.15], [0, 1]),
+    { stiffness: 100, damping: 25 }
+  );
 
   return (
-    <motion.section
+    <Motion.section
       id="experience"
       ref={containerRef}
-      style={{ opacity: smoothOpacity, scale: smoothScale, y: smoothY }}
-      className="relative min-h-screen flex flex-col justify-center py-32 md:py-40 overflow-hidden"
+      style={{ opacity: sectionOpacity }}
+      className="relative overflow-hidden min-h-[600px] py-[min(12rem,15vh)]"
     >
-      {/* === BACKGROUND: Horizontal Data Flow === */}
+      {/* === BACKGROUND: Blueprint Grid === */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        {/* Tech Grid Background */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.08]"
           style={{
-            backgroundImage:
-              'linear-gradient(90deg, #334155 1px, transparent 1px), linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px)',
+            backgroundImage: `linear-gradient(#334155 1px, transparent 1px), linear-gradient(90deg, #334155 1px, transparent 1px)`,
             backgroundSize: '40px 40px',
           }}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-transparent to-slate-950/50" />
 
-        {/* Vignette - Kept subtle to match global bg */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030712]/0 via-[#030712]/50 to-[#030712]/0" />
-
-        {/* Moving Data Lines */}
-        {[25, 50, 75].map((pos, i) => (
-          <div
-            key={i}
-            className="absolute left-0 w-full h-px bg-slate-800/20"
-            style={{ top: `${pos}%` }}
-          >
-            <motion.div
-              className="w-32 h-full bg-gradient-to-r from-transparent via-brand-cyan/20 to-transparent"
-              animate={{ x: ['-100vw', '100vw'] }}
-              transition={{ duration: 8 + i * 2, repeat: Infinity, ease: 'linear' }}
+        {/* Animated Floating Particles - Enhanced visibility & On Top */}
+        <div className="absolute inset-0 z-[1]">
+          {[...Array(50)].map((_, i) => (
+            <Motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: i % 3 === 0 ? '4px' : '3px',
+                height: i % 3 === 0 ? '4px' : '3px',
+                backgroundColor: i % 2 === 0 ? 'rgba(34, 211, 238, 0.9)' : 'rgba(96, 165, 250, 0.8)',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                boxShadow: i % 3 === 0 ? '0 0 8px rgba(34, 211, 238, 0.6)' : '0 0 4px rgba(96, 165, 250, 0.4)',
+              }}
+              animate={{
+                y: [0, -60, 0],
+                x: [0, Math.random() * 50 - 25, 0],
+                opacity: [0.6, 1, 0.6],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 4 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+                ease: "easeInOut",
+              }}
             />
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* TOP Gradient Transition */}
+        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-slate-950 via-slate-950/90 to-transparent z-10"></div>
+
+        {/* BOTTOM Gradient Transition */}
+        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent z-10"></div>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 w-full relative z-10">
+      <div className="max-w-[1300px] mx-auto px-[min(3rem,6vw)] relative z-10">
         {/* Header - Fades in first */}
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
           viewport={{ margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-14 md:mb-20"
+          className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-8 bg-brand-cyan/50"></div>
-            <h2 className="text-[10px] font-mono text-brand-cyan tracking-[0.2em] uppercase">
-              03. WORK_HISTORY
-            </h2>
-          </div>
-          <h3 className="text-display-md md:text-display-lg font-display font-bold text-white tracking-tight mb-8">
-            Milestones{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">
-
-            </span>
-          </h3>
-
-          <div className="max-w-3xl">
-            <p className="text-sm md:text-base text-slate-400 leading-loose font-light">
-              Experiences that facilitated the acquisition of new skills, expanded knowledge, refined abilities, and provided opportunities to work with emerging technologies.
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-px w-8 bg-brand-cyan/50"></div>
+              <h2 className="text-[10px] font-mono text-brand-cyan tracking-[0.2em] uppercase">
+                03. WORK_HISTORY
+              </h2>
+            </div>
+            <h3 className="text-display-1xl font-display font-bold text-white tracking-tight mb-6">
+              Career <span className="text-slate-500">Log</span>
+            </h3>
+            <p className="text-body-lg text-slate-300 font-light max-w-2xl leading-relaxed">
+              A timeline of <span className="text-brand-cyan">strategic growth</span> and <span className="text-brand-purple">technical mastery</span>.
             </p>
           </div>
-        </motion.div>
+          <div className="hidden md:block text-right">
+            <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">
+              Career Status
+            </div>
+            <div className="flex items-center justify-end gap-2 text-emerald-400 text-xs font-mono font-bold">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              ACTIVE_PROGRESSION
+            </div>
+          </div>
+        </Motion.div>
 
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
-          {/* LEFT COLUMN: Navigation - Slides in from left */}
-          <motion.div
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch min-h-[600px]">
+          {/* LEFT COLUMN: File Directory - Slides in from left */}
+          <Motion.div
             initial={{ opacity: 0, x: -80 }}
             whileInView={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -80 }}
             viewport={{ margin: "-100px" }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-3 relative z-10"
+            className="lg:col-span-3 flex flex-col"
           >
-            <div className="flex flex-col space-y-2">
-              <div className="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-2 pl-3">
-                // WORKFORCE
+            <div className="bg-slate-950/50 border border-slate-800 rounded-lg overflow-hidden flex flex-col h-full backdrop-blur-sm">
+              {/* Terminal Header */}
+              <div className="h-9 bg-slate-900 border-b border-slate-800 flex items-center px-3 gap-2">
+                <div className="flex gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
+                </div>
+                <span className="text-[10px] font-mono text-slate-500 ml-2 flex items-center gap-1">
+                  <Terminal size={10} /> root/experience
+                </span>
               </div>
 
-              {EXPERIENCE_DATA.map((item, index) => {
-                const isSelected = item.id === selectedId;
-                const itemTheme = THEME_COLORS[colorKeys[index % colorKeys.length]];
+              {/* File Tree */}
+              <div className="p-2 overflow-y-auto flex-1 custom-scrollbar">
+                <div className="text-[10px] font-mono text-slate-600 mb-2 px-2 uppercase tracking-wider">
+                  Directory Listing
+                </div>
 
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => setSelectedId(item.id)}
-                    className={`group w-full text-left px-4 py-4 border border-slate-800 transition-all duration-300 relative overflow-hidden rounded-md ${isSelected
-                      ? `bg-slate-900/80 border-${colorKeys[index % 3]}-500/50`
-                      : 'hover:border-slate-600 hover:bg-slate-900/40'
-                      }`}
-                  >
-                    {/* Active Glow Background */}
-                    {isSelected && (
-                      <div className={`absolute inset-0 ${itemTheme.bg} opacity-20`} />
-                    )}
-
-                    <div className="relative z-10 w-full">
-                      <div className="flex items-center justify-between mb-1">
-                        <span
-                          className={`text-xs md:text-sm font-bold font-display tracking-wide transition-colors ${isSelected ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'}`}
-                        >
-                          {item.company}
-                        </span>
-
-                        {/* Selection Indicator */}
-                        {isSelected ? (
-                          <div className="flex items-center gap-2">
-                            <span
-                              className={`hidden md:block text-[8px] font-mono uppercase tracking-widest ${itemTheme.accent} animate-pulse`}
-                            >
-                              SYNC
-                            </span>
-                            <div className="flex items-end gap-0.5 h-3">
-                              {[0, 1, 2].map((bar) => (
-                                <motion.div
-                                  key={bar}
-                                  className={`w-0.5 rounded-full ${itemTheme.line}`}
-                                  initial={{ height: '20%' }}
-                                  animate={{ height: ['20%', '100%', '20%'] }}
-                                  transition={{
-                                    duration: 0.6,
-                                    repeat: Infinity,
-                                    ease: 'easeInOut',
-                                    delay: bar * 0.15,
-                                  }}
-                                />
-                              ))}
-                            </div>
-                          </div>
-                        ) : (
-                          <ChevronRight
-                            size={14}
-                            className="text-slate-600 group-hover:text-slate-400 transition-colors"
-                          />
-                        )}
-                      </div>
-
-                      <div className="flex items-center gap-2 text-[9px] font-mono text-slate-500 uppercase tracking-wider">
-                        {item.positions[0].period.split('–')[0]} —{' '}
-                        {item.positions[0].period.split('–')[1] || 'Now'}
-                      </div>
-                    </div>
-
-                    {/* Background Scan Effect for Active Item */}
-                    {isSelected && (
-                      <motion.div
-                        className={`absolute inset-0 bg-gradient-to-r from-transparent via-${colorKeys[index % 3]}-400/10 to-transparent`}
-                        initial={{ x: '-100%' }}
-                        animate={{ x: '200%' }}
-                        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                <div className="pb-2">
+                  {EXPERIENCE_DATA.map((company) => (
+                    <div key={company.id} className="mb-1">
+                      <FileTreeItem
+                        label={company.company.toUpperCase().replace(/\s/g, '_')}
+                        type="folder"
+                        isOpen={openCompanies[company.id]}
+                        onClick={() => toggleCompany(company.id)}
+                        isSelected={false}
+                        depth={0}
                       />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </motion.div>
 
-          {/* RIGHT COLUMN: Content Display - Flies in from right */}
-          <motion.div
+                      <AnimatePresence>
+                        {openCompanies[company.id] && (
+                          <Motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="flex flex-col border-l border-slate-800/50 ml-[19px]">
+                              {company.positions.map((pos, index) => {
+                                const uniqueId = `${company.id}-${index}`;
+                                return (
+                                  <FileTreeItem
+                                    key={uniqueId}
+                                    label={`${pos.title.replace(/\s/g, '_')}.log`}
+                                    type="file"
+                                    isSelected={selectedPositionId === uniqueId}
+                                    onClick={() => setSelectedPositionId(uniqueId)}
+                                    depth={1}
+                                  />
+                                );
+                              })}
+                            </div>
+                          </Motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer Info */}
+              <div className="p-3 border-t border-slate-800 bg-slate-900/30 text-[9px] font-mono text-slate-500">
+                {allPositions.length} LOGS FOUND <br />
+                LAST_UPDATE: {new Date().toLocaleDateString()}
+              </div>
+            </div>
+          </Motion.div>
+
+
+          {/* RIGHT COLUMN: Mission Log Display - Flies in from right */}
+          <Motion.div
             initial={{ opacity: 0, x: 100, rotateY: 5 }}
             whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
             exit={{ opacity: 0, x: 100, rotateY: 5 }}
@@ -257,166 +306,155 @@ const Experience: React.FC = () => {
               ease: [0.22, 1, 0.36, 1],
               opacity: { duration: 0.5 }
             }}
-            className="lg:col-span-9 relative z-10"
+            className="lg:col-span-9"
           >
             <AnimatePresence mode="wait">
-              <motion.div
-                key={activeItem.id}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.3 }}
+              <Motion.div
+                key={activePosition.uniqueId}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="h-full"
               >
-                <GlassCard
-                  className={`p-0 overflow-hidden border-slate-800 bg-[#0f172a]/90 shadow-2xl relative border-l-2 border-l-${colorKey}-500/50`}
-                >
-                  {/* Background Decoration */}
-                  <div
-                    className={`absolute top-0 right-0 w-64 h-64 ${theme.bg} rounded-full blur-[100px] opacity-20 pointer-events-none`}
-                  />
-
-                  {/* Header Banner - Cascades in */}
-                  <motion.div
+                <GlassCard className="h-full p-0 border-slate-800 bg-[#0f172a]/80 relative overflow-hidden flex flex-col group hover:border-brand-cyan/30 transition-colors duration-500">
+                  {/* Header Bar - Cascades in */}
+                  <Motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1, duration: 0.4 }}
-                    className="relative px-6 py-5 border-b border-slate-800 bg-slate-900/50 flex items-center justify-between gap-4"
+                    className="px-6 md:px-10 py-6 border-b border-slate-800/50 bg-slate-950/30 flex flex-col md:flex-row justify-between gap-4 relative z-10"
                   >
-                    <div className="flex items-center gap-4">
-                      <div
-                        className={`w-12 h-12 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center p-2 shadow-lg shrink-0`}
-                      >
-                        {imgSrc && !hasError ? (
+                    <div className="flex items-start justify-between gap-4 w-full">
+                      <div className="flex items-center gap-4">
+                        {/* Company Logo - Standardized Size */}
+                        <Motion.div
+                          initial={{ scale: 0, rotate: -20 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
+                          className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-white/95 p-2.5 flex items-center justify-center shadow-lg shadow-black/20 ring-1 ring-white/50 shrink-0"
+                        >
                           <img
-                            src={imgSrc}
-                            alt={activeItem.company}
-                            className="w-full h-full object-contain opacity-90"
-                            onError={handleError}
+                            src={activePosition.companyLocalLogo || activePosition.companyLogo}
+                            alt={activePosition.companyName}
+                            className="w-full h-full object-contain"
                           />
-                        ) : (
-                          <span className="font-display font-bold text-lg text-slate-500">
-                            {activeItem.logoInitials}
+                        </Motion.div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-3 mb-1.5">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20">
+                              CAREER_LOG
+                            </span>
+                            <span className="text-[10px] font-mono text-slate-500">
+                              ID: {activePosition.companyId.toUpperCase()}-{activePosition.uniqueId.split('-')[1]}
+                            </span>
+                          </div>
+                          <h2 className="text-lg md:text-xl font-display font-bold text-white tracking-tight">
+                            {activePosition.title}
+                          </h2>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col items-end justify-center gap-1 shrink-0 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <h3 className="text-sm md:text-base font-semibold text-slate-200 leading-tight">{activePosition.companyName}</h3>
+                          {/* Status Badge */}
+                          <span className={`shrink-0 flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-mono font-bold border ${activePosition.isCurrent ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-slate-800/50 text-slate-400 border-slate-700'}`}>
+                            <span className={`w-1.5 h-1.5 rounded-full ${activePosition.isCurrent ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}`} />
+                            {activePosition.isCurrent ? 'ACTIVE' : 'ARCHIVED'}
                           </span>
+                        </div>
+                        <div className="flex items-center justify-end gap-2.5 text-xs font-mono text-slate-400">
+                          <div className="flex items-center gap-1">
+                            <MapPin size={11} className="text-slate-500" />
+                            <span>{activePosition.companyLocation}</span>
+                          </div>
+                          <span className="text-slate-600">•</span>
+                          <span>{activePosition.period}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Motion.div>
+
+                  <div className="flex-1 flex flex-col relative z-10">
+                    {/* Main Content Area */}
+                    <div className="flex-1 p-6 md:p-10 space-y-8">
+
+                      {/* Mission Objective */}
+                      <div>
+                        <div className="flex items-center gap-2 mb-4 text-brand-purple">
+                          <Activity size={16} />
+                          <h4 className="text-xs font-mono font-bold tracking-wider uppercase">Key Responsibilities</h4>
+                        </div>
+                        <div className="space-y-6">
+                          {activePosition.content.map((section, idx) => (
+                            <div key={idx} className="relative pl-4 border-l border-slate-800">
+                              <h5 className="text-sm font-bold text-slate-300 mb-2">{section.category}</h5>
+                              <ul className="space-y-2">
+                                {section.bullets.map((bullet, bIdx) => (
+                                  <li key={bIdx} className="text-sm text-slate-400 leading-relaxed flex items-start gap-2">
+                                    <span className="mt-1.5 w-1 h-1 rounded-full bg-brand-cyan/50 shrink-0" />
+                                    {bullet}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-6">
+                        {/* System Configuration (Tech Stack) */}
+                        {activePosition.companyTechStack && activePosition.companyTechStack.length > 0 && (
+                          <div>
+                            <div className="flex items-center gap-2 mb-4 text-brand-cyan">
+                              <Cpu size={16} />
+                              <h4 className="text-xs font-mono font-bold tracking-wider uppercase">System Configuration</h4>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {activePosition.companyTechStack.map((tech, idx) => (
+                                <div
+                                  key={idx}
+                                  className="px-3 py-1.5 rounded border border-slate-800 bg-slate-900/50 text-xs font-mono text-slate-300 flex items-center gap-2 hover:border-brand-cyan/30 transition-colors"
+                                >
+                                  <Server size={12} className="text-slate-500" />
+                                  {tech}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Communication Channels */}
+                        {activePosition.companyChannels && activePosition.companyChannels.length > 0 && (
+                          <div>
+                            <div className="flex items-center gap-2 mb-4 text-emerald-400">
+                              <Activity size={16} />
+                              <h4 className="text-xs font-mono font-bold tracking-wider uppercase">Communication Protocols</h4>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {activePosition.companyChannels.map((channel, idx) => (
+                                <div
+                                  key={idx}
+                                  className="px-3 py-1.5 rounded border border-slate-800 bg-slate-900/50 text-xs font-mono text-slate-300 flex items-center gap-2 hover:border-emerald-500/30 transition-colors"
+                                >
+                                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                  {channel}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
                         )}
                       </div>
-                      <div>
-                        <h2 className="text-display-sm md:text-display-md font-display font-bold text-white tracking-tight leading-none">
-                          {activeItem.company}
-                        </h2>
-                        <div className="flex items-center gap-4 mt-1.5 text-[10px] font-mono text-slate-500">
-                          <span className="flex items-center gap-1.5">
-                            <MapPin size={12} /> {activeItem.location}
-                          </span>
-                          <span className="w-1 h-1 rounded-full bg-slate-700" />
-                          <span className={theme.accent}>{activeItem.id.toUpperCase()}</span>
-                        </div>
-                      </div>
                     </div>
-
-                    {/* Large Watermark */}
-                    <div
-                      className={`hidden md:block text-6xl font-display font-bold opacity-[0.02] ${theme.accent} select-none absolute right-4 top-1/2 -translate-y-1/2`}
-                    >
-                      {activeItem.logoInitials}
-                    </div>
-                  </motion.div>
-
-                  {/* Content Body - Cascades in after header */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25, duration: 0.5 }}
-                    className="px-6 py-6 space-y-8 bg-gradient-to-b from-slate-900/0 to-slate-900/20 max-h-[60vh] md:max-h-[70vh] overflow-y-auto custom-scrollbar"
-                  >
-                    {activeItem.positions.map((pos, idx) => (
-                      <div key={idx} className="relative group/pos">
-                        <div
-                          className={`absolute left-0 top-2 bottom-0 w-px bg-slate-800 group-last/pos:bottom-auto group-last/pos:h-full`}
-                        />
-
-                        <div className="pl-6 relative">
-                          <div
-                            className={`absolute left-[-4px] top-2.5 w-2 h-2 rounded-full border-2 border-slate-900 ${theme.bullet}`}
-                          />
-
-                          <div className="mb-3">
-                            <div className="flex flex-wrap items-baseline gap-3 mb-1">
-                              <h3 className="text-base md:text-lg font-bold text-white font-display">
-                                {pos.title}
-                              </h3>
-                              <span
-                                className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wide ${theme.bg} ${theme.accent} border ${theme.border}`}
-                              >
-                                <Calendar size={10} />
-                                {pos.period}
-                              </span>
-                            </div>
-                            {pos.companyOverride && (
-                              <div className="text-[11px] font-mono text-slate-500 flex items-center gap-1.5 mb-1">
-                                <Briefcase size={12} />
-                                Deployed via {pos.companyOverride}
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="space-y-5">
-                            {pos.content.map((block, bIdx) => (
-                              <div
-                                key={bIdx}
-                                className="bg-slate-900/30 rounded border border-slate-800/50 p-4 hover:border-slate-700 transition-colors"
-                              >
-                                {block.category && (
-                                  <h4 className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-2 pb-2 border-b border-slate-800/50">
-                                    <Layers size={12} />
-                                    {block.category}
-                                  </h4>
-                                )}
-                                <ul className="space-y-2.5">
-                                  {block.bullets.map((bullet, i) => (
-                                    <li
-                                      key={i}
-                                      className="relative pl-4 text-xs md:text-sm text-slate-400 leading-relaxed"
-                                    >
-                                      <span
-                                        className={`absolute left-0 top-[8px] w-1 h-1 rounded-full ${theme.bullet} opacity-50`}
-                                      />
-                                      {bullet}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </motion.div>
-
-                  {/* Footer */}
-                  {activeItem.techStack && activeItem.techStack.length > 0 && (
-                    <div className="bg-slate-950/50 border-t border-slate-800/50 px-6 py-4">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[10px] font-mono text-slate-600 uppercase tracking-widest mr-2">
-                          Tech_Stack ::
-                        </span>
-                        {activeItem.techStack.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2.5 py-1 rounded text-[10px] font-mono font-medium text-slate-400 bg-slate-900 border border-slate-800 hover:text-brand-cyan hover:border-brand-cyan/30 transition-colors cursor-default"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </GlassCard>
-              </motion.div>
+              </Motion.div>
             </AnimatePresence>
-          </motion.div>
+          </Motion.div>
         </div>
       </div>
-    </motion.section>
+    </Motion.section>
   );
 };
 

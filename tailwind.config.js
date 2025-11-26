@@ -17,12 +17,14 @@ export default {
       },
       fontSize: {
         // Display Scale (Orbitron)
-        'display-xl': ['5rem', { lineHeight: '1', letterSpacing: '-0.02em' }],
-        'display-lg': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.01em' }],
-        'display-md': ['2.5rem', { lineHeight: '1.2', letterSpacing: '0' }],
-        'display-sm': ['1.75rem', { lineHeight: '1.3', letterSpacing: '0' }],
+        'display-2xl': ['clamp(4rem, 6vw + 1rem, 7rem)', { lineHeight: '0.9', letterSpacing: '-0.03em' }],
+        'display-1xl': ['clamp(3.5rem, 5.5vw + 1rem, 6rem)', { lineHeight: '0.95', letterSpacing: '-0.025em' }],
+        'display-xl': ['clamp(3rem, 5vw + 1rem, 5rem)', { lineHeight: '1', letterSpacing: '-0.02em' }],
+        'display-lg': ['clamp(2.5rem, 4vw + 1rem, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.01em' }],
+        'display-md': ['clamp(2rem, 3vw + 1rem, 2.5rem)', { lineHeight: '1.2', letterSpacing: '0' }],
+        'display-sm': ['clamp(1.5rem, 2vw + 1rem, 1.75rem)', { lineHeight: '1.3', letterSpacing: '0' }],
         // Body Scale (Inter)
-        'body-lg': ['1.125rem', { lineHeight: '1.6' }],
+        'body-lg': ['clamp(1rem, 1vw + 0.75rem, 1.125rem)', { lineHeight: '1.6' }],
         'body-md': ['1rem', { lineHeight: '1.6' }],
         'body-sm': ['0.875rem', { lineHeight: '1.5' }],
         'body-xs': ['0.75rem', { lineHeight: '1.4' }],
@@ -31,34 +33,38 @@ export default {
         'mono-md': ['0.75rem', { lineHeight: '1.5', letterSpacing: '0.05em' }],
         'mono-sm': ['0.625rem', { lineHeight: '1.4', letterSpacing: '0.1em' }],
         // Accent Scale (Audiowide)
-        'accent-lg': ['2rem', { lineHeight: '1.2', letterSpacing: '0.05em' }],
-        'accent-md': ['1.5rem', { lineHeight: '1.3', letterSpacing: '0.05em' }],
+        'accent-lg': ['clamp(1.5rem, 2vw + 1rem, 2rem)', { lineHeight: '1.2', letterSpacing: '0.05em' }],
+        'accent-md': ['clamp(1.25rem, 1.5vw + 1rem, 1.5rem)', { lineHeight: '1.3', letterSpacing: '0.05em' }],
       },
       colors: {
         slate: {
-          850: '#151f32',
-          900: '#0f172a',
-          950: '#020617', // Deep dark background
+          850: 'var(--color-slate-850)',
+          900: '#0f172a', // Keep standard for now or map to --bg-surface if desired
+          950: 'var(--bg-base)', // Deep dark background (0%)
         },
-        // Brand Spectrum: Cyan, Blue, Purple (Used flexibly across the site)
-        // Brand Spectrum: Cyan, Blue, Purple (Used flexibly across the site)
         // Brand Spectrum: Cyan, Blue, Purple (Used flexibly across the site)
         // Defined in index.css via @theme for Tailwind v4 compatibility
         cyan: {
-          400: '#22d3ee',
-          500: '#06b6d4',
-          900: '#164e63',
+          400: 'var(--color-brand-cyan)',
+          500: 'var(--color-brand-cyan-dim)',
+          900: 'var(--color-brand-cyan-deep)',
         },
         blue: {
-          500: '#3b82f6',
-          600: '#2563eb',
+          500: 'var(--color-brand-blue)',
+          600: 'var(--color-brand-blue-dim)',
         },
         purple: {
-          400: '#c084fc',
-          500: '#a855f7',
-          900: '#581c87',
+          400: '#c084fc', // Keep as fallback or define variable
+          500: 'var(--color-brand-purple)',
+          900: 'var(--color-brand-purple-deep)',
         },
-        accent: '#3b82f6',
+        accent: 'var(--color-brand-blue)',
+        
+        // Semantic Colors
+        success: 'var(--color-success)',
+        error: 'var(--color-error)',
+        warning: 'var(--color-warning)',
+        info: 'var(--color-info)',
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',

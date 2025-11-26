@@ -297,7 +297,7 @@ const Skills: React.FC = () => {
       id="skills"
       ref={containerRef}
       style={{ opacity: smoothOpacity, scale: smoothScale, y: smoothY }}
-      className="relative overflow-hidden min-h-screen flex items-center py-48 md:py-60"
+      className="relative overflow-hidden min-h-screen flex items-center py-[min(12rem,15vh)]"
     >
       {/* === BACKGROUND: Simplified to prevent banding === */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -308,6 +308,12 @@ const Skills: React.FC = () => {
             backgroundSize: '30px 30px',
           }}
         />
+
+        {/* TOP Gradient Transition */}
+        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-slate-950 via-slate-950/90 to-transparent z-10"></div>
+
+        {/* BOTTOM Gradient Transition */}
+        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent z-10"></div>
       </div>
 
       {/* === SVG OVERLAY FOR DATA LINKS (Desktop Only) === */}
@@ -378,7 +384,7 @@ const Skills: React.FC = () => {
         </svg>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10 w-full">
+      <div className="max-w-[1200px] mx-auto px-[min(1.5rem,5vw)] relative z-10 w-full">
         <motion.div
           initial={{ opacity: 0, y: -20, scale: 1.1 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -392,7 +398,7 @@ const Skills: React.FC = () => {
               04. TOOLKIT
             </h2>
           </div>
-          <h3 className="text-display-md md:text-display-lg font-display font-bold text-white tracking-tight">
+          <h3 className="text-display-1xl font-display font-bold text-white tracking-tight">
             Technical Expertise
           </h3>
         </motion.div>
@@ -414,7 +420,7 @@ const Skills: React.FC = () => {
             Connecting the <span className="text-cyan-400">Stack</span> to the <br />
             <span className="text-blue-500">Strategy</span>.
           </h2>
-          <p className="text-slate-400 text-sm md:text-base leading-loose mb-6">
+          <p className="text-body-lg text-slate-300 font-light leading-relaxed mb-6">
             Skilled in industry-standard tools such as Zendesk and Salesforce, utilizing automation and data analytics, while integrating essential competencies in strategic operations, technical configuration, and resilience planning to optimize efficiency and customer experience.
           </p>
           <p className="text-[10px] md:text-xs font-mono text-slate-500 flex items-center gap-2">
@@ -505,6 +511,7 @@ const Skills: React.FC = () => {
                                   name={tech.name}
                                   logo={tech.logo}
                                   localLogo={tech.localLogo}
+                                  icon={tech.icon}
                                   className={`w-full h-full object-contain transition-all filter
                                               ${isHovered || isRelated ? 'grayscale-0 opacity-100' : 'grayscale opacity-70'}
                                             `}

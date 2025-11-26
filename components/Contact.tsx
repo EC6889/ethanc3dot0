@@ -102,7 +102,7 @@ const Contact: React.FC = () => {
       id="contact"
       ref={containerRef}
       style={{ opacity: smoothOpacity, scale: smoothScale, y: smoothY }}
-      className="border-t border-slate-900 relative overflow-hidden py-32 md:py-48"
+      className="relative overflow-hidden py-[min(8rem,12vh)]"
     >
       {/* === BACKGROUND: Signal Uplink === */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -115,9 +115,12 @@ const Contact: React.FC = () => {
         ))}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-cyan/30 to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-cyan-900/5 to-transparent"></div>
+
+        {/* TOP Gradient Transition */}
+        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-slate-950 via-slate-950/90 to-transparent z-10"></div>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-[min(1.5rem,5vw)] relative z-10">
         {/* Section Header */}
         <Motion.div
           initial={{ opacity: 0, y: -150, scale: 0.9 }}
@@ -132,12 +135,15 @@ const Contact: React.FC = () => {
               06. CONTACT
             </h2>
           </div>
-          <h3 className="text-display-md md:text-display-lg font-display font-bold text-white tracking-tight">
+          <h3 className="text-display-1xl font-display font-bold text-white tracking-tight">
             Get In{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">
               Touch
             </span>
           </h3>
+          <p className="text-body-lg text-slate-300 font-light max-w-2xl leading-relaxed mt-6">
+            Ready to optimize your operations? Let's <span className="text-brand-cyan">initialize a connection</span>.
+          </p>
         </Motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start perspective-1000">
@@ -150,11 +156,11 @@ const Contact: React.FC = () => {
             className="space-y-10"
           >
             <div>
-              <h3 className="text-2xl md:text-3xl font-display font-bold text-white leading-[1.3]">
+              <h3 className="text-display-sm md:text-display-md font-display font-bold text-white leading-[1.3]">
                 Open for <br />
                 <span className="text-brand-cyan">New Opportunities</span>
               </h3>
-              <p className="text-slate-400 text-sm md:text-base mt-6 leading-loose max-w-md">
+              <p className="text-slate-400 text-body-md mt-6 leading-loose max-w-md">
                 Looking for the next challenge in operations management or consulting. Whether you want to explore collaboration,
                 discuss a role, or just say hi—I'd love to hear from you.
               </p>
@@ -488,7 +494,7 @@ const Contact: React.FC = () => {
           </Motion.div>
         </div>
       </div>
-    </Motion.section>
+    </Motion.section >
   );
 };
 

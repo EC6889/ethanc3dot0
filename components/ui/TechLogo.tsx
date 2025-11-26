@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { LucideIcon } from 'lucide-react';
 
 interface TechLogoProps {
   name: string;
-  logo: string;
-  localLogo: string;
+  logo?: string;
+  localLogo?: string;
   className?: string;
+  icon?: LucideIcon | any;
 }
 
-export const TechLogo: React.FC<TechLogoProps> = ({ name, logo, localLogo, className }) => {
-  const [imgSrc, setImgSrc] = useState(logo);
-  const [hasError, setHasError] = useState(false);
+export const TechLogo: React.FC<TechLogoProps> = ({ name, logo, localLogo, className, icon: Icon }) => {
+  const [imgSrc, setImgSrc] = React.useState<string | undefined>(logo);
+  const [hasError, setHasError] = React.useState(false);
+
+  // If we have an explicit icon component, render it
+  if (Icon) {
+    return <Icon className={className} />;
+  }
 
   const handleError = () => {
     if (!hasError) {

@@ -254,12 +254,15 @@ const About: React.FC = () => {
       id="about"
       ref={containerRef}
       style={{ opacity, scale: smoothScale }}
-      className="relative min-h-screen flex items-center py-32 md:py-48 overflow-hidden"
+      className="relative min-h-screen flex items-center py-[min(8rem,12vh)] overflow-hidden"
     >
       {/* === DYNAMIC BACKGROUND === */}
       <PerspectiveGrid />
 
-      <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-[#020617] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-slate-950 via-slate-950/90 to-transparent z-10 pointer-events-none"></div>
+
+      {/* BOTTOM Gradient Transition */}
+      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent z-10 pointer-events-none"></div>
 
       <Motion.div
         style={{ top: scanLineY, opacity: scanOpacity }}
@@ -270,7 +273,7 @@ const About: React.FC = () => {
         </div>
       </Motion.div>
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 relative z-20 w-full">
+      <div className="max-w-[1200px] mx-auto px-[min(1.5rem,5vw)] relative z-20 w-full">
         <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -284,7 +287,7 @@ const About: React.FC = () => {
               02. PROFILE_DATA
             </h2>
           </div>
-          <h3 className="text-display-md md:text-display-lg font-display font-bold text-white tracking-tight">
+          <h3 className="text-display-1xl font-display font-bold text-white tracking-tight">
             Professional{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">
               Profile
@@ -315,12 +318,12 @@ const About: React.FC = () => {
                   .
                 </h2>
 
-                <div className="space-y-6 text-sm md:text-base text-slate-400 leading-loose max-w-lg font-light">
-                  <p>
+                <div className="space-y-6 max-w-lg">
+                  <p className="text-body-lg text-slate-300 font-light leading-relaxed">
                     A Strategic CX Leader with over 15 years of experience across Hospitality, Travel Tech,
                     Contact Centers, and Logistics.
                   </p>
-                  <p>
+                  <p className="text-body-md text-slate-400 leading-loose font-light">
                     I specialize in breaking down operational challenges and rebuilding them as efficient,
                     automated systems. Working with enterprise platforms like Zendesk, Genesys, and Salesforce,
                     I bridge the gap between operations and technology—ensuring tools work for people, not the

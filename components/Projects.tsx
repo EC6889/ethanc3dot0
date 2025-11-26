@@ -130,7 +130,7 @@ const Projects: React.FC = () => {
       id="projects"
       ref={containerRef}
       style={{ opacity: sectionOpacity }}
-      className="bg-[#030712] relative border-t border-slate-900 overflow-hidden min-h-[600px] py-32 md:py-48"
+      className="relative overflow-hidden min-h-[600px] py-[min(12rem,15vh)]"
     >
       {/* === BACKGROUND: Blueprint Grid === */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -141,10 +141,16 @@ const Projects: React.FC = () => {
             backgroundSize: '40px 40px',
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030712] via-transparent to-[#030712]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-transparent to-slate-950/50" />
+
+        {/* TOP Gradient Transition */}
+        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-slate-950 via-slate-950/90 to-transparent z-10"></div>
+
+        {/* BOTTOM Gradient Transition */}
+        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent z-10"></div>
       </div>
 
-      <div className="max-w-[1300px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-[1300px] mx-auto px-[min(3rem,6vw)] relative z-10">
         {/* Header - Fades in first */}
         <Motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -161,9 +167,12 @@ const Projects: React.FC = () => {
                 05. ARCHIVE
               </h2>
             </div>
-            <h3 className="text-display-md md:text-display-lg font-display font-bold text-white tracking-tight">
+            <h3 className="text-display-1xl font-display font-bold text-white tracking-tight mb-6">
               Project <span className="text-slate-500">Highlight</span>
             </h3>
+            <p className="text-body-lg text-slate-300 font-light max-w-2xl leading-relaxed">
+              Selected works demonstrating <span className="text-brand-cyan">technical execution</span> and <span className="text-brand-purple">operational impact</span>.
+            </p>
           </div>
           <div className="hidden md:block text-right">
             <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">

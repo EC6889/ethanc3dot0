@@ -13,6 +13,7 @@ import {
   Server,
   Activity,
   Database,
+  Radio,
 } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 
@@ -86,12 +87,13 @@ const Experience: React.FC = () => {
         ...pos,
         companyId: company.id,
         companyName: pos.companyOverride || company.company,
-        companyLocation: company.location,
+        companyLocation: pos.locationOverride || company.location,
         companyLogo: company.logo,
         companyLocalLogo: pos.localLogoOverride || company.localLogo,
-        companyTechStack: company.techStack,
+        companyTechStack: pos.techStackOverride || company.techStack,
         companyChannels: company.channels,
         uniqueId: `${company.id}-${posIndex}`,
+        displayIdSuffix: pos.idSuffix || posIndex.toString(),
         isCurrent: pos.period.toLowerCase().includes('present') || pos.period.toLowerCase().includes('now'),
       }))
     );
@@ -346,7 +348,7 @@ const Experience: React.FC = () => {
                               CAREER_LOG
                             </span>
                             <span className="text-[10px] font-mono text-slate-500">
-                              ID: {activePosition.companyId.toUpperCase()}-{activePosition.uniqueId.split('-')[1]}
+                              ID: {activePosition.companyId.toUpperCase()}-{activePosition.displayIdSuffix}
                             </span>
                           </div>
                           <h2 className="text-lg md:text-xl font-display font-bold text-white tracking-tight">
@@ -409,13 +411,13 @@ const Experience: React.FC = () => {
                           <div>
                             <div className="flex items-center gap-2 mb-4 text-brand-cyan">
                               <Cpu size={16} />
-                              <h4 className="text-xs font-mono font-bold tracking-wider uppercase">System Configuration</h4>
+                              <h4 className="text-xs font-mono font-bold tracking-wider uppercase">Tag</h4>
                             </div>
                             <div className="flex flex-wrap gap-2">
                               {activePosition.companyTechStack.map((tech, idx) => (
                                 <div
                                   key={idx}
-                                  className="px-3 py-1.5 rounded border border-slate-800 bg-slate-900/50 text-xs font-mono text-slate-300 flex items-center gap-2 hover:border-brand-cyan/30 transition-colors"
+                                  className="px-3 py-1.5 rounded border border-slate-800 bg-slate-900/50 text-xs font-mono text-slate-300 flex items-center gap-2 hover:border-brand-cyan/30 hover:bg-slate-900/80 transition-all duration-300"
                                 >
                                   <Server size={12} className="text-slate-500" />
                                   {tech}
@@ -425,18 +427,18 @@ const Experience: React.FC = () => {
                           </div>
                         )}
 
-                        {/* Communication Channels */}
+                        {/* Channels */}
                         {activePosition.companyChannels && activePosition.companyChannels.length > 0 && (
                           <div>
                             <div className="flex items-center gap-2 mb-4 text-emerald-400">
-                              <Activity size={16} />
-                              <h4 className="text-xs font-mono font-bold tracking-wider uppercase">Communication Protocols</h4>
+                              <Radio size={16} />
+                              <h4 className="text-xs font-mono font-bold tracking-wider uppercase">Channels</h4>
                             </div>
                             <div className="flex flex-wrap gap-2">
                               {activePosition.companyChannels.map((channel, idx) => (
                                 <div
                                   key={idx}
-                                  className="px-3 py-1.5 rounded border border-slate-800 bg-slate-900/50 text-xs font-mono text-slate-300 flex items-center gap-2 hover:border-emerald-500/30 transition-colors"
+                                  className="px-3 py-1.5 rounded border border-slate-800 bg-slate-900/50 text-xs font-mono text-slate-300 flex items-center gap-2 hover:border-emerald-500/30 hover:bg-slate-900/80 transition-all duration-300"
                                 >
                                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                   {channel}

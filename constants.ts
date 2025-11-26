@@ -81,7 +81,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Ninja_Van_Logo.svg/512px-Ninja_Van_Logo.svg.png',
     localLogo: '/assets/photos/ninjavan.png',
     isWordmark: true,
-    location: 'Kuala Lumpur, Malaysia',
+    location: 'Subang Jaya, Malaysia',
     logoInitials: 'NV',
     techStack: ['Salesforce', 'Google Workspace', 'Google Looker'],
     channels: ['Chat', 'Email', 'Call', 'WhatsApp'],
@@ -167,7 +167,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     logo: 'https://companieslogo.com/img/orig/MLCO-9a64a706.png',
     localLogo: '/assets/photos/melco.png',
     isWordmark: true,
-    location: 'Macau / KL',
+    location: 'Macau',
     logoInitials: 'MC',
     techStack: ['SiteMinder', 'Cisco UCCX', 'Opera PMS'],
     channels: ['Email', 'Call', 'Fax'],
@@ -215,6 +215,9 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
         title: 'Support Schedule Lead',
         companyOverride: 'Shell Malaysia',
         localLogoOverride: '/assets/photos/shell.png',
+        locationOverride: 'Kuala Lumpur, Malaysia',
+        techStackOverride: ['SAP', 'Microsoft Office'],
+        idSuffix: '02',
         period: '2007 – 2009',
         content: [
           {
@@ -229,6 +232,9 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
         title: 'Support Executive',
         companyOverride: 'Fifth Media',
         localLogoOverride: '/assets/photos/fifthmedia.png',
+        locationOverride: 'Kuala Lumpur, Malaysia',
+        techStackOverride: ['Microsoft Office'],
+        idSuffix: '01',
         period: '2005 – 2007',
         content: [
           {
@@ -243,6 +249,9 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
         title: 'Team Leader',
         companyOverride: 'Genting Group',
         localLogoOverride: '/assets/photos/genting.png',
+        locationOverride: 'Kuala Lumpur, Malaysia',
+        techStackOverride: ['Siebel', 'Microsoft Office'],
+        idSuffix: '03',
         period: '2003 – 2005',
         content: [
           {

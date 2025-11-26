@@ -6,8 +6,11 @@ export interface ExperienceContent {
 export interface ExperiencePosition {
   title: string;
   period: string;
-  companyOverride?: string; // For grouped earlier roles (e.g. Shell, Fifth Media)
+  companyOverride?: string; // For grouped earlier roles  (e.g. Shell, Fifth Media)
   localLogoOverride?: string; // For grouped earlier roles
+  locationOverride?: string; // For grouped earlier roles
+  techStackOverride?: string[]; // For grouped earlier roles
+  idSuffix?: string; // Custom ID suffix for display (e.g., "01", "02")
   content: ExperienceContent[];
 }
 

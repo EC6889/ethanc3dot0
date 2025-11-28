@@ -141,9 +141,6 @@ const Contact: React.FC = () => {
               Touch
             </span>
           </h3>
-          <p className="text-body-lg text-slate-300 font-light max-w-2xl leading-relaxed mt-6">
-            Ready to optimize your operations? Let's <span className="text-brand-cyan">initialize a connection</span>.
-          </p>
         </Motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start perspective-1000">

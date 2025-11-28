@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const GA_MEASUREMENT_ID = 'G-1VVP38P0F9';
+
 
 // Declare global Window dataLayer type
 declare global {
@@ -17,36 +17,16 @@ const CookieConsent: React.FC = () => {
     const consent = localStorage.getItem('cookie_consent');
     if (consent === null) {
       setIsVisible(true);
-    } else {
-      loadGoogleAnalytics();
     }
   }, []);
 
-  const loadGoogleAnalytics = () => {
-    if (window.dataLayer) return;
-
-    const script = document.createElement('script');
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    script.async = true;
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    function gtag(...args: any[]) {
-      window.dataLayer.push(args);
-    }
-    gtag('js', new Date());
-    gtag('config', GA_MEASUREMENT_ID);
-  };
-
   const handleAccept = () => {
     localStorage.setItem('cookie_consent', 'true');
-    loadGoogleAnalytics();
     setIsVisible(false);
   };
 
   const handleReject = () => {
     localStorage.setItem('cookie_consent', 'false');
-    loadGoogleAnalytics();
     setIsVisible(false);
   };
 
@@ -74,7 +54,7 @@ const CookieConsent: React.FC = () => {
                     // Cookie_Protocol
                   </h3>
                   <p className="text-xs text-slate-400 leading-relaxed mt-1">
-                    We use cookies to analyze traffic. Accept to enable analytics.
+                    We use cookies to improve your experience.
                   </p>
                 </div>
               </div>

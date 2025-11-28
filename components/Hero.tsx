@@ -1,53 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { InteractiveGrid } from './ui/InteractiveGrid';
 import { GlitchText } from './ui/GlitchText';
 import { MagneticButton } from './ui/MagneticButton';
-
-const ROLES = [
-  'CX_OPERATIONS_MANAGER',
-  'TECH_IMPLEMENTATION_LEAD',
-  'WORKFLOW_ARCHITECT',
-  'SYSTEM_ADMINISTRATOR',
-];
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Hero: React.FC = () => {
   const { scrollY } = useScroll();
+  const { ref, variants, isInView } = useScrollAnimation(true);
 
   // === PARALLAX CONFIGURATION ===
   const bgY = useTransform(scrollY, [0, 1000], [0, 450]);
   const fgY = useTransform(scrollY, [0, 1000], [0, 150]);
   const fadeOut = useTransform(scrollY, [0, 600], [1, 0]);
-
-  // Typewriter Logic
-  const [text, setText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(80);
-
-  useEffect(() => {
-    const handleType = () => {
-      const i = loopNum % ROLES.length;
-      const fullText = ROLES[i];
-
-      setText(
-        isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1)
-      );
-
-      setTypingSpeed(isDeleting ? 30 : 80);
-
-      if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && text === '') {
-        setIsDeleting(false);
-        setLoopNum(loopNum + 1);
-      }
-    };
-
-    const timer = setTimeout(handleType, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, typingSpeed]);
 
   return (
     <section
@@ -109,63 +75,47 @@ const Hero: React.FC = () => {
           {/* Sidebars Removed per user request */}
 
           {/* Main Content Block - Full Width Left Aligned */}
-          <div className="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col items-start justify-center h-full pb-20 px-6 md:px-12">
+          <motion.div
+            ref={ref}
+            variants={variants}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            className="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col items-start justify-center h-full pb-20 px-6 md:px-12"
+          >
+            {/* Redesigned Title - Solid & Clear - Single Line */}
+            <motion.div variants={variants} className="relative mb-6 group">
+              {/* Ambient Glow */}
+              <div className="overflow-hidden mb-4 relative">
+                <h1 className="text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_25px_rgba(34,211,238,0.7)] whitespace-nowrap">
+                  ETHAN <span className="text-brand-cyan">C.</span>
+                </h1>
+                {/* Depth Layer */}
+                <h1 className="absolute inset-0 text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
+                  ETHAN C.
+                </h1>
+              </div>
+            </motion.div>
+            {/* Subtitle - Bio */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ type: 'spring', stiffness: 60, damping: 20, delay: 0.2 }}
-              className="flex flex-col items-start text-left"
+              variants={variants}
+              className="mb-8 pl-2 border-l-2 border-brand-cyan/50 max-w-2xl"
             >
-
-
-              {/* Redesigned Title - Solid & Clear - Single Line */}
-              <div className="relative mb-6 group">
-                {/* Ambient Glow */}
-                <div className="overflow-hidden mb-4 relative">
-                  <motion.div
-                    initial={{ y: 100 }}
-                    animate={{ y: 0 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                  >
-                    <h1 className="text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_25px_rgba(34,211,238,0.7)] whitespace-nowrap">
-                      ETHAN <span className="text-brand-cyan">C.</span>
-                    </h1>
-
-                    {/* Depth Layer */}
-                    <h1 className="absolute inset-0 text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
-                      ETHAN C.
-                    </h1>
-                  </motion.div>
-                </div>
-              </div>
-
-              {/* Subtitle - Bio */}
-              <div className="mb-8 pl-2 border-l-2 border-brand-cyan/50 max-w-2xl">
-                <p className="text-xs md:text-sm text-slate-400 font-mono tracking-wide leading-relaxed">
-                  Transforming Experiences Through Data-Driven Insights and Innovative Solutions
-                </p>
-              </div>
-
-              {/* Stable Typewriter Container - Left Aligned */}
-              <div className="h-10 flex items-center justify-start relative w-full max-w-xl mb-10">
-                <div className="flex items-center gap-4 w-full px-4 justify-start border-l-2 border-brand-cyan/30 bg-slate-900/20 py-2 rounded-r">
-                  <span className="text-brand-cyan text-[10px] md:text-xs font-bold font-mono tracking-widest whitespace-nowrap shrink-0">
-                    ID :
-                  </span>
-                  <span className="text-sm md:text-lg text-slate-300 tracking-widest font-mono uppercase flex items-center whitespace-nowrap overflow-hidden">
-                    {text}
-                    <span className="w-2 h-4 md:w-2.5 md:h-5 bg-brand-cyan animate-pulse ml-1 shadow-[0_0_10px_cyan]"></span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Action Buttons - Left Aligned */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="flex flex-col sm:flex-row items-start gap-5"
-              >
+              <p className="text-xs md:text-sm text-slate-400 font-mono tracking-wide leading-relaxed">
+                Transforming Experiences Through Data-Driven Insights and Innovative Solutions
+              </p>
+            </motion.div>
+            {/* Stable Typewriter Container - Left Aligned */}
+            <motion.div
+              variants={variants}
+              className="h-10 flex items-center justify-start relative w-full max-w-xl mb-10"
+            >
+              <GlitchText />
+            </motion.div>
+            {/* Action Buttons - Left Aligned */}
+            <motion.div
+              variants={variants}
+              className="flex flex-col sm:flex-row items-start gap-5"
+            >
                 <MagneticButton>
                   <a
                     href="#experience"

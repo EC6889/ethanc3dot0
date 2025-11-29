@@ -11,6 +11,10 @@ import Terms from './components/legal/Terms';
 import Privacy from './components/legal/Privacy';
 import NotFound from './components/NotFound';
 import Maintenance from './components/Maintenance';
+import { Preloader } from './components/Preloader';
+import { useEntranceAnimation } from './hooks/useEntranceAnimation';
+import { DigitalRain } from './components/ui/DigitalRain';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import CookieConsent from './components/CookieConsent';
 
@@ -21,6 +25,17 @@ const MAINTENANCE_MODE = false;
 
 function App() {
   const [view, setView] = useState<ViewState>('home');
+  const [isLoading, setIsLoading] = useState(true);
+  const [triggerAnimation, setTriggerAnimation] = useState(false);
+
+  // Orchestrated animation phases
+  const animationPhases = useEntranceAnimation(triggerAnimation);
+
+  const handlePreloaderComplete = () => {
+    setIsLoading(false);
+    // Trigger the animation sequence
+    setTimeout(() => setTriggerAnimation(true), 100);
+  };
 
   // Handle initial load and browser back button
   useEffect(() => {
@@ -76,12 +91,35 @@ function App() {
 
   return (
     <div className="bg-[#030712] min-h-screen text-slate-50 selection:bg-cyan-500/30 selection:text-cyan-200 relative">
-      {view === 'home' && <Navbar />}
+      {/* Preloader */}
+      {isLoading && <Preloader onComplete={handlePreloaderComplete} duration={2500} />}
+
+      {/* Digital Rain Overlay - Cyberpunk Matrix Effect (fades out after logo) */}
+      <AnimatePresence>
+        {animationPhases.showDigitalRain && !animationPhases.showNav && !isLoading && (
+          <motion.div
+            className="fixed inset-0 z-[45] pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: animationPhases.showLogo ? 0 : 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <DigitalRain opacity={0.4} speed={1.5} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {view === 'home' && (
+        <Navbar
+          showLogo={animationPhases.showLogo}
+          showNav={animationPhases.showNav}
+        />
+      )}
 
       <main className="relative z-10">
         {view === 'home' ? (
           <>
-            <Hero />
+            <Hero animationPhases={animationPhases} />
             <About />
             <Experience />
             <Skills />

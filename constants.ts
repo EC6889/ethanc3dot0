@@ -1,5 +1,5 @@
 import { ExperienceItem, ProjectItem, SkillMetric } from './types';
-import { History, Network } from 'lucide-react';
+import { Network, Users, Cpu, TrendingUp, Globe } from 'lucide-react';
 
 export const NAV_LINKS = [
   { label: 'Home', href: '#home' },
@@ -133,15 +133,15 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             category: 'System & Routing',
             bullets: [
-              'Designed intelligent routing flows across omnichannel touchpoints (chat, email, voice, social), aligning agent skills and SLAs with business tiers.',
-              'Optimized workflow logic and knowledge base taxonomy to minimize ticket bounces and unnecessary transfers.',
+              'Designed optimal routing logic across omnichannel touchpoints (chat, email, voice, social), aligning agent skills and SLAs with business tiers.',
+              'Optimized workflow logic and knowledge base taxonomy to minimize ticket reopen rate and shorter resolution time.',
             ],
           },
           {
             category: 'Vendor & Stability',
             bullets: [
               'Managed strategic vendor relationships for telephony and CX platforms, implementing rigorous license tracking to optimize operational costs.',
-              'Built comprehensive monitoring alerts and business continuity plans to ensure system resilience during technical outages.',
+              'Built and monitored business continuity plans to ensure system resilience during technical outages.',
             ],
           },
         ],
@@ -154,9 +154,9 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
             category: 'Team & Operations',
             bullets: [
               'Managed hybrid operations across in-house teams and outsourced BPO partners, ensuring consistent service delivery and adherence to global standards.',
-              'Led end-to-end talent management for a 100+ agent workforce, overseeing hiring strategies, mentorship programs, and performance coaching.',
-              'Established service governance frameworks, utilizing weekly business review (WBR) data to drive hiring strategy, coaching focus, and system enhancements.',
-              'Managed response protocols during peak travel seasons to keep response times stable.',
+              'Led and hired a 100+ agent workforce, overseeing hiring strategies, onboarding programs, and performance coaching.',
+              'Setup governance frameworks, utilizing weekly business review (WBR) data to drive hiring strategy, coaching focus, and system enhancements.',
+              'Drive Voice of Customer (VoC) initiatives to identify and address customer pain points with other stakeholders to improve CSAT.',
             ],
           },
         ],
@@ -197,8 +197,8 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             category: 'Operations',
             bullets: [
-              'Directed Reservations and Ticketing operations, optimizing workforce scheduling to ensure prompt answer rates and service levels.',
-              'Collaborated with Revenue Management to standardize up-selling scripts for agents.',
+              'Managed daily Reservations and Ticketing operations, ensuring all reservation orders are in the system.',
+              'Work closely with Revenue Management to yield higher occupany rate and conversion rates.',
             ],
           },
         ],
@@ -228,7 +228,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             bullets: [
               'Managed 24/7 workforce scheduling and ensured strict adherence to HSSE safety protocols.',
-              'Mentored new schedulers and ensured the team had the supplies they needed.',
+              'Handle urgent fuel delivery requests and ensure all gas stations are stocked.',
             ],
           },
         ],
@@ -244,8 +244,8 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
         content: [
           {
             bullets: [
-              'Delivered expert technical troubleshooting and conducted high-impact product demonstrations for potential investors.',
-              'Helped build internal knowledge bases for the team.',
+              'Delivered expert technical troubleshooting and conducted product demonstrations for potential investors.',
+              'Helped build internal knowledge bases for both internal and external.',
             ],
           },
         ],
@@ -451,5 +451,40 @@ export const TECH_STACK = [
     name: 'Microsoft Office',
     logo: 'https://cdn.simpleicons.org/microsoftoffice/D83B01',
     localLogo: '/assets/photos/office.png',
+  },
+];
+
+export const LANGUAGES_DATA = [
+  { name: 'English', code: 'EN_US', level: 'Native', score: 4, color: 'cyan' },
+  { name: 'Cantonese', code: 'ZH_HK', level: 'Native', score: 4, color: 'cyan' },
+  { name: 'Mandarin', code: 'ZH_CN', level: 'Intermediate', score: 3, color: 'blue' },
+  { name: 'Bahasa', code: 'MS_MY', level: 'Intermediate', score: 3, color: 'blue' },
+  { name: 'French', code: 'FR_FR', level: 'Beginner', score: 1, color: 'purple' },
+];
+
+export const MODULES_DATA = [
+  {
+    icon: Users,
+    title: 'Team Leadership',
+    desc: 'Managing multi-tier teams & driving stakeholder alignment.',
+    color: 'blue',
+  },
+  {
+    icon: Cpu,
+    title: 'System Config',
+    desc: 'Setup & maintenance of Zendesk, Genesys & AI tools.',
+    color: 'cyan',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Process Opt.',
+    desc: 'Removing friction to improve SLA performance.',
+    color: 'purple',
+  },
+  {
+    icon: Globe,
+    title: 'Omnichannel',
+    desc: 'Unified strategy across Voice, Chat, Email & Social.',
+    color: 'blue',
   },
 ];

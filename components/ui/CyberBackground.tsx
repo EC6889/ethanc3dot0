@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import Threads from './Threads';
-import { GravityStarsBackground } from '@/components/animate-ui/components/backgrounds/gravity-stars';
+import { GravityStarsBackground } from './gravity-stars';
 
 type BackgroundVariant = 'skills' | 'projects' | 'contact';
 
@@ -50,8 +50,14 @@ export const CyberBackground: React.FC<CyberBackgroundProps> = ({ variant = 'ski
             {/* === 2. Variant-Specific Animations === */}
             {variant === 'skills' && (
                 // Gravity Stars: Interactive particle background from Animate UI
-                <div className="absolute inset-0 text-brand-cyan">
-                    <GravityStarsBackground className="absolute inset-0" />
+                <div className="absolute inset-0 text-cyan-500 pointer-events-auto">
+                    <GravityStarsBackground
+                        className="absolute inset-0"
+                        starsCount={150}
+                        starsSize={3}
+                        gravityStrength={150}
+                        mouseInfluence={200}
+                    />
                 </div>
             )}
 

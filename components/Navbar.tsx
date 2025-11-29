@@ -5,7 +5,12 @@ import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 const Motion = motion as any;
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  showLogo?: boolean;
+  showNav?: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ showLogo = false, showNav = false }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -69,9 +74,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       <Motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: 'circOut' }}
+        initial={{ y: 0, opacity: 1 }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b
           ${isScrolled
             ? 'h-[70px] bg-slate-950/90 backdrop-blur-md border-brand-cyan-deep/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
@@ -91,12 +94,40 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className="max-w-[1200px] mx-auto px-6 md:px-8 flex items-center justify-between w-full h-full relative">
-          {/* Logo Section */}
-          <a
+          {/* Logo Section - Burns Through Digital Rain */}
+          <motion.a
             href="#home"
             onClick={(e) => scrollToSection(e, '#home')}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-3 group relative"
+            initial={{ opacity: 0, scale: 0.5, filter: 'brightness(0) blur(20px)' }}
+            animate={showLogo ? {
+              opacity: 1,
+              scale: 1,
+              filter: 'brightness(1) blur(0px)'
+            } : {
+              opacity: 0,
+              scale: 0.5,
+              filter: 'brightness(0) blur(20px)'
+            }}
+            transition={{
+              duration: 0.8,
+              ease: [0.34, 1.56, 0.64, 1],
+            }}
           >
+            {/* Neon glow ring */}
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              initial={{ boxShadow: '0 0 0px rgba(34, 211, 238, 0)' }}
+              animate={showLogo ? {
+                boxShadow: [
+                  '0 0 0px rgba(34, 211, 238, 0)',
+                  '0 0 60px rgba(34, 211, 238, 0.8)',
+                  '0 0 20px rgba(34, 211, 238, 0.3)'
+                ]
+              } : { boxShadow: '0 0 0px rgba(34, 211, 238, 0)' }}
+              transition={{ duration: 1, times: [0, 0.5, 1] }}
+            />
+
             <div className="relative w-12 h-12 flex items-center justify-center transition-transform duration-300 hover:scale-105">
               <img
                 src="/assets/logo.png"
@@ -105,13 +136,13 @@ const Navbar: React.FC = () => {
               />
             </div>
 
-          </a>
+          </motion.a>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Second Wave */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5, staggerChildren: 0.1 }}
+            initial={{ opacity: 0 }}
+            animate={showNav ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.3 }}
             className="hidden md:flex items-center gap-1"
           >
             {NAV_LINKS.map((link, i) => {
@@ -123,14 +154,38 @@ const Navbar: React.FC = () => {
                   onClick={(e) => scrollToSection(e, link.href)}
                   onMouseEnter={() => setHoveredTab(link.label)}
                   onMouseLeave={() => setHoveredTab(null)}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 + i * 0.1 }}
+                  initial={{ opacity: 0, y: -15, filter: 'blur(10px)' }}
+                  animate={showNav ? {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)'
+                  } : {
+                    opacity: 0,
+                    y: -15,
+                    filter: 'blur(10px)'
+                  }}
+                  transition={{
+                    delay: i * 0.05,
+                    duration: 0.5,
+                    ease: [0.23, 1, 0.32, 1]
+                  }}
                   className={`
                         relative px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.15em] transition-colors duration-300
                         ${isActive ? 'text-brand-cyan' : 'text-slate-400 hover:text-slate-200'}
                       `}
                 >
+                  {/* Circuit trace effect on hover/active */}
+                  {(isActive || hoveredTab === link.label) && (
+                    <motion.div
+                      className="absolute inset-0 border border-cyan-400/30"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.3 }}
+                      style={{
+                        boxShadow: '0 0 10px rgba(34, 211, 238, 0.3)'
+                      }}
+                    />
+                  )}
                   {/* Active Indicator: Brackets */}
                   <span className="relative z-10 flex items-center gap-1">
                     <motion.span
@@ -163,11 +218,16 @@ const Navbar: React.FC = () => {
             {/* Divider */}
             <div className="h-6 w-px bg-slate-800 mx-4"></div>
 
-            {/* Resume Button */}
+            {/* Resume Button - Final Element */}
             <motion.a
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.2, type: "spring" }}
+              animate={showNav ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+              transition={{
+                delay: NAV_LINKS.length * 0.08 + 0.2,
+                type: "spring",
+                stiffness: 200,
+                damping: 15
+              }}
               href="/Ethan_C_Resume.pdf"
               download="Ethan_C_Resume.pdf"
               className="group relative px-5 py-2 bg-slate-900/50 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest border border-slate-700 hover:border-brand-cyan/50 hover:text-brand-cyan transition-all overflow-hidden flex items-center"

@@ -12,7 +12,17 @@ const ROLES = [
   'SYSTEM_ADMINISTRATOR',
 ];
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  animationPhases: {
+    showHeroBackground: boolean;
+    showHeroTitle: boolean;
+    showHeroSubtitle: boolean;
+    showHeroTypewriter: boolean;
+    showHeroCTA: boolean;
+  };
+}
+
+const Hero: React.FC<HeroProps> = ({ animationPhases }) => {
   const { scrollY } = useScroll();
 
   // === PARALLAX CONFIGURATION ===
@@ -55,7 +65,13 @@ const Hero: React.FC = () => {
       className="relative w-full h-dvh bg-slate-950 overflow-hidden flex flex-col font-mono"
     >
       {/* === BACKGROUND LAYERS === */}
-      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{ y: bgY }}
+        initial={{ opacity: 0 }}
+        animate={animationPhases.showHeroBackground ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <InteractiveGrid />
       </motion.div>
 
@@ -110,86 +126,177 @@ const Hero: React.FC = () => {
 
           {/* Main Content Block - Full Width Left Aligned */}
           <div className="relative z-10 w-full max-w-[1200px] mx-auto flex flex-col items-start justify-center h-full pb-20 px-6 md:px-12">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ type: 'spring', stiffness: 60, damping: 20, delay: 0.2 }}
-              className="flex flex-col items-start text-left"
-            >
+            <div className="flex flex-col items-start text-left">
 
 
-              {/* Redesigned Title - Staggered Character Reveal */}
-              <div className="relative mb-6 group">
-                {/* Ambient Glow */}
-                <div className="overflow-hidden mb-4 relative">
-                  <h1 className="text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_25px_rgba(34,211,238,0.7)] whitespace-nowrap flex">
-                    {Array.from("ETHAN C.").map((char, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                          type: "spring",
-                          damping: 12,
-                          stiffness: 100,
-                          delay: 0.2 + i * 0.05, // Stagger effect
+              {/* Redesigned Title - Clean Cyberpunk with Sharp Definition */}
+              {animationPhases.showHeroTitle && (
+                <div className="relative mb-6 group">
+                  <div className="overflow-hidden mb-4 relative">
+                    <GlitchText
+                      show={animationPhases.showHeroTitle}
+                      intensity="high"
+                      className="text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold tracking-tighter leading-none"
+                    >
+                      <motion.h1
+                        className="relative z-20 whitespace-nowrap flex font-black"
+                        initial={{ opacity: 0, x: -100, filter: 'blur(10px)' }}
+                        animate={{
+                          opacity: 1,
+                          x: 0,
+                          filter: 'blur(0px)'
                         }}
-                        className={char === " " ? "w-4 md:w-8" : ""} // Handle space width
-                      >
-                        {char === "." ? <span className="text-brand-cyan">.</span> : char}
-                      </motion.span>
-                    ))}
-                  </h1>
-
-                  {/* Depth Layer (Static for performance, or could also stagger if desired, but static is safer for alignment) */}
-                  <h1 className="absolute inset-0 text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap flex">
-                    {Array.from("ETHAN C.").map((char, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
                         transition={{
-                          type: "spring",
-                          damping: 12,
-                          stiffness: 100,
-                          delay: 0.25 + i * 0.05, // Slightly more delay for depth layer
+                          duration: 0.7,
+                          ease: [0.23, 1, 0.32, 1]
                         }}
-                        className={char === " " ? "w-4 md:w-8" : ""}
+                        style={{
+                          transformPerspective: 1000,
+                          color: '#ffffff',
+                          // Clean single glow
+                          textShadow: `
+                            0 0 20px rgba(34, 211, 238, 0.5),
+                            2px 2px 4px rgba(0, 0, 0, 0.8),
+                            -1px -1px 0px rgba(34, 211, 238, 0.3)
+                          `,
+                          WebkitTextStroke: '1px rgba(34, 211, 238, 0.3)',
+                        }}
                       >
-                        {char}
-                      </motion.span>
-                    ))}
-                  </h1>
+                        {Array.from("ETHAN C.").map((char, i) => (
+                          <motion.span
+                            key={i}
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{
+                              opacity: 1,
+                              x: 0
+                            }}
+                            transition={{
+                              duration: 0.5,
+                              delay: i * 0.06,
+                              ease: [0.23, 1, 0.32, 1]
+                            }}
+                            className={char === " " ? "w-4 md:w-8" : ""}
+                          >
+                            {char === "." ? (
+                              <span
+                                className="inline-block text-brand-cyan"
+                                style={{
+                                  textShadow: `
+                                    0 0 30px rgba(34, 211, 238, 1),
+                                    0 0 60px rgba(34, 211, 238, 0.6),
+                                    2px 2px 4px rgba(0, 0, 0, 0.8)
+                                  `,
+                                  filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.8))'
+                                }}
+                              >
+                                .
+                              </span>
+                            ) : char}
+                          </motion.span>
+                        ))}
+                      </motion.h1>
+                    </GlitchText>
+
+                    {/* Clean depth shadow */}
+                    <div
+                      className="absolute inset-0 text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-black tracking-tighter leading-none select-none translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap flex opacity-30"
+                      style={{
+                        color: '#0e7490',
+                        filter: 'blur(1px)'
+                      }}
+                    >
+                      {Array.from("ETHAN C.").map((char, i) => (
+                        <span
+                          key={i}
+                          className={char === " " ? "w-4 md:w-8" : ""}
+                        >
+                          {char}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* Subtitle - Bio */}
-              <div className="mb-8 pl-2 border-l-2 border-brand-cyan/50 max-w-2xl">
-                <p className="text-xs md:text-sm text-slate-400 font-mono tracking-wide leading-relaxed">
-                  Enhancing customer experiences through strategies, technology and process optimisation. Focused on delivering measurable improvements in satisfaction and operational efficiency.
+              {/* Subtitle - Electromagnetic Ripple */}
+              <motion.div
+                className="mb-8 pl-2 border-l-2 border-brand-cyan/50 max-w-2xl relative"
+                initial={{ opacity: 0, x: -40, filter: 'blur(10px)' }}
+                animate={animationPhases.showHeroSubtitle ?
+                  { opacity: 1, x: 0, filter: 'blur(0px)' } :
+                  { opacity: 0, x: -40, filter: 'blur(10px)' }
+                }
+                transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+              >
+                {/* Electromagnetic pulse on entrance */}
+                <motion.div
+                  className="absolute inset-0 border-2 border-cyan-400/50 rounded"
+                  initial={{ scale: 1, opacity: 0 }}
+                  animate={animationPhases.showHeroSubtitle ? {
+                    scale: [1, 1.1, 1],
+                    opacity: [0.8, 0, 0]
+                  } : { scale: 1, opacity: 0 }}
+                  transition={{ duration: 0.8, times: [0, 0.5, 1] }}
+                />
+                <p className="text-xs md:text-sm text-slate-400 font-mono tracking-wide leading-relaxed relative z-10">
+                  A seasoned CX strategist with a strong background in customer support and operations management. Leverages technology, automation, and operational excellence to enhance both customer and agent experiences.
                 </p>
-              </div>
+              </motion.div>
 
-              {/* Stable Typewriter Container - Left Aligned */}
-              <div className="h-10 flex items-center justify-start relative w-full max-w-xl mb-10">
-                <div className="flex items-center gap-4 w-full px-4 justify-start border-l-2 border-brand-cyan/30 bg-slate-900/20 py-2 rounded-r">
+              {/* Typewriter - With Glitch Artifact */}
+              <motion.div
+                className="h-10 flex items-center justify-start relative w-full max-w-xl mb-10"
+                initial={{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }}
+                animate={animationPhases.showHeroTypewriter ?
+                  { opacity: 1, scale: 1, filter: 'blur(0px)' } :
+                  { opacity: 0, scale: 0.9, filter: 'blur(8px)' }
+                }
+                transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+              >
+                {/* Glitch scanline */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent h-1"
+                  initial={{ y: 0 }}
+                  animate={animationPhases.showHeroTypewriter ? {
+                    y: ['0%', '100%'],
+                    opacity: [0, 0.5, 0]
+                  } : { y: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, times: [0, 0.5, 1] }}
+                />
+                <div className="flex items-center gap-4 w-full px-4 justify-start border-l-2 border-brand-cyan/30 bg-slate-900/20 py-2 rounded-r relative z-10">
                   <span className="text-brand-cyan text-[10px] md:text-xs font-bold font-mono tracking-widest whitespace-nowrap shrink-0">
                     ID :
                   </span>
                   <span className="text-sm md:text-lg text-slate-300 tracking-widest font-mono uppercase flex items-center whitespace-nowrap overflow-hidden">
                     {text}
-                    <span className="w-2 h-4 md:w-2.5 md:h-5 bg-brand-cyan animate-pulse ml-1 shadow-[0_0_10px_cyan]"></span>
+                    <span className="w-2 h-4 md:w-2.5 md:h-5 bg-brand-cyan animate-pulse ml-1 shadow-[0_0_15px_cyan]"></span>
                   </span>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Action Buttons - Left Aligned */}
+              {/* CTA Buttons - Electromagnetic Pulse */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="flex flex-col sm:flex-row items-start gap-5"
+                initial={{ opacity: 0, y: 50, filter: 'blur(15px)' }}
+                animate={animationPhases.showHeroCTA ?
+                  { opacity: 1, y: 0, filter: 'blur(0px)' } :
+                  { opacity: 0, y: 50, filter: 'blur(15px)' }
+                }
+                transition={{
+                  duration: 0.7,
+                  ease: [0.23, 1, 0.32, 1]
+                }}
+                className="flex flex-col sm:flex-row items-start gap-5 relative"
               >
+                {/* Pulse ring on entrance */}
+                <motion.div
+                  className="absolute inset-0 border-2 border-cyan-400/30 rounded blur-sm"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={animationPhases.showHeroCTA ? {
+                    scale: [0.8, 1.3, 1],
+                    opacity: [0.6, 0, 0]
+                  } : { scale: 0.8, opacity: 0 }}
+                  transition={{ duration: 1, times: [0, 0.6, 1] }}
+                />
                 <MagneticButton>
                   <a
                     href="#experience"
@@ -222,7 +329,7 @@ const Hero: React.FC = () => {
                   </a>
                 </MagneticButton>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
 

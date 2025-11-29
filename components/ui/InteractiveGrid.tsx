@@ -1,10 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export const InteractiveGrid: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    // Delay animation start to let DOM paint first (prevents jerkiness)
+    const readyTimer = setTimeout(() => {
+      setIsReady(true);
+    }, 150);
+
+    return () => clearTimeout(readyTimer);
+  }, []);
+
+  useEffect(() => {
+    if (!isReady) return; // Don't start animation until ready
+
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
@@ -64,8 +76,8 @@ export const InteractiveGrid: React.FC = () => {
         const targetX = Math.random() * width;
         const targetY = Math.random() * height;
         particles.push({
-          x: centerX, // Start at center
-          y: centerY,
+          x: targetX, // Start at target position (no burst effect)
+          y: targetY,
           targetX: targetX,
           targetY: targetY,
           vx: (Math.random() - 0.5) * 0.5,
@@ -119,26 +131,16 @@ export const InteractiveGrid: React.FC = () => {
       const ease = easeOutExpo(progress);
 
       particles.forEach((p, i) => {
-        if (progress < 1) {
-          // Intro Phase: Move from center to target
-          const centerX = width / 2;
-          const centerY = height / 2;
+        // Normal Phase: Digital Drift (no intro burst)
+        // Add subtle wave motion
+        p.x += p.vx;
+        p.y += p.vy + Math.sin((p.x + now) * 0.002) * 0.2; // Wave effect
 
-          // Interpolate current position
-          p.x = centerX + (p.targetX - centerX) * ease;
-          p.y = centerY + (p.targetY - centerY) * ease;
-        } else {
-          // Normal Phase: Digital Drift
-          // Add subtle wave motion
-          p.x += p.vx;
-          p.y += p.vy + Math.sin((p.x + now) * 0.002) * 0.2; // Wave effect
-
-          // Wrap around screen for continuous flow
-          if (p.x < 0) p.x = width;
-          if (p.x > width) p.x = 0;
-          if (p.y < 0) p.y = height;
-          if (p.y > height) p.y = 0;
-        }
+        // Wrap around screen for continuous flow
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
 
         // Draw Particle Dot with assigned color
         ctx.beginPath();
@@ -146,46 +148,43 @@ export const InteractiveGrid: React.FC = () => {
         ctx.fillStyle = COLORS[p.colorIndex];
         ctx.fill();
 
-        // Only draw connections if intro is mostly done
-        if (progress > 0.5) {
-          // --- Interaction: Connect to Mouse (Visual Only - No Pull) ---
-          const dxMouse = mouse.x - p.x;
-          const dyMouse = mouse.y - p.y;
-          const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+        // --- Interaction: Connect to Mouse (Visual Only - No Pull) ---
+        const dxMouse = mouse.x - p.x;
+        const dyMouse = mouse.y - p.y;
+        const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
 
-          if (distMouse < MOUSE_DISTANCE) {
-            const opacity = 1 - distMouse / MOUSE_DISTANCE;
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(${LINE_COLORS[p.colorIndex]}, ${opacity})`;
-            ctx.lineWidth = 1;
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.stroke();
+        if (distMouse < MOUSE_DISTANCE) {
+          const opacity = 1 - distMouse / MOUSE_DISTANCE;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${LINE_COLORS[p.colorIndex]}, ${opacity})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
 
-            // Gentle Repulsion (Optional: keeps area clear instead of clumping)
-            if (distMouse < 100) {
-              const force = (100 - distMouse) / 100;
-              p.x -= dxMouse * force * 0.05;
-              p.y -= dyMouse * force * 0.05;
-            }
+          // Gentle Repulsion (Optional: keeps area clear instead of clumping)
+          if (distMouse < 100) {
+            const force = (100 - distMouse) / 100;
+            p.x -= dxMouse * force * 0.05;
+            p.y -= dyMouse * force * 0.05;
           }
+        }
 
-          // --- Interaction: Connect to Neighbors ---
-          for (let j = i + 1; j < particles.length; j++) {
-            const p2 = particles[j];
-            const dx = p.x - p2.x;
-            const dy = p.y - p2.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+        // --- Interaction: Connect to Neighbors ---
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-            if (dist < CONNECT_DISTANCE) {
-              const opacity = 1 - dist / CONNECT_DISTANCE;
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(${LINE_COLORS[p.colorIndex]}, ${opacity * 0.3})`;
-              ctx.lineWidth = 0.5;
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.stroke();
-            }
+          if (dist < CONNECT_DISTANCE) {
+            const opacity = 1 - dist / CONNECT_DISTANCE;
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(${LINE_COLORS[p.colorIndex]}, ${opacity * 0.3})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
           }
         }
       });
@@ -202,13 +201,13 @@ export const InteractiveGrid: React.FC = () => {
       container.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [isReady]);
 
   return (
     <div ref={containerRef} className="absolute inset-0 z-0 bg-[#020617] overflow-hidden">
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full block"
+        className={`absolute inset-0 w-full h-full block transition-opacity duration-700 ${isReady ? 'opacity-100' : 'opacity-0'}`}
         style={{ width: '100%', height: '100%' }}
       />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#020617_100%)] pointer-events-none opacity-60" />

@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 
-const Motion = motion as any;
+const Motion = motion as any; // Keeping 'as any' for now to avoid breaking complex motion props, will refine if possible without breaking build
 
 // --- Helper Components (Reused/Adapted from Projects.tsx) ---
 

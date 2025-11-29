@@ -65,6 +65,7 @@ export default [
       'scripts/**', // Ignore build scripts
       '*.config.js', // Ignore config files
       '*.config.ts',
+      'worker/**',
     ],
   },
 ];

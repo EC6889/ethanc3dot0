@@ -2,10 +2,11 @@ import React, { useRef, useState } from 'react';
 import { GlassCard } from './ui/GlassCard';
 import { PerspectiveGrid } from './ui/PerspectiveGrid';
 import { DataPipeline } from './ui/DataPipeline';
-import { Users, Cpu, TrendingUp, Globe, Terminal } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { LANGUAGES_DATA, MODULES_DATA } from '../constants';
 
-const Motion = motion as any;
+const Motion = motion as any; // Keeping 'as any' for now to avoid breaking complex motion props, will refine if possible without breaking build
 
 // Sub-component for individual Module Cards to handle independent hover states and connections
 const ModuleCard = ({ card, index }: { card: any; index: number }) => {
@@ -214,40 +215,7 @@ const About: React.FC = () => {
   const scanLineY = useTransform(scrollYProgress, [0.1, 0.5], ['0%', '100%']);
   const scanOpacity = useTransform(scrollYProgress, [0.1, 0.4, 0.5], [0, 1, 0]);
 
-  const languages = [
-    { name: 'English', code: 'EN_US', level: 'Native', score: 4, color: 'cyan' },
-    { name: 'Cantonese', code: 'ZH_HK', level: 'Native', score: 4, color: 'cyan' },
-    { name: 'Mandarin', code: 'ZH_CN', level: 'Intermediate', score: 3, color: 'blue' },
-    { name: 'Bahasa', code: 'MS_MY', level: 'Intermediate', score: 3, color: 'blue' },
-    { name: 'French', code: 'FR_FR', level: 'Beginner', score: 1, color: 'purple' },
-  ];
 
-  const modules = [
-    {
-      icon: Users,
-      title: 'Team Leadership',
-      desc: 'Managing multi-tier teams & driving stakeholder alignment.',
-      color: 'blue',
-    },
-    {
-      icon: Cpu,
-      title: 'System Config',
-      desc: 'Setup & maintenance of Zendesk, Genesys & AI tools.',
-      color: 'cyan',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Process Opt.',
-      desc: 'Removing friction to improve SLA performance.',
-      color: 'purple',
-    },
-    {
-      icon: Globe,
-      title: 'Omnichannel',
-      desc: 'Unified strategy across Voice, Chat, Email & Social.',
-      color: 'blue',
-    },
-  ];
 
   return (
     <Motion.section
@@ -308,26 +276,22 @@ const About: React.FC = () => {
               <div className="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-cyan-500/50 via-transparent to-transparent"></div>
               <div className="pl-6">
                 <h2 className="text-display-sm md:text-display-md font-display font-bold text-white mb-6 leading-[1.4]">
-                  Bridging{' '}
-                  <span className="text-cyan-400 border-b border-cyan-500/30 pb-1">Operations</span>{' '}
+                  Driving{' '}
+                  <span className="text-cyan-400 border-b border-cyan-500/30 pb-1">Operational Excellence</span>{' '}
                   <br />
-                  with{' '}
+                  through{' '}
                   <span className="text-blue-500 border-b border-blue-500/30 pb-1">
-                    Technical Strategy
+                    Technological Integration
                   </span>
                   .
                 </h2>
 
                 <div className="space-y-6 max-w-lg">
                   <p className="text-body-lg text-slate-300 font-light leading-relaxed">
-                    A Strategic CX Leader with over 15 years of experience across Hospitality, Travel Tech,
-                    Contact Centers, and Logistics.
+                    As a Strategic CX Leader with over 15 years of diverse experience in Hospitality, Travel Tech, Contact Centers, and Logistics, I specialize in transforming operational challenges into efficient, automated systems.
                   </p>
                   <p className="text-body-md text-slate-400 leading-loose font-light">
-                    I specialize in breaking down operational challenges and rebuilding them as efficient,
-                    automated systems. Working with enterprise platforms like Zendesk, Genesys, and Salesforce,
-                    I bridge the gap between operations and technology—ensuring tools work for people, not the
-                    other way around.
+                    By leveraging enterprise platforms like Zendesk, Genesys, and Salesforce, I ensure that technology complements agent needs, empowering teams to excel and enhancing overall performance.
                   </p>
                 </div>
               </div>
@@ -347,7 +311,7 @@ const About: React.FC = () => {
               </Motion.div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {languages.map((lang, index) => {
+                {LANGUAGES_DATA.map((lang, index) => {
                   const isActiveColor =
                     lang.color === 'cyan'
                       ? 'bg-cyan-400 shadow-[0_0_8px_cyan]'
@@ -419,7 +383,7 @@ const About: React.FC = () => {
 
             {/* Increased gap-x to 24 (96px) to allow space for central connectors */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-24 perspective-1000 relative z-20">
-              {modules.map((card, index) => (
+              {MODULES_DATA.map((card, index) => (
                 <ModuleCard key={card.title} card={card} index={index} />
               ))}
             </div>

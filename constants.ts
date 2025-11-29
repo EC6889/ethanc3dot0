@@ -93,22 +93,22 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             category: 'Team & Operations',
             bullets: [
-              'Managed daily support operations across chat, email, and voice. Kept response times stable during busy periods by actively adjusting staffing.',
-              'Introduced daily team huddles and weekly reviews to keep everyone on the same page and fix performance issues quickly.',
-              'Worked with Ops, Product, and Finance to build better escalation paths for solving high-value shipper issues.',
+              'Led daily support operations across chat, email, and voice, maintaining SLA consistency during peak demand through agile staffing and dynamic queue management.',
+              'Introduced daily huddles and weekly performance reviews to drive operational transparency, accountability, and rapid issue resolution.',
+              'Established robust cross-functional escalation pathways with Operations, Product, and Finance to accelerate resolution for high-value shipper incidents.',
             ],
           },
           {
             category: 'Process Improvement',
             bullets: [
-              'Updated SOPs to remove bottlenecks and tightened up QA checks to ensure agents were giving consistent answers.',
-              'Tweaked the IVR and routing logic so VIP shippers could get to an agent faster.',
+              'Updated SOPs to streamline complex workflows and strengthened QA frameworks to drive higher First Contact Resolution (FCR) and service consistency.',
+              'Optimized IVR structures and routing logic to accurately capture intent and prioritize VIP segments, significantly reducing Average Speed of Answer (ASA).',
             ],
           },
           {
             category: 'Data & Tools',
             bullets: [
-              'Set up real-time dashboards in Looker to replace manual reporting, helping us make faster decisions on backlog and staffing.',
+              'Deployed real-time Looker dashboards to replace manual reporting, enabling data-driven decisions for backlog management and staffing.',
             ],
           },
         ],
@@ -133,15 +133,15 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             category: 'System & Routing',
             bullets: [
-              'Designed routing flows to ensure tickets reached the right agents based on language and skill, rather than just sitting in a general queue.',
-              'Cleaned up workflows and knowledge base tags to stop tickets from bouncing between teams unnecessarily.',
+              'Designed intelligent routing flows across omnichannel touchpoints (chat, email, voice, social), aligning agent skills and SLAs with business tiers.',
+              'Optimized workflow logic and knowledge base taxonomy to minimize ticket bounces and unnecessary transfers.',
             ],
           },
           {
             category: 'Vendor & Stability',
             bullets: [
-              'Oversaw vendor relationships for phone and support systems; tracked license usage to keep costs within budget.',
-              'Set up monitoring alerts and backup plans to keep support running smoothly during technical outages.',
+              'Managed strategic vendor relationships for telephony and CX platforms, implementing rigorous license tracking to optimize operational costs.',
+              'Built comprehensive monitoring alerts and business continuity plans to ensure system resilience during technical outages.',
             ],
           },
         ],
@@ -151,9 +151,11 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
         period: '2018 – 2020',
         content: [
           {
-            category: 'Performance Management',
+            category: 'Team & Operations',
             bullets: [
-              'Defined service targets and used data from weekly reviews to guide hiring decisions, coaching focus, and system adjustments.',
+              'Managed hybrid operations across in-house teams and outsourced BPO partners, ensuring consistent service delivery and adherence to global standards.',
+              'Led end-to-end talent management for a 100+ agent workforce, overseeing hiring strategies, mentorship programs, and performance coaching.',
+              'Established service governance frameworks, utilizing weekly business review (WBR) data to drive hiring strategy, coaching focus, and system enhancements.',
               'Managed response protocols during peak travel seasons to keep response times stable.',
             ],
           },
@@ -179,8 +181,11 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             category: 'Quality Assurance',
             bullets: [
-              "Led the Service Quality team, building a QA framework that matched the hotel's luxury brand standards.",
-              'Organized regular coaching and calibration sessions to improve agent consistency and compliance scores.',
+              "Led the Service Quality division, developing a comprehensive QA framework aligned with Forbes 5-Star Hotel Standards.",
+              'Directed regular coaching and calibration sessions to drive agent consistency and elevate compliance scores.',
+              'Conducted rigorous internal audits and mystery shopper simulations to identify service gaps and drive continuous improvement.',
+              'Worked closely with Hotel Ops to align call center protocols with on-property guest experience standards.',
+              'Spearheaded initiatives to optimize the reservation journey, resulting in higher conversion rates and reduced guest complaints.',
             ],
           },
         ],
@@ -192,7 +197,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
           {
             category: 'Operations',
             bullets: [
-              'Managed the Reservations and Ticketing teams, adjusting staff schedules to ensure calls were answered promptly.',
+              'Directed Reservations and Ticketing operations, optimizing workforce scheduling to ensure prompt answer rates and service levels.',
               'Collaborated with Revenue Management to standardize up-selling scripts for agents.',
             ],
           },
@@ -222,7 +227,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
         content: [
           {
             bullets: [
-              'Handled 24/7 workforce scheduling and ensured the team followed safety (HSSE) protocols.',
+              'Managed 24/7 workforce scheduling and ensured strict adherence to HSSE safety protocols.',
               'Mentored new schedulers and ensured the team had the supplies they needed.',
             ],
           },
@@ -239,7 +244,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
         content: [
           {
             bullets: [
-              'Provided technical troubleshooting and conducted product demos for potential investors.',
+              'Delivered expert technical troubleshooting and conducted high-impact product demonstrations for potential investors.',
               'Helped build internal knowledge bases for the team.',
             ],
           },
@@ -256,7 +261,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
         content: [
           {
             bullets: [
-              'Supervised daily call center shifts and managed workforce allocation.',
+              'Supervised daily contact center operations, managing workforce allocation and coaching agents to drive quality improvements.',
               'Conducted weekly call monitoring and coached agents to improve quality.',
             ],
           },

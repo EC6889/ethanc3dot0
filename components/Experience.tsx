@@ -1,6 +1,7 @@
 import React, { useState, useRef, useMemo } from 'react';
-import { EXPERIENCE_DATA } from '../constants';
+import { EXPERIENCE_DATA, TECH_STACK } from '../constants';
 import { GlassCard } from './ui/GlassCard';
+import { TechLogo } from './ui/TechLogo';
 import {
   Folder,
   FolderOpen,
@@ -244,9 +245,31 @@ const Experience: React.FC = () => {
                   Directory Listing
                 </div>
 
-                <div className="pb-2">
+                <motion.div
+                  className="pb-2"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.1,
+                        delayChildren: 0.2
+                      }
+                    }
+                  }}
+                >
                   {EXPERIENCE_DATA.map((company) => (
-                    <div key={company.id} className="mb-1">
+                    <motion.div
+                      key={company.id}
+                      className="mb-1"
+                      variants={{
+                        hidden: { opacity: 0, x: -20 },
+                        visible: { opacity: 1, x: 0 }
+                      }}
+                    >
                       <FileTreeItem
                         label={company.company.toUpperCase().replace(/\s/g, '_')}
                         type="folder"
@@ -282,9 +305,9 @@ const Experience: React.FC = () => {
                           </Motion.div>
                         )}
                       </AnimatePresence>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </div>
 
               {/* Footer Info */}
@@ -406,23 +429,45 @@ const Experience: React.FC = () => {
                       </div>
 
                       <div className="grid md:grid-cols-2 gap-6">
-                        {/* System Configuration (Tech Stack) */}
+                        {/* Tech Stack */}
                         {activePosition.companyTechStack && activePosition.companyTechStack.length > 0 && (
                           <div>
                             <div className="flex items-center gap-2 mb-4 text-brand-cyan">
-                              <Cpu size={16} />
-                              <h4 className="text-xs font-mono font-bold tracking-wider uppercase">Tag</h4>
+                              <Database size={16} />
+                              <h4 className="text-xs font-mono font-bold tracking-wider uppercase">Tech Stack</h4>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                              {activePosition.companyTechStack.map((tech, idx) => (
-                                <div
-                                  key={idx}
-                                  className="px-3 py-1.5 rounded border border-slate-800 bg-slate-900/50 text-xs font-mono text-slate-300 flex items-center gap-2 hover:border-brand-cyan/30 hover:bg-slate-900/80 transition-all duration-300"
-                                >
-                                  <Server size={12} className="text-slate-500" />
-                                  {tech}
-                                </div>
-                              ))}
+                              {activePosition.companyTechStack.map((tech, idx) => {
+                                // Find the tech logo from TECH_STACK
+                                const techData = TECH_STACK.find((t) => t.name === tech);
+                                return (
+                                  <Motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.1 + idx * 0.05 }}
+                                    className="group/tech relative"
+                                  >
+                                    <div className="px-3 py-1.5 rounded border border-slate-800 bg-slate-900/50 text-xs font-mono text-slate-300 flex items-center gap-2 hover:border-brand-cyan/30 hover:bg-slate-900/80 transition-all duration-300">
+                                      <div className="w-4 h-4 relative">
+                                        {techData && (techData.logo || techData.localLogo) ? (
+                                          <TechLogo
+                                            name={techData.name}
+                                            logo={techData.logo || ''}
+                                            localLogo={techData.localLogo || ''}
+                                            className="w-full h-full object-contain opacity-70 group-hover/tech:opacity-100 grayscale group-hover/tech:grayscale-0 transition-all"
+                                          />
+                                        ) : (
+                                          <Server size={14} className="text-slate-500" />
+                                        )}
+                                      </div>
+                                      <span className="group-hover/tech:text-brand-cyan transition-colors">
+                                        {tech}
+                                      </span>
+                                    </div>
+                                  </Motion.div>
+                                );
+                              })}
                             </div>
                           </div>
                         )}

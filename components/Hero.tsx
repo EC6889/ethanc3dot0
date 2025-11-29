@@ -118,31 +118,55 @@ const Hero: React.FC = () => {
             >
 
 
-              {/* Redesigned Title - Solid & Clear - Single Line */}
+              {/* Redesigned Title - Staggered Character Reveal */}
               <div className="relative mb-6 group">
                 {/* Ambient Glow */}
                 <div className="overflow-hidden mb-4 relative">
-                  <motion.div
-                    initial={{ y: 100 }}
-                    animate={{ y: 0 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                  >
-                    <h1 className="text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_25px_rgba(34,211,238,0.7)] whitespace-nowrap">
-                      ETHAN <span className="text-brand-cyan">C.</span>
-                    </h1>
+                  <h1 className="text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold tracking-tighter leading-none select-none relative z-20 text-white drop-shadow-[0_0_25px_rgba(34,211,238,0.7)] whitespace-nowrap flex">
+                    {Array.from("ETHAN C.").map((char, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{
+                          type: "spring",
+                          damping: 12,
+                          stiffness: 100,
+                          delay: 0.2 + i * 0.05, // Stagger effect
+                        }}
+                        className={char === " " ? "w-4 md:w-8" : ""} // Handle space width
+                      >
+                        {char === "." ? <span className="text-brand-cyan">.</span> : char}
+                      </motion.span>
+                    ))}
+                  </h1>
 
-                    {/* Depth Layer */}
-                    <h1 className="absolute inset-0 text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap">
-                      ETHAN C.
-                    </h1>
-                  </motion.div>
+                  {/* Depth Layer (Static for performance, or could also stagger if desired, but static is safer for alignment) */}
+                  <h1 className="absolute inset-0 text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold text-brand-cyan-deep opacity-50 tracking-tighter leading-none select-none z-10 translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap flex">
+                    {Array.from("ETHAN C.").map((char, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{
+                          type: "spring",
+                          damping: 12,
+                          stiffness: 100,
+                          delay: 0.25 + i * 0.05, // Slightly more delay for depth layer
+                        }}
+                        className={char === " " ? "w-4 md:w-8" : ""}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </h1>
                 </div>
               </div>
 
               {/* Subtitle - Bio */}
               <div className="mb-8 pl-2 border-l-2 border-brand-cyan/50 max-w-2xl">
                 <p className="text-xs md:text-sm text-slate-400 font-mono tracking-wide leading-relaxed">
-                  Transforming Experiences Through Data-Driven Insights and Innovative Solutions
+                  Enhancing customer experiences through strategies, technology and process optimisation. Focused on delivering measurable improvements in satisfaction and operational efficiency.
                 </p>
               </div>
 

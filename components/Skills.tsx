@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { TECH_STACK } from '../constants';
 import { GlassCard } from './ui/GlassCard';
 import { TechLogo } from './ui/TechLogo';
+import { CyberBackground } from './ui/CyberBackground';
 import { Layers, Database, Cpu, Command, Workflow, ShieldCheck, Code } from 'lucide-react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 
@@ -292,29 +293,47 @@ const Skills: React.FC = () => {
     }
   };
 
+  // --- Animation Variants ---
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 50,
+        damping: 20,
+      },
+    },
+    exit: { opacity: 0, y: -20 },
+  };
+
   return (
-    <motion.section
+    <section
       id="skills"
       ref={containerRef}
-      style={{ opacity: smoothOpacity, scale: smoothScale, y: smoothY }}
       className="relative overflow-hidden min-h-screen flex items-center py-[min(12rem,15vh)]"
     >
-      {/* === BACKGROUND: Simplified to prevent banding === */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div
-          className="absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage: 'radial-gradient(circle, #22d3ee 1px, transparent 1px)',
-            backgroundSize: '30px 30px',
-          }}
-        />
-
-        {/* TOP Gradient Transition */}
-        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-slate-950 via-slate-950/90 to-transparent z-10"></div>
-
-        {/* BOTTOM Gradient Transition */}
-        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent z-10"></div>
-      </div>
+      {/* === BACKGROUND: CyberBackground (Neural Drift) === */}
+      <CyberBackground variant="skills" />
 
       {/* === SVG OVERLAY FOR DATA LINKS (Desktop Only) === */}
       <div className="hidden md:block absolute inset-0 pointer-events-none z-20">
@@ -384,14 +403,14 @@ const Skills: React.FC = () => {
         </svg>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-[min(1.5rem,5vw)] relative z-10 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: -20, scale: 1.1 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: false, amount: 0.8 }}
-          className="mb-14 md:mb-20"
-        >
+      <motion.div
+        className="max-w-[1200px] mx-auto px-[min(1.5rem,5vw)] relative z-10 w-full"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, margin: "-10%" }}
+      >
+        <motion.div variants={itemVariants} className="mb-14 md:mb-20">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-8 bg-cyan-500/50"></div>
             <h2 className="text-[10px] font-mono text-cyan-400 tracking-[0.2em] uppercase">
@@ -403,13 +422,7 @@ const Skills: React.FC = () => {
           </h3>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: false, amount: 0.8 }}
-          className="mb-16 md:mb-20 max-w-3xl"
-        >
+        <motion.div variants={itemVariants} className="mb-16 md:mb-20 max-w-3xl">
           <div className="flex items-center gap-2 text-blue-400 mb-4">
             <Code size={16} />
             <span className="text-[10px] font-mono uppercase tracking-widest">
@@ -431,10 +444,7 @@ const Skills: React.FC = () => {
           {/* LEFT COLUMN: INFRASTRUCTURE LAYER (Tech Stack) */}
           <div className="md:col-span-5 flex flex-col gap-8 relative z-10 pl-6 md:pl-0 pr-0 md:pr-12">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: false }}
+              variants={itemVariants}
               className="flex items-center justify-between border-b border-slate-800 pb-2 relative"
             >
               <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
@@ -451,10 +461,7 @@ const Skills: React.FC = () => {
               {techCategories.map((cat, index) => (
                 <motion.div
                   key={cat.id}
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: false, margin: '-50px' }}
+                  variants={itemVariants}
                 >
                   <h5
                     className={`text-[10px] font-bold font-mono uppercase tracking-wider mb-3 ${cat.color} flex items-center gap-2`}
@@ -483,15 +490,7 @@ const Skills: React.FC = () => {
                           ref={(el: HTMLDivElement | null) => {
                             techRefs.current[itemName] = el;
                           }}
-                          initial={{ scale: 0, opacity: 0, rotate: -90 }}
-                          whileInView={{ scale: 1, opacity: 1, rotate: 0 }}
-                          transition={{
-                            type: 'spring',
-                            stiffness: 300,
-                            damping: 20,
-                            delay: index * 0.1 + i * 0.05,
-                          }}
-                          viewport={{ once: false }}
+                          whileHover={{ scale: 1.1, zIndex: 10 }}
                           onMouseEnter={() => handleTechHover(itemName)}
                           onMouseLeave={clearHighlight}
                           className={`transition-all duration-300 ${isDimmed ? 'opacity-20 blur-[1px] scale-90' : 'opacity-100 scale-100'}`}
@@ -542,10 +541,7 @@ const Skills: React.FC = () => {
           <div className="md:col-span-6 perspective-1000 relative z-10 pl-6 md:pl-12 flex flex-col justify-between">
             <div>
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: false }}
+                variants={itemVariants}
                 className="flex items-center justify-between border-b border-slate-800 pb-2 mb-8 relative"
               >
                 <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
@@ -596,15 +592,7 @@ const Skills: React.FC = () => {
                       }}
                       onMouseEnter={() => handleModuleHover(mod.title)}
                       onMouseLeave={clearHighlight}
-                      initial={{ opacity: 0, x: 100, rotateY: 45, scale: 0.9 }}
-                      whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 100,
-                        damping: 12,
-                        delay: index * 0.15,
-                      }}
-                      viewport={{ once: false, margin: '-50px' }}
+                      variants={itemVariants}
                       className={`h-full transition-all duration-500 ${isDimmed ? 'opacity-20 blur-[2px] scale-95' : 'opacity-100 scale-100'}`}
                     >
                       <GlassCard
@@ -652,8 +640,8 @@ const Skills: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-    </motion.section>
+      </motion.div>
+    </section>
   );
 };
 

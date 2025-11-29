@@ -2,6 +2,7 @@ import React, { useState, useRef, useMemo } from 'react';
 import { PROJECTS_DATA, TECH_STACK } from '../constants';
 import { GlassCard } from './ui/GlassCard';
 import { TechLogo } from './ui/TechLogo';
+import { CyberBackground } from './ui/CyberBackground';
 import {
   Folder,
   FolderOpen,
@@ -132,23 +133,8 @@ const Projects: React.FC = () => {
       style={{ opacity: sectionOpacity }}
       className="relative overflow-hidden min-h-[600px] py-[min(12rem,15vh)]"
     >
-      {/* === BACKGROUND: Blueprint Grid === */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage: `linear-gradient(#334155 1px, transparent 1px), linear-gradient(90deg, #334155 1px, transparent 1px)`,
-            backgroundSize: '40px 40px',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-transparent to-slate-950/50" />
-
-        {/* TOP Gradient Transition */}
-        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-slate-950 via-slate-950/90 to-transparent z-10"></div>
-
-        {/* BOTTOM Gradient Transition */}
-        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent z-10"></div>
-      </div>
+      {/* === BACKGROUND: CyberBackground (Perspective Grid) === */}
+      <CyberBackground variant="projects" />
 
       <div className="max-w-[1300px] mx-auto px-[min(3rem,6vw)] relative z-10">
         {/* Header - Fades in first */}
@@ -216,9 +202,31 @@ const Projects: React.FC = () => {
                   Directory Listing
                 </div>
 
-                <div className="pb-2">
+                <motion.div
+                  className="pb-2"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.1,
+                        delayChildren: 0.2
+                      }
+                    }
+                  }}
+                >
                   {Object.entries(projectTree).map(([company, projects]) => (
-                    <div key={company} className="mb-1">
+                    <motion.div
+                      key={company}
+                      className="mb-1"
+                      variants={{
+                        hidden: { opacity: 0, x: -20 },
+                        visible: { opacity: 1, x: 0 }
+                      }}
+                    >
                       <FileTreeItem
                         label={company.toUpperCase().replace(/\s/g, '_')}
                         type="folder"
@@ -251,9 +259,9 @@ const Projects: React.FC = () => {
                           </Motion.div>
                         )}
                       </AnimatePresence>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
               </div>
 
               {/* Footer Info */}
@@ -347,10 +355,10 @@ const Projects: React.FC = () => {
                         </p>
                       </div>
 
-                      {/* Tech Stack Visualization */}
+                      {/* Tech Stack */}
                       <div>
                         <h4 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                          <Cpu size={14} /> System Configuration
+                          <Database size={14} /> Tech Stack
                         </h4>
                         <div className="flex flex-wrap gap-3">
                           {activeTechStack.map((tech, idx) => (

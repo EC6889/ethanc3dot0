@@ -13,6 +13,7 @@ import {
   Lock,
 } from 'lucide-react';
 import { GlassCard } from './ui/GlassCard';
+import { CyberBackground } from './ui/CyberBackground';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 
 const Motion = motion as any;
@@ -82,51 +83,59 @@ const Contact: React.FC = () => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // --- Animation Logic ---
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start 90%', 'start center'],
-  });
+  // --- Animation Variants ---
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1,
+      },
+    },
+  };
 
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [150, 0]);
-
-  const springConfig = { stiffness: 60, damping: 20 };
-  const smoothOpacity = useSpring(opacity, springConfig);
-  const smoothScale = useSpring(scale, springConfig);
-  const smoothY = useSpring(y, springConfig);
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 50,
+        damping: 20,
+      },
+    },
+    exit: { opacity: 0, y: -20 },
+  };
 
   return (
-    <Motion.section
+    <section
       id="contact"
       ref={containerRef}
-      style={{ opacity: smoothOpacity, scale: smoothScale, y: smoothY }}
       className="relative overflow-hidden py-[min(8rem,12vh)]"
     >
-      {/* === BACKGROUND: Signal Uplink === */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {[...Array(3)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand-cyan/5"
-            style={{ width: `${(i + 1) * 30}%`, height: `${(i + 1) * 80}%` }}
-          />
-        ))}
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-cyan/30 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-cyan-900/5 to-transparent"></div>
+      {/* === BACKGROUND: CyberBackground (Signal Waves) === */}
+      <CyberBackground variant="contact" />
 
-        {/* TOP Gradient Transition */}
-        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-slate-950 via-slate-950/90 to-transparent z-10"></div>
-      </div>
-
-      <div className="max-w-[1200px] mx-auto px-[min(1.5rem,5vw)] relative z-10">
+      <motion.div
+        className="max-w-[1200px] mx-auto px-[min(1.5rem,5vw)] relative z-10"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: false, margin: "-10%" }}
+      >
         {/* Section Header */}
-        <Motion.div
-          initial={{ opacity: 0, y: -150, scale: 0.9 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ type: 'spring', stiffness: 60, damping: 15, duration: 1.2 }}
-          viewport={{ once: false, margin: '-100px' }}
+        <motion.div
+          variants={itemVariants}
           className="mb-14 md:mb-20 text-center md:text-left"
         >
           <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
@@ -141,15 +150,12 @@ const Contact: React.FC = () => {
               Touch
             </span>
           </h3>
-        </Motion.div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start perspective-1000">
           {/* Left Column: Signal Hub */}
-          <Motion.div
-            initial={{ opacity: 0, x: -300, scale: 0.9 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 50, damping: 20, delay: 0.2 }}
-            viewport={{ once: false, margin: '-50px' }}
+          <motion.div
+            variants={itemVariants}
             className="space-y-10"
           >
             <div>
@@ -158,8 +164,7 @@ const Contact: React.FC = () => {
                 <span className="text-brand-cyan">New Opportunities</span>
               </h3>
               <p className="text-slate-400 text-body-md mt-6 leading-loose max-w-md">
-                Looking for the next challenge in operations management or consulting. Whether you want to explore collaboration,
-                discuss a role, or just say hi—I'd love to hear from you.
+                Open to new opportunities in CX operations and consulting. If you'd like to discuss a potential collaboration, explore a role, or chat about improving your customer experience—I'd be happy to connect.
               </p>
             </div>
 
@@ -259,14 +264,11 @@ const Contact: React.FC = () => {
                 </a>
               </div>
             </div>
-          </Motion.div>
+          </motion.div>
 
           {/* Right Column: Form Terminal */}
-          <Motion.div
-            initial={{ opacity: 0, x: 300, scale: 0.9 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 50, damping: 20, delay: 0.4 }}
-            viewport={{ once: false, margin: '-50px' }}
+          <motion.div
+            variants={itemVariants}
           >
             <GlassCard className="border-slate-800 bg-[#0f172a]/90 relative overflow-hidden flex flex-col h-full shadow-2xl p-0">
               {/* Terminal Decorative Header */}
@@ -400,7 +402,7 @@ const Contact: React.FC = () => {
 
                     {/* Progress Bar (Uploading) */}
                     {isSubmitting && (
-                      <Motion.div
+                      <motion.div
                         initial={{ width: '0%' }}
                         animate={{ width: '100%' }}
                         transition={{ duration: 2, ease: "linear" }}
@@ -410,7 +412,7 @@ const Contact: React.FC = () => {
 
                     {/* Success Fill */}
                     {isSubmitted && (
-                      <Motion.div
+                      <motion.div
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: 1 }}
                         transition={{ duration: 0.5, ease: "circOut" }}
@@ -420,7 +422,7 @@ const Contact: React.FC = () => {
 
                     {/* Error Fill */}
                     {error && (
-                      <Motion.div
+                      <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         className="absolute inset-0 bg-red-500/20"
@@ -430,7 +432,7 @@ const Contact: React.FC = () => {
                     {/* Button Content */}
                     <AnimatePresence mode="wait">
                       {isSubmitted ? (
-                        <Motion.span
+                        <motion.span
                           key="success"
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
@@ -438,9 +440,9 @@ const Contact: React.FC = () => {
                           className="flex items-center gap-2 relative z-10 text-emerald-400"
                         >
                           <span className="text-emerald-400">[ TRANSMISSION_COMPLETE ]</span> <CheckCircle size={16} />
-                        </Motion.span>
+                        </motion.span>
                       ) : error ? (
-                        <Motion.span
+                        <motion.span
                           key="error"
                           initial={{ x: 0 }}
                           animate={{ x: [-5, 5, -5, 5, 0] }}
@@ -448,9 +450,9 @@ const Contact: React.FC = () => {
                           className="flex items-center gap-2 relative z-10 text-red-400"
                         >
                           [ CONNECTION_REFUSED ] <AlertCircle size={16} />
-                        </Motion.span>
+                        </motion.span>
                       ) : isSubmitting ? (
-                        <Motion.span
+                        <motion.span
                           key="loading"
                           initial={{ y: 20, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
@@ -458,9 +460,9 @@ const Contact: React.FC = () => {
                           className="flex items-center gap-2 relative z-10 text-brand-cyan"
                         >
                           <span className="font-mono">UPLOADING_PACKET...</span>
-                        </Motion.span>
+                        </motion.span>
                       ) : !token ? (
-                        <Motion.span
+                        <motion.span
                           key="locked"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
@@ -468,9 +470,9 @@ const Contact: React.FC = () => {
                           className="flex items-center gap-2 relative z-10"
                         >
                           LOCKED // VERIFY HUMAN <Lock size={12} />
-                        </Motion.span>
+                        </motion.span>
                       ) : (
-                        <Motion.span
+                        <motion.span
                           key="idle"
                           initial={{ y: 0 }}
                           exit={{ y: -20, opacity: 0 }}
@@ -481,17 +483,17 @@ const Contact: React.FC = () => {
                             &gt;&gt; EXECUTE_TRANSMISSION
                           </span>
                           <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                        </Motion.span>
+                        </motion.span>
                       )}
                     </AnimatePresence>
                   </button>
                 </form>
               </div>
             </GlassCard>
-          </Motion.div>
+          </motion.div>
         </div>
-      </div>
-    </Motion.section >
+      </motion.div>
+    </section>
   );
 };
 

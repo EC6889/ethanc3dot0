@@ -108,16 +108,24 @@ const Navbar: React.FC = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map((link) => {
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5, staggerChildren: 0.1 }}
+            className="hidden md:flex items-center gap-1"
+          >
+            {NAV_LINKS.map((link, i) => {
               const isActive = activeSection === link.href.substring(1);
               return (
-                <a
+                <motion.a
                   key={link.label}
                   href={link.href}
                   onClick={(e) => scrollToSection(e, link.href)}
                   onMouseEnter={() => setHoveredTab(link.label)}
                   onMouseLeave={() => setHoveredTab(null)}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
                   className={`
                         relative px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.15em] transition-colors duration-300
                         ${isActive ? 'text-brand-cyan' : 'text-slate-400 hover:text-slate-200'}
@@ -125,17 +133,19 @@ const Navbar: React.FC = () => {
                 >
                   {/* Active Indicator: Brackets */}
                   <span className="relative z-10 flex items-center gap-1">
-                    <span
-                      className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-brand-cyan' : 'opacity-0'}`}
+                    <motion.span
+                      animate={{ opacity: isActive || hoveredTab === link.label ? 1 : 0, x: isActive || hoveredTab === link.label ? 0 : 5 }}
+                      className="text-brand-cyan"
                     >
                       [
-                    </span>
+                    </motion.span>
                     {link.label}
-                    <span
-                      className={`transition-opacity duration-300 ${isActive || hoveredTab === link.label ? 'opacity-100 text-brand-cyan' : 'opacity-0'}`}
+                    <motion.span
+                      animate={{ opacity: isActive || hoveredTab === link.label ? 1 : 0, x: isActive || hoveredTab === link.label ? 0 : -5 }}
+                      className="text-brand-cyan"
                     >
                       ]
-                    </span>
+                    </motion.span>
                   </span>
 
                   {/* Background Glow for Active */}
@@ -146,7 +156,7 @@ const Navbar: React.FC = () => {
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
                   )}
-                </a>
+                </motion.a>
               );
             })}
 
@@ -154,7 +164,10 @@ const Navbar: React.FC = () => {
             <div className="h-6 w-px bg-slate-800 mx-4"></div>
 
             {/* Resume Button */}
-            <a
+            <motion.a
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.2, type: "spring" }}
               href="/Ethan_C_Resume.pdf"
               download="Ethan_C_Resume.pdf"
               className="group relative px-5 py-2 bg-slate-900/50 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest border border-slate-700 hover:border-brand-cyan/50 hover:text-brand-cyan transition-all overflow-hidden flex items-center"
@@ -163,8 +176,8 @@ const Navbar: React.FC = () => {
               <span className="relative z-10 flex items-center gap-2">
                 <FileText size={12} /> RESUME_V3.0
               </span>
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
 
           {/* Mobile Menu Toggle */}
           <button

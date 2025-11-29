@@ -275,8 +275,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     location: 'Kuala Lumpur',
     category: 'Automation',
     description:
-      'Built a custom Google Sheets + Apps Script solution with API integration for address and phone validation, reducing manual processing load by 90%.',
-    metrics: ['90% Manual Work Reduced', 'Auto-Validation'],
+      'Developed a custom automation solution using Google Sheets and Apps Script with REST API integration to validate addresses and phone numbers, eliminating 90% of manual data entry work.',
+    metrics: ['90% Efficiency Gain', 'Automated Validation'],
     tech: ['Google Workspace', 'Google Apps Script', 'REST API'],
   },
   {
@@ -287,8 +287,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     location: 'Kuala Lumpur',
     category: 'Infrastructure',
     description:
-      'Led a US$1.18M platform migration, delivering full configuration and global go-live within a condensed 3-month timeline.',
-    metrics: ['US$1.18M Project', '3 Months Turnaround'],
+      'Led a US$1.18M company-wide platform migration project, delivering complete system configuration and deployment in just 3 months.',
+    metrics: ['US$1.18M Budget', '3-Month Delivery'],
     tech: ['Zendesk', 'System Architecture', 'Migration'],
   },
   {
@@ -299,8 +299,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     location: 'Kuala Lumpur',
     category: 'Finance Ops',
     description:
-      'Audited and restructured telephony and license usage; instituted monthly forecasting models to tighten budget control.',
-    metrics: ['OpEx Reduction', 'Budget Control'],
+      'Audited telephony systems and software licenses, then restructured usage patterns and implemented monthly forecasting models to strengthen budget control and reduce operational expenses.',
+    metrics: ['OpEx Optimized', 'Forecast Accuracy'],
     tech: ['Data Analysis', 'Forecasting'],
   },
   {
@@ -311,8 +311,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     location: 'Kuala Lumpur',
     category: 'Workflow',
     description:
-      'Managed the migration of communication platforms for the CX unit. Developed automated webhook triggers to streamline workflows.',
-    metrics: ['Company-wide Adoption', 'Automated Webhooks'],
+      "Orchestrated the CX team's migration from Slack to Lark, including development of automated webhook integrations to streamline cross-team workflows and notifications.",
+    metrics: ['Team-wide Adoption', 'Webhook Automation'],
     tech: ['Lark', 'Slack', 'Webhook'],
   },
   {
@@ -323,8 +323,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     location: 'Macau / KL',
     category: 'Ops Strategy',
     description:
-      'Consolidated operations for sister properties, standardizing SOPs to achieve economy of scale and cost stabilization.',
-    metrics: ['Standardized SOPs', 'Cost Stabilization'],
+      'Consolidated contact center operations across multiple hotel properties, standardizing processes and procedures to streamline operations and reduce costs.',
+    metrics: ['Multi-Property SOPs', 'Cost Efficiency'],
     tech: ['Workforce Mgmt'],
   },
   {
@@ -335,8 +335,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     location: 'Macau / KL',
     category: 'Training',
     description:
-      'Built the centralized knowledge base and delivered comprehensive product and policy training for new property launches.',
-    metrics: ['Knowledge Base', 'Cross-property Training'],
+      'Developed a centralized knowledge repository and delivered comprehensive product training across multiple new hotel property openings.',
+    metrics: ['Centralized Knowledge Hub', 'Multi-Property Training'],
     tech: ['Knowledge Mgmt', 'Training'],
   },
 ];
@@ -421,5 +421,30 @@ export const TECH_STACK = [
     name: 'SISTIC',
     logo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/92/17/26/92172669-025e-2264-809d-58992842637f/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg',
     localLogo: '/assets/photos/sistic.png',
+  },
+  {
+    name: 'SAP',
+    logo: 'https://cdn.simpleicons.org/sap/0FAAFF',
+    localLogo: '/assets/photos/sap.svg',
+  },
+  {
+    name: 'Oracle',
+    logo: 'https://cdn.simpleicons.org/oracle/F80000',
+    localLogo: '/assets/photos/oracle.svg',
+  },
+  {
+    name: 'Avaya',
+    logo: 'https://cdn.simpleicons.org/avaya/CC092F',
+    localLogo: '/assets/photos/avaya.svg',
+  },
+  {
+    name: 'Siebel',
+    logo: 'https://cdn.simpleicons.org/oracle/F80000', // Siebel is an Oracle product
+    localLogo: '/assets/photos/siebel.svg',
+  },
+  {
+    name: 'Microsoft Office',
+    logo: 'https://cdn.simpleicons.org/microsoftoffice/D83B01',
+    localLogo: '/assets/photos/office.png',
   },
 ];

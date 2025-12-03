@@ -154,7 +154,7 @@ const Projects: React.FC = () => {
               </h2>
             </div>
             <h3 className="text-display-1xl font-display font-bold text-white tracking-tight mb-6">
-              Project <span className="text-slate-500">Highlight</span>
+              Project <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">Highlight</span>
             </h3>
             <p className="text-body-lg text-slate-300 font-light max-w-2xl leading-relaxed">
               Selected works demonstrating <span className="text-brand-cyan">technical execution</span> and <span className="text-brand-purple">operational impact</span>.

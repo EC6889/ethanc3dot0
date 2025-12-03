@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ethanchia.io/sitemap.xml
+Sitemap: https://echia.xyz/sitemap.xml

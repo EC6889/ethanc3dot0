@@ -257,7 +257,7 @@ const About: React.FC = () => {
           </div>
           <h3 className="text-display-1xl font-display font-bold text-white tracking-tight">
             Professional{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">
               Profile
             </span>
           </h3>

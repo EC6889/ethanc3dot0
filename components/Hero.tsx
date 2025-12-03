@@ -129,92 +129,109 @@ const Hero: React.FC<HeroProps> = ({ animationPhases }) => {
             <div className="flex flex-col items-start text-left">
 
 
-              {/* Redesigned Title - Clean Cyberpunk with Sharp Definition */}
+              {/* Chromatic Shift Wordmark - High Brightness Version */}
               {animationPhases.showHeroTitle && (
-                <div className="relative mb-6 group">
-                  <div className="overflow-hidden mb-4 relative">
-                    <GlitchText
-                      show={animationPhases.showHeroTitle}
-                      intensity="high"
-                      className="text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-bold tracking-tighter leading-none"
-                    >
-                      <motion.h1
-                        className="relative z-20 whitespace-nowrap flex font-black"
-                        initial={{ opacity: 0, x: -100, filter: 'blur(10px)' }}
-                        animate={{
-                          opacity: 1,
-                          x: 0,
-                          filter: 'blur(0px)'
-                        }}
-                        transition={{
-                          duration: 0.7,
-                          ease: [0.23, 1, 0.32, 1]
-                        }}
-                        style={{
-                          transformPerspective: 1000,
-                          color: '#ffffff',
-                          // Clean single glow
-                          textShadow: `
-                            0 0 20px rgba(34, 211, 238, 0.5),
-                            2px 2px 4px rgba(0, 0, 0, 0.8),
-                            -1px -1px 0px rgba(34, 211, 238, 0.3)
-                          `,
-                          WebkitTextStroke: '1px rgba(34, 211, 238, 0.3)',
-                        }}
-                      >
-                        {Array.from("ETHAN C.").map((char, i) => (
-                          <motion.span
-                            key={i}
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{
-                              opacity: 1,
-                              x: 0
-                            }}
-                            transition={{
-                              duration: 0.5,
-                              delay: i * 0.06,
-                              ease: [0.23, 1, 0.32, 1]
-                            }}
-                            className={char === " " ? "w-4 md:w-8" : ""}
-                          >
-                            {char === "." ? (
-                              <span
-                                className="inline-block text-brand-cyan"
-                                style={{
-                                  textShadow: `
-                                    0 0 30px rgba(34, 211, 238, 1),
-                                    0 0 60px rgba(34, 211, 238, 0.6),
-                                    2px 2px 4px rgba(0, 0, 0, 0.8)
-                                  `,
-                                  filter: 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.8))'
-                                }}
-                              >
-                                .
-                              </span>
-                            ) : char}
-                          </motion.span>
-                        ))}
-                      </motion.h1>
-                    </GlitchText>
+                <div className="relative mb-6 group cursor-default w-full z-50">
+                  <div className="relative flex justify-start">
 
-                    {/* Clean depth shadow */}
-                    <div
-                      className="absolute inset-0 text-[clamp(3rem,5vw+1rem,5.5rem)] font-display font-black tracking-tighter leading-none select-none translate-y-1 translate-x-1 pointer-events-none whitespace-nowrap flex opacity-30"
+                    {/* Main Text - Radiant Brand Gradient (White -> Cyan -> Blue) */}
+                    {/* Main Text - Solid White with 3D Floating Effect */}
+                    <motion.h1
+                      className="relative whitespace-nowrap font-black text-[clamp(3rem,5vw+1rem,5.5rem)] leading-none tracking-tighter text-white"
+                      initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)', y: 0 }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        filter: 'blur(0px)',
+                        y: [-10, 10] // Floating range
+                      }}
+                      transition={{
+                        // Entrance
+                        opacity: { duration: 0.8, ease: [0.23, 1, 0.32, 1] },
+                        scale: { duration: 0.8, ease: [0.23, 1, 0.32, 1] },
+                        filter: { duration: 0.8 },
+                        // Floating Loop
+                        y: {
+                          duration: 3,
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                          ease: "easeInOut"
+                        }
+                      }}
                       style={{
-                        color: '#0e7490',
-                        filter: 'blur(1px)'
+                        // 3D Depth Stack + Glow
+                        textShadow: `
+                          0 0 20px rgba(34, 211, 238, 0.6),
+                          0 0 40px rgba(34, 211, 238, 0.4),
+                          1px 1px 0px #06b6d4,
+                          2px 2px 0px #06b6d4,
+                          3px 3px 0px #06b6d4,
+                          4px 4px 0px #0891b2
+                        `,
+                        filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))'
                       }}
                     >
                       {Array.from("ETHAN C.").map((char, i) => (
-                        <span
+                        <motion.span
                           key={i}
-                          className={char === " " ? "w-4 md:w-8" : ""}
+                          initial={{ opacity: 0, y: 40, rotateX: 90 }}
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                            rotateX: 0
+                          }}
+                          transition={{
+                            duration: 0.6,
+                            delay: i * 0.05,
+                            type: "spring",
+                            stiffness: 100,
+                            damping: 10
+                          }}
+                          className={`relative inline-block ${char === ' ' ? 'w-[0.2em]' : ''}`}
                         >
-                          {char}
-                        </span>
+                          {char === ' ' ? '\u00A0' : char}
+
+                          {/* Sheen Effect */}
+                          <motion.span
+                            className="absolute inset-0 bg-gradient-to-tr from-transparent via-cyan-200 to-transparent opacity-0"
+                            animate={{
+                              x: ['-100%', '100%'],
+                              opacity: [0, 0.8, 0]
+                            }}
+                            transition={{
+                              duration: 2,
+                              delay: 1 + (i * 0.1),
+                              repeat: Infinity,
+                              repeatDelay: 4
+                            }}
+                            style={{
+                              WebkitBackgroundClip: 'text',
+                              WebkitTextFillColor: 'transparent',
+                              backgroundClip: 'text',
+                              color: 'transparent'
+                            }}
+                          >
+                            {char === ' ' ? '\u00A0' : char}
+                          </motion.span>
+                        </motion.span>
                       ))}
-                    </div>
+                    </motion.h1>
                   </div>
+
+                  {/* Reflection/Ground Glow - Breathing with the float */}
+                  <motion.div
+                    className="absolute -bottom-4 left-0 w-full max-w-md h-12 bg-gradient-to-b from-cyan-400/20 to-transparent blur-xl opacity-40"
+                    animate={{
+                      scaleX: [0.9, 1.1],
+                      opacity: [0.3, 0.5]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      ease: "easeInOut"
+                    }}
+                  ></motion.div>
                 </div>
               )}
 

@@ -116,7 +116,7 @@ const Navbar: React.FC<NavbarProps> = ({ showLogo = false, showNav = false }) =>
           >
             {/* Neon glow ring */}
             <motion.div
-              className="absolute inset-0 rounded-full"
+              className="absolute inset-0 rounded-md"
               initial={{ boxShadow: '0 0 0px rgba(34, 211, 238, 0)' }}
               animate={showLogo ? {
                 boxShadow: [

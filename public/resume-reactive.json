@@ -1,0 +1,493 @@
+{
+    "basics": {
+        "name": "Ethan C.",
+        "headline": "CX Operations Manager & Strategist",
+        "email": "gmeal6889@gmail.com",
+        "phone": "",
+        "location": "Kuala Lumpur, Malaysia",
+        "url": {
+            "label": "Website",
+            "href": "https://echia.xyz"
+        },
+        "summary": "Practical CX Leader with 15+ years of experience running contact centers in Hospitality and Logistics. I focus on bridging the gap between daily operations and technical systems. My expertise lies in supporting high-performance teams, setting up support platforms (Zendesk/Salesforce), and fixing processes to make things run smoother for both agents and customers.",
+        "picture": {
+            "url": "",
+            "size": 128,
+            "aspectRatio": 1,
+            "borderRadius": 0,
+            "effects": {
+                "hidden": false,
+                "border": false,
+                "grayscale": false
+            }
+        },
+        "customFields": []
+    },
+    "sections": {
+        "summary": {
+            "name": "Summary",
+            "columns": 1,
+            "visible": true,
+            "id": "summary",
+            "content": "Practical CX Leader with 15+ years of experience running contact centers in Hospitality and Logistics. I focus on bridging the gap between daily operations and technical systems. My expertise lies in supporting high-performance teams, setting up support platforms (Zendesk/Salesforce), and fixing processes to make things run smoother for both agents and customers."
+        },
+        "profiles": {
+            "name": "Profiles",
+            "columns": 1,
+            "visible": true,
+            "id": "profiles",
+            "items": [
+                {
+                    "network": "LinkedIn",
+                    "username": "echia6889",
+                    "url": {
+                        "label": "LinkedIn",
+                        "href": "https://linkedin.com/in/echia6889"
+                    },
+                    "icon": "linkedin",
+                    "id": "tz4a9b8c7d6e5f1g2h3i4j5k",
+                    "visible": true
+                }
+            ]
+        },
+        "experience": {
+            "name": "Experience",
+            "columns": 1,
+            "visible": true,
+            "id": "experience",
+            "items": [
+                {
+                    "company": "Ninja Van",
+                    "position": "Shipper Support Manager",
+                    "location": "Subang Jaya, Malaysia",
+                    "date": "2024 - Mar 2025",
+                    "summary": "<ul><li>Lead daily support operations across chat, email, and voice, ensuring SLA consistency during peak demand through agile staffing and dynamic queue management.</li><li>Introduce daily huddles and weekly performance reviews to enhance operational transparency, accountability, and facilitate rapid issue resolution.</li><li>Establish robust cross-functional escalation pathways with Operations, Product, and Finance teams to accelerate resolutions for high-value shipper incidents.</li><li>Update Standard Operating Procedures (SOPs) to streamline complex workflows and strengthen quality assurance (QA) frameworks, driving higher First Contact Resolution (FCR) and service consistency.</li><li>Optimize IVR structures and routing logic to accurately capture customer intent and prioritize VIP segments, significantly reducing Average Speed of Answer (ASA).</li><li>Deploy real-time Looker dashboards to replace manual reporting, enabling data-driven decision-making for effective backlog management and staffing.</li></ul>",
+                    "url": {
+                        "label": "Website",
+                        "href": "https://www.ninjavan.co/"
+                    },
+                    "id": "a1b2c3d4e5f6g7h8i9j0k1l2",
+                    "visible": true
+                },
+                {
+                    "company": "Klook Travel",
+                    "position": "CEG System Manager",
+                    "location": "Kuala Lumpur, Malaysia",
+                    "date": "2021 - 2022",
+                    "summary": "<ul><li>Design optimal routing logic across omnichannel touchpoints (chat, email, voice, social) to align agent skills and service level agreements (SLAs) with business tiers.</li><li>Optimize workflow logic and knowledge base taxonomy to minimize ticket reopen rates and reduce resolution times.</li><li>Manage strategic vendor relationships for telephony and customer experience (CX) platforms, implementing rigorous license tracking to optimize operational costs.</li><li>Develop and monitor business continuity plans to ensure system resilience during technical outages.</li></ul>",
+                    "url": {
+                        "label": "Website",
+                        "href": "https://www.klook.com/"
+                    },
+                    "id": "m3n4o5p6q7r8s9t0u1v2w3x4",
+                    "visible": true
+                },
+                {
+                    "company": "Klook Travel",
+                    "position": "CEG Operations Manager",
+                    "location": "Kuala Lumpur, Malaysia",
+                    "date": "2018 - 2020",
+                    "summary": "<ul><li>Manage hybrid operations involving in-house teams and outsourced BPO partners to ensure consistent service delivery and adherence to global standards.</li><li>Lead the hiring and management of a workforce of over 100 agents, overseeing recruitment strategies, onboarding programs, and performance coaching.</li><li>Utilize Weekly Business Review (WBR) insights to monitor BPO performance, ensuring compliance with the agreed-upon Service Level Agreements (SLAs).</li><li>Drive Voice of Customer (VoC) initiatives to identify and address customer pain points in collaboration with stakeholders to improve Customer Satisfaction (CSAT) scores.</li></ul>",
+                    "url": {
+                        "label": "Website",
+                        "href": "https://www.klook.com/"
+                    },
+                    "id": "y5z6a7b8c9d0e1f2g3h4i5j6",
+                    "visible": true
+                },
+                {
+                    "company": "Melco Crown Ent.",
+                    "position": "Service Quality Manager",
+                    "location": "Macau",
+                    "date": "2014 - 2017",
+                    "summary": "<ul><li>Lead the Service Quality division by developing a comprehensive QA framework that aligns with Forbes 5-Star Hotel standards.</li><li>Direct regular coaching and calibration sessions to ensure agent consistency and elevate compliance scores.</li><li>Conduct rigorous internal audits and mystery shopper simulations to identify service gaps and drive continuous improvement initiatives.</li><li>Collaborate with Hotel Operations to align call center protocols with on-property guest experience standards.</li><li>Lead initiatives aimed at optimizing the reservation journey to achieve higher conversion rates and reduce guest complaints.</li></ul>",
+                    "url": {
+                        "label": "Website",
+                        "href": "https://www.melco-resorts.com/"
+                    },
+                    "id": "k7l8m9n0o1p2q3r4s5t6u7v8",
+                    "visible": true
+                },
+                {
+                    "company": "Melco Crown Ent.",
+                    "position": "Contact Centre Asst Manager",
+                    "location": "Macau",
+                    "date": "2009 - 2013",
+                    "summary": "<ul><li>Manage reservation and ticketing operations, ensuring accuracy in order entry into the system.</li><li>Handle escalated complaints and issues, ensuring prompt and effective resolution.</li><li>Collaborate closely with Revenue Management to enhance occupancy and conversion rates.</li><li>Monitor VIP reservations, ensuring all requests, including limousine and other arrangements, are accurately fulfilled.</li></ul>",
+                    "url": {
+                        "label": "Website",
+                        "href": "https://www.melco-resorts.com/"
+                    },
+                    "id": "w9x0y1z2a3b4c5d6e7f8g9h0",
+                    "visible": true
+                },
+                {
+                    "company": "Shell Malaysia",
+                    "position": "Support Schedule Lead",
+                    "location": "Kuala Lumpur, Malaysia",
+                    "date": "2007 - 2009",
+                    "summary": "<ul><li>Managed 24/7 workforce scheduling and ensured strict adherence to HSSE safety protocols; made real-time adjustments to ensure proper coverage.</li><li>Handled urgent fuel delivery requests and ensured all gas stations were stocked.</li></ul>",
+                    "url": {
+                        "label": "",
+                        "href": ""
+                    },
+                    "id": "i1j2k3l4m5n6o7p8q9r0s1t2",
+                    "visible": true
+                },
+                {
+                    "company": "Fifth Media",
+                    "position": "Support Executive",
+                    "location": "Kuala Lumpur, Malaysia",
+                    "date": "2005 - 2007",
+                    "summary": "<ul><li>Delivered expert technical troubleshooting and conducted product demonstrations for potential investors.</li><li>Helped build internal knowledge bases for both internal and external.</li></ul>",
+                    "url": {
+                        "label": "",
+                        "href": ""
+                    },
+                    "id": "u3v4w5x6y7z8a9b0c1d2e3f4",
+                    "visible": true
+                },
+                {
+                    "company": "Genting Group",
+                    "position": "Team Leader",
+                    "location": "Kuala Lumpur, Malaysia",
+                    "date": "2003 - 2005",
+                    "summary": "<ul><li>Supervise and coach a team of customer service agents to ensure performance aligns with established KPIs.</li><li>Maintain a single-digit call abandonment rate by adjusting workforce allocation to effectively manage incoming call traffic.</li></ul>",
+                    "url": {
+                        "label": "",
+                        "href": ""
+                    },
+                    "id": "g5h6i7j8k9l0m1n2o3p4q5r6",
+                    "visible": true
+                }
+            ]
+        },
+        "education": {
+            "name": "Education",
+            "columns": 1,
+            "visible": true,
+            "id": "education",
+            "items": []
+        },
+        "awards": {
+            "name": "Awards",
+            "columns": 1,
+            "visible": true,
+            "id": "awards",
+            "items": []
+        },
+        "certifications": {
+            "name": "Certifications",
+            "columns": 1,
+            "visible": true,
+            "id": "certifications",
+            "items": []
+        },
+        "publications": {
+            "name": "Publications",
+            "columns": 1,
+            "visible": true,
+            "id": "publications",
+            "items": []
+        },
+        "skills": {
+            "name": "Skills",
+            "columns": 1,
+            "visible": true,
+            "id": "skills",
+            "items": [
+                {
+                    "name": "Core Competencies",
+                    "description": "Strategic & Operational Skills",
+                    "level": 5,
+                    "keywords": [
+                        "CX Operations Management",
+                        "Team Leadership & Coaching",
+                        "System Configuration (SaaS/CRM)",
+                        "Process Improvement",
+                        "Incident Management",
+                        "Vendor & Budget Management",
+                        "Operational Reporting",
+                        "Stakeholder Collaboration"
+                    ],
+                    "id": "s7t8u9v0w1x2y3z4a5b6c7d8",
+                    "visible": true
+                },
+                {
+                    "name": "Technical Proficiency",
+                    "description": "Tools & Platforms",
+                    "level": 5,
+                    "keywords": [
+                        "Zendesk",
+                        "Genesys Cloud",
+                        "Salesforce",
+                        "Cisco UCCX",
+                        "Google Workspace",
+                        "Apps Script",
+                        "Looker Studio",
+                        "Lark",
+                        "Slack",
+                        "Microsoft Teams",
+                        "Zapier",
+                        "Webhooks",
+                        "REST API",
+                        "Postman",
+                        "SiteMinder",
+                        "Opera PMS",
+                        "SISTIC"
+                    ],
+                    "id": "e9f0g1h2i3j4k5l6m7n8o9p0",
+                    "visible": true
+                }
+            ]
+        },
+        "languages": {
+            "name": "Languages",
+            "columns": 1,
+            "visible": true,
+            "id": "languages",
+            "items": [
+                {
+                    "name": "English",
+                    "description": "Native",
+                    "level": 5,
+                    "id": "q1r2s3t4u5v6w7x8y9z0a1b2",
+                    "visible": true
+                },
+                {
+                    "name": "Cantonese",
+                    "description": "Native",
+                    "level": 5,
+                    "id": "c3d4e5f6g7h8i9j0k1l2m3n4",
+                    "visible": true
+                },
+                {
+                    "name": "Mandarin",
+                    "description": "Intermediate",
+                    "level": 3,
+                    "id": "o5p6q7r8s9t0u1v2w3x4y5z6",
+                    "visible": true
+                },
+                {
+                    "name": "Bahasa",
+                    "description": "Intermediate",
+                    "level": 3,
+                    "id": "a7b8c9d0e1f2g3h4i5j6k7l8",
+                    "visible": true
+                },
+                {
+                    "name": "French",
+                    "description": "Beginner",
+                    "level": 1,
+                    "id": "m9n0o1p2q3r4s5t6u7v8w9x0",
+                    "visible": true
+                }
+            ]
+        },
+        "interests": {
+            "name": "Interests",
+            "columns": 1,
+            "visible": true,
+            "id": "interests",
+            "items": []
+        },
+        "volunteer": {
+            "name": "Volunteer",
+            "columns": 1,
+            "visible": true,
+            "id": "volunteer",
+            "items": []
+        },
+        "projects": {
+            "name": "Projects",
+            "columns": 1,
+            "visible": true,
+            "id": "projects",
+            "items": [
+                {
+                    "name": "Order Creation Automation",
+                    "description": "Developed a custom automation solution using Google Sheets and Apps Script with REST API integration to validate addresses and phone numbers, eliminating 90% of manual data entry work.",
+                    "date": "2024 - 2025",
+                    "summary": "90% efficiency gain through automated validation",
+                    "keywords": [
+                        "Google Workspace",
+                        "Google Apps Script",
+                        "REST API"
+                    ],
+                    "url": {
+                        "label": "",
+                        "href": ""
+                    },
+                    "entity": "Ninja Van",
+                    "id": "y1z2a3b4c5d6e7f8g9h0i1j2",
+                    "visible": true
+                },
+                {
+                    "name": "Zendesk Migration",
+                    "description": "Led a US$1.18M company-wide platform migration project, delivering complete system configuration and deployment in just 3 months.",
+                    "date": "2018 - 2022",
+                    "summary": "US$1.18M migration completed in 3 months",
+                    "keywords": [
+                        "Zendesk",
+                        "System Architecture",
+                        "Migration"
+                    ],
+                    "url": {
+                        "label": "",
+                        "href": ""
+                    },
+                    "entity": "Klook Travel",
+                    "id": "k3l4m5n6o7p8q9r0s1t2u3v4",
+                    "visible": true
+                },
+                {
+                    "name": "Cost Optimization",
+                    "description": "Audited telephony systems and software licenses, then restructured usage patterns and implemented monthly forecasting models to strengthen budget control and reduce operational expenses.",
+                    "date": "2018 - 2022",
+                    "summary": "Optimized operational expenses through forecasting models",
+                    "keywords": [
+                        "Data Analysis",
+                        "Forecasting"
+                    ],
+                    "url": {
+                        "label": "",
+                        "href": ""
+                    },
+                    "entity": "Klook Travel",
+                    "id": "w5x6y7z8a9b0c1d2e3f4g5h6",
+                    "visible": true
+                },
+                {
+                    "name": "Slack to Lark Transformation",
+                    "description": "Orchestrated the CX team's migration from Slack to Lark, including development of automated webhook integrations to streamline cross-team workflows and notifications.",
+                    "date": "2018 - 2022",
+                    "summary": "Team-wide adoption with webhook automation",
+                    "keywords": [
+                        "Lark",
+                        "Slack",
+                        "Webhook"
+                    ],
+                    "url": {
+                        "label": "",
+                        "href": ""
+                    },
+                    "entity": "Klook Travel",
+                    "id": "i7j8k9l0m1n2o3p4q5r6s7t8",
+                    "visible": true
+                },
+                {
+                    "name": "Contact Center Centralization",
+                    "description": "Consolidated contact center operations across multiple hotel properties, standardizing processes and procedures to streamline operations and reduce costs.",
+                    "date": "2009 - 2017",
+                    "summary": "Multi-property SOPs and cost efficiency",
+                    "keywords": [
+                        "Workforce Mgmt"
+                    ],
+                    "url": {
+                        "label": "",
+                        "href": ""
+                    },
+                    "entity": "Melco Crown Entertainment",
+                    "id": "u9v0w1x2y3z4a5b6c7d8e9f0",
+                    "visible": true
+                },
+                {
+                    "name": "Multi-Hotel Pre-Opening",
+                    "description": "Developed a centralized knowledge repository and delivered comprehensive product training across multiple new hotel property openings.",
+                    "date": "2009 - 2017",
+                    "summary": "Centralized knowledge hub for multi-property training",
+                    "keywords": [
+                        "Knowledge Mgmt",
+                        "Training"
+                    ],
+                    "url": {
+                        "label": "",
+                        "href": ""
+                    },
+                    "entity": "Melco Crown Entertainment",
+                    "id": "g1h2i3j4k5l6m7n8o9p0q1r2",
+                    "visible": true
+                }
+            ]
+        },
+        "references": {
+            "name": "References",
+            "columns": 1,
+            "visible": true,
+            "id": "references",
+            "items": []
+        },
+        "custom": {
+            "1": {
+                "name": "Custom Section",
+                "columns": 1,
+                "visible": false,
+                "id": "1",
+                "items": []
+            }
+        }
+    },
+    "metadata": {
+        "template": "rhyhorn",
+        "layout": [
+            [
+                [
+                    "summary",
+                    "experience",
+                    "education",
+                    "projects",
+                    "volunteer",
+                    "references"
+                ],
+                [
+                    "profiles",
+                    "skills",
+                    "languages",
+                    "certifications",
+                    "awards",
+                    "interests",
+                    "publications"
+                ]
+            ]
+        ],
+        "css": {
+            "value": ".section {\n\toutline: 1px solid #000;\n}",
+            "visible": false
+        },
+        "page": {
+            "margin": 18,
+            "format": "a4",
+            "options": {
+                "breakLine": true,
+                "pageNumbers": true
+            }
+        },
+        "theme": {
+            "background": "#ffffff",
+            "text": "#000000",
+            "primary": "#f44336"
+        },
+        "typography": {
+            "font": {
+                "family": "IBM Plex Sans",
+                "subset": "latin",
+                "variants": [
+                    "regular",
+                    "italic",
+                    "500",
+                    "500italic",
+                    "600",
+                    "600italic",
+                    "700",
+                    "700italic"
+                ],
+                "size": 13,
+                "lineHeight": 1.5
+            },
+            "margin": {
+                "top": 0,
+                "bottom": 0
+            }
+        }
+    }
+}

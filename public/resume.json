@@ -1,0 +1,283 @@
+{
+    "basics": {
+        "name": "Ethan C.",
+        "label": "CX Operations Manager & Strategist",
+        "email": "gmeal6889@gmail.com",
+        "url": "https://echia.xyz",
+        "summary": "Practical CX Leader with 15+ years of experience running contact centers in Hospitality and Logistics. I focus on bridging the gap between daily operations and technical systems. My expertise lies in supporting high-performance teams, setting up support platforms (Zendesk/Salesforce), and fixing processes to make things run smoother for both agents and customers.",
+        "location": {
+            "city": "Kuala Lumpur",
+            "countryCode": "MY",
+            "region": "Malaysia"
+        },
+        "profiles": [
+            {
+                "network": "LinkedIn",
+                "username": "echia6889",
+                "url": "https://linkedin.com/in/echia6889"
+            }
+        ]
+    },
+    "work": [
+        {
+            "name": "Ninja Van",
+            "position": "Shipper Support Manager",
+            "url": "https://www.ninjavan.co/",
+            "startDate": "2024-01-01",
+            "endDate": "2025-03-01",
+            "summary": "Managed daily support operations (Voice, Chat, Email) for logistics shippers, ensuring the team met response targets even during peak seasons.",
+            "highlights": [
+                "Led daily support operations across chat, email, and voice, maintaining SLA consistency during peak demand through agile staffing and dynamic queue management.",
+                "Introduced daily huddles and weekly performance reviews to drive operational transparency, accountability, and rapid issue resolution.",
+                "Established robust cross-functional escalation pathways with Operations, Product, and Finance to accelerate resolution for high-value shipper incidents.",
+                "Updated SOPs to streamline complex workflows and strengthened QA frameworks to drive higher First Contact Resolution (FCR) and service consistency.",
+                "Optimized IVR structures and routing logic to accurately capture intent and prioritize VIP segments, significantly reducing Average Speed of Answer (ASA).",
+                "Deployed real-time Looker dashboards to replace manual reporting, enabling data-driven decisions for backlog management and staffing."
+            ]
+        },
+        {
+            "name": "Klook Travel",
+            "position": "CEG System Manager",
+            "url": "https://www.klook.com/",
+            "startDate": "2021-01-01",
+            "endDate": "2022-12-31",
+            "summary": "Designed routing flows across all channels to ensure tickets reached the right agents based on language and skill level.",
+            "highlights": [
+                "Designed optimal routing logic across omnichannel touchpoints (chat, email, voice, social), aligning agent skills and SLAs with business tiers.",
+                "Optimized workflow logic and knowledge base taxonomy to minimize ticket reopen rate and shorter resolution time.",
+                "Managed strategic vendor relationships for telephony and CX platforms, implementing rigorous license tracking to optimize operational costs.",
+                "Built and monitored business continuity plans to ensure system resilience during technical outages."
+            ]
+        },
+        {
+            "name": "Klook Travel",
+            "position": "CEG Operations Manager",
+            "url": "https://www.klook.com/",
+            "startDate": "2018-01-01",
+            "endDate": "2020-12-31",
+            "summary": "Managed hybrid operations across in-house teams and outsourced BPO partners.",
+            "highlights": [
+                "Managed hybrid operations across in-house teams and outsourced BPO partners, ensuring consistent service delivery and adherence to global standards.",
+                "Led and hired a 100+ agent workforce, overseeing hiring strategies, onboarding programs, and performance coaching.",
+                "Setup governance frameworks, utilizing weekly business review (WBR) data to drive hiring strategy, coaching focus, and system enhancements.",
+                "Drive Voice of Customer (VoC) initiatives to identify and address customer pain points with other stakeholders to improve CSAT."
+            ]
+        },
+        {
+            "name": "Melco Crown Ent.",
+            "position": "Service Quality Manager",
+            "url": "https://www.melco-resorts.com/",
+            "startDate": "2014-01-01",
+            "endDate": "2017-12-31",
+            "summary": "Led the Service Quality team, building a QA framework that matched the hotel's luxury brand standards.",
+            "highlights": [
+                "Led the Service Quality division, developing a comprehensive QA framework aligned with Forbes 5-Star Hotel Standards.",
+                "Directed regular coaching and calibration sessions to drive agent consistency and elevate compliance scores.",
+                "Conducted rigorous internal audits and mystery shopper simulations to identify service gaps and drive continuous improvement.",
+                "Worked closely with Hotel Ops to align call center protocols with on-property guest experience standards.",
+                "Spearheaded initiatives to optimize the reservation journey, resulting in higher conversion rates and reduced guest complaints."
+            ]
+        },
+        {
+            "name": "Melco Crown Ent.",
+            "position": "Contact Centre Asst Manager",
+            "url": "https://www.melco-resorts.com/",
+            "startDate": "2009-01-01",
+            "endDate": "2013-12-31",
+            "summary": "Managed daily Reservations and Ticketing operations.",
+            "highlights": [
+                "Managed daily Reservations and Ticketing operations, ensuring all reservation orders are in the system.",
+                "Work closely with Revenue Management to yield higher occupany rate and conversion rates."
+            ]
+        },
+        {
+            "name": "Shell Malaysia",
+            "position": "Support Schedule Lead",
+            "startDate": "2007-01-01",
+            "endDate": "2009-12-31",
+            "highlights": [
+                "Managed 24/7 workforce scheduling and ensured strict adherence to HSSE safety protocols.",
+                "Handle urgent fuel delivery requests and ensure all gas stations are stocked."
+            ]
+        },
+        {
+            "name": "Fifth Media",
+            "position": "Support Executive",
+            "startDate": "2005-01-01",
+            "endDate": "2007-12-31",
+            "highlights": [
+                "Delivered expert technical troubleshooting and conducted product demonstrations for potential investors.",
+                "Helped build internal knowledge bases for both internal and external."
+            ]
+        },
+        {
+            "name": "Genting Group",
+            "position": "Team Leader",
+            "startDate": "2003-01-01",
+            "endDate": "2005-12-31",
+            "highlights": [
+                "Supervised daily contact center operations, managing workforce allocation and coaching agents to drive quality improvements.",
+                "Conducted weekly call monitoring and coached agents to improve quality."
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "Order Creation Automation",
+            "description": "Developed a custom automation solution using Google Sheets and Apps Script with REST API integration to validate addresses and phone numbers, eliminating 90% of manual data entry work.",
+            "highlights": [
+                "90% Efficiency Gain",
+                "Automated Validation"
+            ],
+            "keywords": [
+                "Google Workspace",
+                "Google Apps Script",
+                "REST API"
+            ],
+            "startDate": "2024-01-01",
+            "endDate": "2025-03-01",
+            "entity": "Ninja Van",
+            "type": "Automation"
+        },
+        {
+            "name": "Zendesk Migration",
+            "description": "Led a US$1.18M company-wide platform migration project, delivering complete system configuration and deployment in just 3 months.",
+            "highlights": [
+                "US$1.18M Budget",
+                "3-Month Delivery"
+            ],
+            "keywords": [
+                "Zendesk",
+                "System Architecture",
+                "Migration"
+            ],
+            "startDate": "2018-01-01",
+            "endDate": "2022-12-31",
+            "entity": "Klook Travel",
+            "type": "Infrastructure"
+        },
+        {
+            "name": "Cost Optimization",
+            "description": "Audited telephony systems and software licenses, then restructured usage patterns and implemented monthly forecasting models to strengthen budget control and reduce operational expenses.",
+            "highlights": [
+                "OpEx Optimized",
+                "Forecast Accuracy"
+            ],
+            "keywords": [
+                "Data Analysis",
+                "Forecasting"
+            ],
+            "startDate": "2018-01-01",
+            "endDate": "2022-12-31",
+            "entity": "Klook Travel",
+            "type": "Finance Ops"
+        },
+        {
+            "name": "Slack to Lark Transformation",
+            "description": "Orchestrated the CX team's migration from Slack to Lark, including development of automated webhook integrations to streamline cross-team workflows and notifications.",
+            "highlights": [
+                "Team-wide Adoption",
+                "Webhook Automation"
+            ],
+            "keywords": [
+                "Lark",
+                "Slack",
+                "Webhook"
+            ],
+            "startDate": "2018-01-01",
+            "endDate": "2022-12-31",
+            "entity": "Klook Travel",
+            "type": "Workflow"
+        },
+        {
+            "name": "Contact Center Centralization",
+            "description": "Consolidated contact center operations across multiple hotel properties, standardizing processes and procedures to streamline operations and reduce costs.",
+            "highlights": [
+                "Multi-Property SOPs",
+                "Cost Efficiency"
+            ],
+            "keywords": [
+                "Workforce Mgmt"
+            ],
+            "startDate": "2009-01-01",
+            "endDate": "2017-12-31",
+            "entity": "Melco Crown Entertainment",
+            "type": "Ops Strategy"
+        },
+        {
+            "name": "Multi-Hotel Pre-Opening",
+            "description": "Developed a centralized knowledge repository and delivered comprehensive product training across multiple new hotel property openings.",
+            "highlights": [
+                "Centralized Knowledge Hub",
+                "Multi-Property Training"
+            ],
+            "keywords": [
+                "Knowledge Mgmt",
+                "Training"
+            ],
+            "startDate": "2009-01-01",
+            "endDate": "2017-12-31",
+            "entity": "Melco Crown Entertainment",
+            "type": "Training"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Core Competencies",
+            "keywords": [
+                "CX Operations Management",
+                "Team Leadership & Coaching",
+                "System Configuration (SaaS/CRM)",
+                "Process Improvement",
+                "Incident Management",
+                "Vendor & Budget Management",
+                "Operational Reporting",
+                "Stakeholder Collaboration"
+            ]
+        },
+        {
+            "name": "Technical Proficiency",
+            "keywords": [
+                "Zendesk",
+                "Genesys Cloud",
+                "Salesforce",
+                "Cisco UCCX",
+                "Google Workspace",
+                "Apps Script",
+                "Looker Studio",
+                "Lark",
+                "Slack",
+                "Microsoft Teams",
+                "Zapier",
+                "Webhooks",
+                "REST API",
+                "Postman",
+                "SiteMinder",
+                "Opera PMS",
+                "SISTIC"
+            ]
+        }
+    ],
+    "languages": [
+        {
+            "language": "English",
+            "fluency": "Native"
+        },
+        {
+            "language": "Cantonese",
+            "fluency": "Native"
+        },
+        {
+            "language": "Mandarin",
+            "fluency": "Intermediate"
+        },
+        {
+            "language": "Bahasa",
+            "fluency": "Intermediate"
+        },
+        {
+            "language": "French",
+            "fluency": "Beginner"
+        }
+    ]
+}

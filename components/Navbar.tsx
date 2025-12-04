@@ -114,19 +114,7 @@ const Navbar: React.FC<NavbarProps> = ({ showLogo = false, showNav = false }) =>
               ease: [0.34, 1.56, 0.64, 1],
             }}
           >
-            {/* Neon glow ring */}
-            <motion.div
-              className="absolute inset-0 rounded-md"
-              initial={{ boxShadow: '0 0 0px rgba(34, 211, 238, 0)' }}
-              animate={showLogo ? {
-                boxShadow: [
-                  '0 0 0px rgba(34, 211, 238, 0)',
-                  '0 0 60px rgba(34, 211, 238, 0.8)',
-                  '0 0 20px rgba(34, 211, 238, 0.3)'
-                ]
-              } : { boxShadow: '0 0 0px rgba(34, 211, 238, 0)' }}
-              transition={{ duration: 1, times: [0, 0.5, 1] }}
-            />
+
 
             <div className="relative w-12 h-12 flex items-center justify-center transition-transform duration-300 hover:scale-105">
               <img

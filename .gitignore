@@ -25,3 +25,8 @@ dist-ssr
 
 # Project exclude paths
 /index.js
+
+# Archive and backup files (exclude from git)
+WEBSITE_CODE_ARCHIVE.txt
+ethan-c-portfolio-source.zip
+ethan-c-portfolio-source/

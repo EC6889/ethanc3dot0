@@ -315,7 +315,7 @@ const Hero: React.FC<HeroProps> = ({ animationPhases }) => {
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-cyan/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out"></div>
                     <span className="relative flex items-center gap-3">
-                      Initialize_Protocol{' '}
+                      View Experience{' '}
                       <ChevronRight
                         size={14}
                         className="group-hover:translate-x-1 transition-transform"
@@ -332,7 +332,7 @@ const Hero: React.FC<HeroProps> = ({ animationPhases }) => {
                     className="px-8 py-4 border border-slate-800 text-slate-500 text-xs font-bold uppercase tracking-[0.2em] hover:text-white hover:border-slate-600 transition-all duration-300 hover:bg-slate-900/50 flex items-center gap-2 relative overflow-hidden group"
                   >
                     <span className="relative z-10 flex items-center gap-2">
-                      Establish_Comms
+                      Contact Me
                       <span className="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-green-500 transition-colors"></span>
                     </span>
                     {/* Scanline Effect */}

@@ -15,6 +15,8 @@ import {
   Activity,
   Database,
   Radio,
+  Award,
+  Star,
 } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 
@@ -93,6 +95,7 @@ const Experience: React.FC = () => {
         companyLocalLogo: pos.localLogoOverride || company.localLogo,
         companyTechStack: pos.techStackOverride || company.techStack,
         companyChannels: company.channels,
+        companyAwards: company.awards, // Pass awards down
         uniqueId: `${company.id}-${posIndex}`,
         displayIdSuffix: pos.idSuffix || posIndex.toString(),
         isCurrent: pos.period.toLowerCase().includes('present') || pos.period.toLowerCase().includes('now'),
@@ -350,14 +353,14 @@ const Experience: React.FC = () => {
                     transition={{ delay: 0.1, duration: 0.4 }}
                     className="px-6 md:px-10 py-6 border-b border-slate-800/50 bg-slate-950/30 flex flex-col md:flex-row justify-between gap-4 relative z-10"
                   >
-                    <div className="flex items-start justify-between gap-4 w-full">
-                      <div className="flex items-center gap-4">
-                        {/* Company Logo - Standardized Size */}
+                    <div className="flex flex-col md:flex-row items-start justify-between gap-6 w-full">
+                      <div className="flex items-center gap-5">
+                        {/* Company Logo - Increased Size & Better Proportions */}
                         <Motion.div
                           initial={{ scale: 0, rotate: -20 }}
                           animate={{ scale: 1, rotate: 0 }}
                           transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
-                          className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-white/95 p-2.5 flex items-center justify-center shadow-lg shadow-black/20 ring-1 ring-white/50 shrink-0"
+                          className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/95 p-3 flex items-center justify-center shadow-lg shadow-black/20 ring-1 ring-white/50 shrink-0"
                         >
                           <img
                             src={activePosition.companyLocalLogo || activePosition.companyLogo}
@@ -365,8 +368,10 @@ const Experience: React.FC = () => {
                             className="w-full h-full object-contain"
                           />
                         </Motion.div>
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-3 mb-1.5">
+
+                        <div className="min-w-0 flex flex-col justify-center">
+                          {/* Metadata / ID */}
+                          <div className="flex items-center gap-3 mb-1">
                             <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20">
                               CAREER_LOG
                             </span>
@@ -374,39 +379,97 @@ const Experience: React.FC = () => {
                               ID: {activePosition.companyId.toUpperCase()}-{activePosition.displayIdSuffix}
                             </span>
                           </div>
-                          <h2 className="text-lg md:text-xl font-display font-bold text-white tracking-tight">
-                            {activePosition.title}
-                          </h2>
+
+                          {/* Job Title - Dynamic Sizing for Single Line */}
+                          {(() => {
+                            const titleLen = activePosition.title.length;
+                            const sizeClass = titleLen > 25 ? 'text-xl md:text-2xl' : 'text-2xl md:text-3xl';
+
+                            return (
+                              <h2 className={`${sizeClass} font-display font-bold text-white tracking-tight leading-tight mb-1 whitespace-nowrap`}>
+                                {activePosition.title}
+                              </h2>
+                            );
+                          })()}
+
+                          {/* Company Name - Moved for Proximity */}
+                          <h3 className="text-lg md:text-xl font-bold text-brand-cyan leading-none tracking-wide whitespace-nowrap">
+                            {activePosition.companyName}
+                          </h3>
                         </div>
                       </div>
 
-                      <div className="flex flex-col items-end justify-center gap-1 shrink-0 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <h3 className="text-sm md:text-base font-semibold text-slate-200 leading-tight">{activePosition.companyName}</h3>
-                          {/* Status Badge */}
-                          <span className={`shrink-0 flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-mono font-bold border ${activePosition.isCurrent ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-slate-800/50 text-slate-400 border-slate-700'}`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${activePosition.isCurrent ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}`} />
-                            {activePosition.isCurrent ? 'ACTIVE' : 'ARCHIVED'}
-                          </span>
+                      {/* Right Side - Timeline & Status Data */}
+                      <div className="flex md:flex-col items-center md:items-end justify-between md:justify-center gap-2 w-full md:w-auto mt-2 md:mt-0 pl-16 md:pl-0">
+                        {/* Period - High Visibility */}
+                        <div className="text-sm md:text-base font-bold text-slate-200 bg-slate-800/50 px-3 py-1 rounded border border-slate-700/50">
+                          {activePosition.period}
                         </div>
-                        <div className="flex items-center justify-end gap-2.5 text-xs font-mono text-slate-400">
-                          <div className="flex items-center gap-1">
-                            <MapPin size={11} className="text-slate-500" />
-                            <span>{activePosition.companyLocation}</span>
-                          </div>
-                          <span className="text-slate-600">•</span>
-                          <span>{activePosition.period}</span>
+
+                        {/* Location */}
+                        <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400 my-1">
+                          <MapPin size={12} className="text-slate-500" />
+                          {activePosition.companyLocation}
                         </div>
+
+                        {/* Status Badge */}
+                        <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-mono font-bold border ${activePosition.isCurrent ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-slate-800/50 text-slate-400 border-slate-700'}`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${activePosition.isCurrent ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}`} />
+                          {activePosition.isCurrent ? 'ACTIVE' : 'ARCHIVED'}
+                        </span>
                       </div>
                     </div>
                   </Motion.div>
 
                   <div className="flex-1 flex flex-col relative z-10">
                     {/* Main Content Area */}
-                    <div className="flex-1 p-6 md:p-10 space-y-8">
+                    <Motion.div
+                      className="flex-1 p-6 md:p-10 space-y-8"
+                      initial="hidden"
+                      animate="visible"
+                      variants={{
+                        hidden: { opacity: 0 },
+                        visible: {
+                          opacity: 1,
+                          transition: {
+                            staggerChildren: 0.1,
+                            delayChildren: 0.3
+                          }
+                        }
+                      }}
+                    >
 
-                      {/* Mission Objective */}
-                      <div>
+                      {/* Headline Achievement - NEW */}
+                      {activePosition.headlineAchievement && (
+                        <Motion.div
+                          variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                          }}
+                          className="p-4 rounded border border-amber-400/30 bg-amber-400/5 relative overflow-hidden group/achievement"
+                        >
+                          <div className="absolute inset-0 bg-amber-400/5 translate-x-[-100%] group-hover/achievement:translate-x-[100%] transition-transform duration-1000"></div>
+                          <div className="flex items-start gap-3 relative z-10">
+                            <div className="mt-1 p-1 rounded-full bg-amber-400/20 text-amber-400">
+                              <CheckCircle2 size={16} />
+                            </div>
+                            <div>
+                              <h4 className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider mb-1">
+                                Headline Achievement
+                              </h4>
+                              <p className="text-sm md:text-base text-slate-200 font-medium leading-relaxed">
+                                {activePosition.headlineAchievement}
+                              </p>
+                            </div>
+                          </div>
+                        </Motion.div>
+                      )}
+                      <Motion.div
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                        }}
+                      >
                         <div className="flex items-center gap-2 mb-4 text-brand-purple">
                           <Activity size={16} />
                           <h4 className="text-xs font-mono font-bold tracking-wider uppercase">Key Responsibilities</h4>
@@ -426,9 +489,15 @@ const Experience: React.FC = () => {
                             </div>
                           ))}
                         </div>
-                      </div>
+                      </Motion.div>
 
-                      <div className="grid md:grid-cols-2 gap-6">
+                      <Motion.div
+                        className="grid md:grid-cols-2 gap-6"
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                        }}
+                      >
                         {/* Tech Stack */}
                         {activePosition.companyTechStack && activePosition.companyTechStack.length > 0 && (
                           <div>
@@ -492,16 +561,46 @@ const Experience: React.FC = () => {
                             </div>
                           </div>
                         )}
-                      </div>
-                    </div>
+                      </Motion.div>
+
+                      {/* Awards Section - Renders if company has awards */}
+                      {(activePosition as any).companyAwards && (activePosition as any).companyAwards.length > 0 && (
+                        <Motion.div
+                          className="mt-8 pt-6 border-t border-slate-800/60"
+                          variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                          }}
+                        >
+                          <div className="flex items-center gap-2 mb-4 text-amber-400">
+                            <Award size={16} />
+                            <h4 className="text-xs font-mono font-bold tracking-wider uppercase">Awards & Recognition</h4>
+                          </div>
+                          <div className="grid md:grid-cols-2 gap-4">
+                            {(activePosition as any).companyAwards.map((award: any, idx: number) => (
+                              <div key={idx} className="flex items-start gap-3 p-3 rounded border border-slate-800 bg-slate-900/40 relative group/award hover:border-amber-500/30 transition-colors">
+                                <div className="mt-0.5 text-amber-500/80">
+                                  <Star size={14} />
+                                </div>
+                                <div>
+                                  <div className="text-sm font-bold text-slate-200 group-hover/award:text-amber-400 transition-colors">{award.title}</div>
+                                  <div className="text-xs font-mono text-slate-500 mt-0.5">{award.issuer}</div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </Motion.div>
+                      )}
+
+                    </Motion.div>
                   </div>
                 </GlassCard>
               </Motion.div>
             </AnimatePresence>
           </Motion.div>
         </div>
-      </div>
-    </Motion.section>
+      </div >
+    </Motion.section >
   );
 };
 

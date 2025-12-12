@@ -347,12 +347,35 @@ const Projects: React.FC = () => {
                     {/* Main Description & Stack */}
                     <div className="md:col-span-2 flex flex-col gap-8">
                       <div>
-                        <h4 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                          <Activity size={14} /> Mission Objective
-                        </h4>
-                        <p className="text-slate-300 text-sm leading-relaxed font-light border-l-2 border-slate-800 pl-4">
-                          {activeProject.description}
-                        </p>
+                        {/* Challenge */}
+                        <div className="mb-6">
+                          <h4 className="text-xs font-mono font-bold text-rose-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <Activity size={14} /> The Challenge
+                          </h4>
+                          <p className="text-slate-300 text-sm leading-relaxed font-light border-l-2 border-rose-500/30 pl-4">
+                            {activeProject.challenge}
+                          </p>
+                        </div>
+
+                        {/* Solution */}
+                        <div className="mb-6">
+                          <h4 className="text-xs font-mono font-bold text-brand-cyan uppercase tracking-widest mb-2 flex items-center gap-2">
+                            The Solution
+                          </h4>
+                          <p className="text-slate-300 text-sm leading-relaxed font-light border-l-2 border-brand-cyan/30 pl-4">
+                            {activeProject.solution}
+                          </p>
+                        </div>
+
+                        {/* Result */}
+                        <div>
+                          <h4 className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                            The Result
+                          </h4>
+                          <p className="text-slate-300 text-sm leading-relaxed font-light border-l-2 border-emerald-500/30 pl-4">
+                            {activeProject.result}
+                          </p>
+                        </div>
                       </div>
 
                       {/* Tech Stack */}

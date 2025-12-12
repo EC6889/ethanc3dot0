@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
 import { Menu, X, FileText } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
 
 const Motion = motion as any;
 
@@ -16,7 +16,18 @@ const Navbar: React.FC<NavbarProps> = ({ showLogo = false, showNav = false }) =>
   const [activeSection, setActiveSection] = useState('home');
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
 
-  const { scrollYProgress } = useScroll();
+  const [hidden, setHidden] = useState(false);
+
+  const { scrollY, scrollYProgress } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -74,8 +85,13 @@ const Navbar: React.FC<NavbarProps> = ({ showLogo = false, showNav = false }) =>
   return (
     <>
       <Motion.nav
-        initial={{ y: 0, opacity: 1 }}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b
+        variants={{
+          visible: { y: 0 },
+          hidden: { y: -100 },
+        }}
+        animate={hidden ? 'hidden' : 'visible'}
+        transition={{ duration: 0.35, ease: 'easeInOut' }}
+        className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 border-b
           ${isScrolled
             ? 'h-[70px] bg-slate-950/90 backdrop-blur-md border-brand-cyan-deep/30 shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
             : 'h-[90px] bg-transparent border-transparent'

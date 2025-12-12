@@ -2,15 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { InteractiveGrid } from './ui/InteractiveGrid';
-import { GlitchText } from './ui/GlitchText';
 import { MagneticButton } from './ui/MagneticButton';
-
-const ROLES = [
-  'CX_OPERATIONS_MANAGER',
-  'TECH_IMPLEMENTATION_LEAD',
-  'WORKFLOW_ARCHITECT',
-  'SYSTEM_ADMINISTRATOR',
-];
+import { HERO_CONTENT } from '../constants'; // Import constants
 
 interface HeroProps {
   animationPhases: {
@@ -38,8 +31,8 @@ const Hero: React.FC<HeroProps> = ({ animationPhases }) => {
 
   useEffect(() => {
     const handleType = () => {
-      const i = loopNum % ROLES.length;
-      const fullText = ROLES[i];
+      const i = loopNum % HERO_CONTENT.roles.length; // Use roles from constants
+      const fullText = HERO_CONTENT.roles[i];
 
       setText(
         isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1)
@@ -88,6 +81,7 @@ const Hero: React.FC<HeroProps> = ({ animationPhases }) => {
         className="absolute inset-0 z-10 pointer-events-none"
       >
         {/* HUD Elements (Scales, Anchors, Radar) */}
+        { }
         <div className="absolute left-6 top-1/4 bottom-1/4 w-px bg-slate-800/50 hidden md:flex flex-col justify-between items-center">
           {[...Array(10)].map((_, i) => (
             <div key={i} className="w-3 h-px bg-slate-700/50" />
@@ -171,7 +165,7 @@ const Hero: React.FC<HeroProps> = ({ animationPhases }) => {
                         filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))'
                       }}
                     >
-                      {Array.from("ETHAN C.").map((char, i) => (
+                      {Array.from(HERO_CONTENT.name).map((char, i) => ( // Use dynamic name
                         <motion.span
                           key={i}
                           initial={{ opacity: 0, y: 40, rotateX: 90 }}
@@ -256,7 +250,7 @@ const Hero: React.FC<HeroProps> = ({ animationPhases }) => {
                   transition={{ duration: 0.8, times: [0, 0.5, 1] }}
                 />
                 <p className="text-xs md:text-sm text-slate-400 font-mono tracking-wide leading-relaxed relative z-10">
-                  A seasoned CX strategist with a strong background in customer support and operations management. Leverages technology, automation, and operational excellence to enhance both customer and agent experiences.
+                  {HERO_CONTENT.bio} {/* Use dynamic bio */}
                 </p>
               </motion.div>
 

@@ -141,7 +141,7 @@ const Contact: React.FC = () => {
           <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
             <div className="h-px w-8 bg-brand-cyan/50"></div>
             <h2 className="text-[10px] font-mono text-brand-cyan tracking-[0.2em] uppercase">
-              06. CONTACT
+              07. CONTACT
             </h2>
           </div>
           <h3 className="text-display-1xl font-display font-bold text-white tracking-tight">

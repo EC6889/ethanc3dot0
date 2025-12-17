@@ -170,7 +170,7 @@ const Contact: React.FC = () => {
 
             <div className="flex flex-col gap-4 max-w-lg w-full">
               {/* Resume Download */}
-              <a href="/Ethan_C_Resume.pdf" download="Ethan_C_Resume.pdf" className="block w-full">
+              <a href="/EthanC_CV122025.pdf" download="EthanC_CV122025.pdf" className="block w-full">
                 <GlassCard className="p-0 group relative overflow-hidden transition-all border-slate-800 hover:border-brand-purple/40 hover:shadow-[0_0_25px_rgba(168,85,247,0.15)] cursor-pointer bg-[#0f172a]/80">
                   <div className="p-5 flex items-center gap-5 relative z-10">
                     <div className="h-12 w-12 rounded bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-purple group-hover:text-white group-hover:scale-110 group-hover:bg-brand-purple group-hover:border-brand-purple transition-all duration-300 shadow-lg">
@@ -179,7 +179,7 @@ const Contact: React.FC = () => {
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center gap-2">
                         <h5 className="text-sm font-bold text-white group-hover:text-brand-purple transition-colors font-display tracking-wide">
-                          Ethan_C_Resume.pdf
+                          EthanC_CV122025.pdf
                         </h5>
                         <span className="px-1.5 py-0.5 rounded bg-brand-purple/20 border border-brand-purple/30 text-brand-purple text-[8px] font-mono font-bold uppercase">Latest</span>
                       </div>

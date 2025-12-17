@@ -232,8 +232,8 @@ const Navbar: React.FC<NavbarProps> = ({ showLogo = false, showNav = false }) =>
                 stiffness: 200,
                 damping: 15
               }}
-              href="/Ethan_C_Resume.pdf"
-              download="Ethan_C_Resume.pdf"
+              href="/EthanC_CV122025.pdf"
+              download="EthanC_CV122025.pdf"
               className="group relative px-5 py-2 bg-slate-900/50 text-slate-300 text-[10px] font-mono font-bold uppercase tracking-widest border border-slate-700 hover:border-brand-cyan/50 hover:text-brand-cyan transition-all overflow-hidden flex items-center"
             >
               <div className="absolute inset-0 bg-brand-cyan/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
@@ -310,8 +310,8 @@ const Navbar: React.FC<NavbarProps> = ({ showLogo = false, showNav = false }) =>
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                href="/Ethan_C_Resume.pdf"
-                download="Ethan_C_Resume.pdf"
+                href="/EthanC_CV122025.pdf"
+                download="EthanC_CV122025.pdf"
                 className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-brand-cyan/20 border border-brand-cyan/30 text-brand-cyan font-bold font-mono uppercase tracking-widest hover:bg-brand-cyan/10 transition-colors"
               >
                 <FileText size={16} /> ACCESS_RESUME_FILE

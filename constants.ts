@@ -19,7 +19,7 @@ export const HERO_CONTENT = {
         'AUTOMATION_ENGINEER',
     ],
     name: "ETHAN C.",
-    title: "CX Operations Leader | 15+ Years | Hospitality → FinTech → Logistics",
+    title: "CX Operations Leader | Strategic & Tech | Hospitality → FinTech → Logistics",
     bio: "I've built and led support teams of 100+ agents, delivered $1M+ platform migrations, and cut manual work by 90% through automation. From Forbes 5-Star hotels to high-growth startups, I turn customer pain points into operational wins."
 }
 
@@ -29,7 +29,7 @@ Email: gmeal6889@gmail.com
 LinkedIn: linkedin.com/in/echia6889
 
 PROFESSIONAL PROFILE
-CX Operations Leader with 15+ years of experience transforming support operations across logistics, travel tech, and hospitality. Built and led teams of 100+ agents, delivered $1.18M platform migrations in record time, and eliminated 90% of manual workflows through automation. Recognized with Forbes 5-Star ratings (7 consecutive years) and Best Contact Centre awards. I turn customer pain points into operational wins.
+CX Operations leader with extensive experience across hospitality, travel tech, logistics, and contact centers. Proven success in managing large-scale operations and leading enterprise-grade platform migrations. Focuses on modernizing operations through automation, scaling CX systems, and driving consistent, measurable service performance improvements.
 
 CORE COMPETENCIES
 - CX Operations Management

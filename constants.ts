@@ -20,7 +20,7 @@ export const HERO_CONTENT = {
     ],
     name: "ETHAN C.",
     title: "CX Operations Leader | Strategic & Tech | Hospitality → FinTech → Logistics",
-    bio: "I've built and led support teams of 100+ agents, delivered $1M+ platform migrations, and cut manual work by 90% through automation. From Forbes 5-Star hotels to high-growth startups, I turn customer pain points into operational wins."
+    bio: "Transforming manual chaos into automated precision. Leveraging technology to resolve operational bottlenecks and drive maximum efficiency."
 }
 
 export const RESUME_CONTENT = `ETHAN C. | CX OPERATIONS MANAGER & STRATEGIST

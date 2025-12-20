@@ -258,7 +258,7 @@ const About: React.FC = () => {
           <h3 className="text-display-1xl font-display font-bold text-white tracking-tight">
             Professional{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">
-              Profile
+              Background
             </span>
           </h3>
         </Motion.div>
@@ -276,22 +276,22 @@ const About: React.FC = () => {
               <div className="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-cyan-500/50 via-transparent to-transparent"></div>
               <div className="pl-6">
                 <h2 className="text-display-sm md:text-display-md font-display font-bold text-white mb-6 leading-[1.4]">
-                  Driving{' '}
-                  <span className="text-cyan-400 border-b border-cyan-500/30 pb-1">Operational Excellence</span>{' '}
-                  <br />
-                  through{' '}
-                  <span className="text-blue-500 border-b border-blue-500/30 pb-1">
-                    Technological Integration
-                  </span>
-                  .
+                  From{' '}
+                  <span className="text-cyan-400 border-b border-cyan-500/30 pb-1">Manual Processes</span>
+                  {' '}to{' '}
+                  <span className="text-purple-400 border-b border-purple-500/30 pb-1">Smarter CX Operations</span>
                 </h2>
 
                 <div className="space-y-6 max-w-lg">
                   <p className="text-body-lg text-slate-300 font-light leading-relaxed">
-                    As a Strategic CX Leader with over 15 years of diverse experience in Hospitality, Travel Tech, Contact Centers, and Logistics, I specialize in transforming operational challenges into efficient, automated systems.
+                    My background in contact centers showed me how easy it is for teams to get bogged down by repetitive tasks and disconnected systems. Since then, my work has centered on bringing structure and technology to customer operations.
+                  </p>
+                  <p className="text-body-lg text-slate-300 font-light leading-relaxed">
+                    Across 15 years in hospitality, travel, and logistics, I've led projects that include platform migrations, workflow automation, and scaling support teams. I aim to design solutions that are{' '}
+                    <span className="text-cyan-400 font-medium">stable, maintainable, and effective</span> over the long term.
                   </p>
                   <p className="text-body-md text-slate-400 leading-loose font-light">
-                    By leveraging enterprise platforms like Zendesk, Genesys, and Salesforce, I ensure that technology complements agent needs, empowering teams to excel and enhancing overall performance.
+                    Now, I help organizations move toward more predictable, data-informed CX operations, where technology supports the work instead of getting in the way.
                   </p>
                 </div>
               </div>

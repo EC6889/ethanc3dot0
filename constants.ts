@@ -1,6 +1,7 @@
 // Skipping edit to check types.ts first
 
-import { Network, Users, Cpu, TrendingUp, Globe, Award, BookOpen, Star } from 'lucide-react';
+import { Network, Users, Cpu, TrendingUp, Globe, Award, BookOpen, Star, Target, Zap, Settings } from 'lucide-react';
+import type { ExperienceItem, ProjectItem, SkillMetric, AwardItem, EducationItem } from './types';
 
 export const NAV_LINKS = [
     { label: 'Home', href: '#home' },
@@ -534,27 +535,27 @@ export const LANGUAGES_DATA = [
 
 export const MODULES_DATA = [
     {
-        icon: Users,
-        title: 'Team Leadership',
-        desc: 'Managing multi-tier teams & driving stakeholder alignment.',
-        color: 'blue',
-    },
-    {
-        icon: Cpu,
-        title: 'System Config',
-        desc: 'Setup & maintenance of Zendesk, Genesys & AI tools.',
+        icon: Target,
+        title: 'Strategy',
+        desc: 'CX strategy & operational planning',
         color: 'cyan',
     },
     {
-        icon: TrendingUp,
-        title: 'Process Opt.',
-        desc: 'Removing friction to improve SLA performance.',
-        color: 'purple',
+        icon: Users,
+        title: 'Leadership',
+        desc: 'Team management & stakeholder alignment',
+        color: 'cyan',
     },
     {
-        icon: Globe,
-        title: 'Omnichannel',
-        desc: 'Unified strategy across Voice, Chat, Email & Social.',
-        color: 'blue',
+        icon: Zap,
+        title: 'Automation',
+        desc: 'Process automation & workflow engineering',
+        color: 'cyan',
+    },
+    {
+        icon: Settings,
+        title: 'Technology',
+        desc: 'Enterprise platforms & system architecture',
+        color: 'cyan',
     },
 ];

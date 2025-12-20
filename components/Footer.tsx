@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Mail, ArrowUp, Cpu, Github } from 'lucide-react';
+import { Linkedin, Mail, ArrowUp, Cpu } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (view: 'home' | 'terms' | 'privacy') => void;
@@ -102,17 +102,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   <span className="text-sm font-mono">LinkedIn</span>
                 </a>
               </li>
-              <li>
-                <a
-                  href="https://github.com/EC6889"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-center gap-3 text-slate-400 hover:text-white transition-colors"
-                >
-                  <Github size={16} className="text-brand-cyan" />
-                  <span className="text-sm font-mono">GitHub</span>
-                </a>
-              </li>
+
             </ul>
 
             <div className="mt-8 pt-6 border-t border-slate-800">
